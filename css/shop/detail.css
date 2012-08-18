@@ -1,0 +1,131 @@
+
+.leftcategory {
+	float: left;
+	width: 20%;
+}
+.rightmaindetails{
+	float: right;
+	width: 78%;
+	margin-left: 2%;
+}
+#slideimgs {
+	margin: 10px auto;
+	border: 1 solid black;
+}
+.imgstyle {
+	width: 200px;
+}
+#feedback { font-size: 1.2em; }
+#selectable .ui-selecting { background: #FECA40; }
+#selectable .ui-selected { background: #F39814; color: white; }
+#selectable { list-style-type: none; margin: 0; padding: 0; width: 200px; }
+#selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
+.leftsection {
+	float: left;
+}
+.rightsecion {
+	float: right;
+}
+.detailstop {
+	clear: both;
+}
+imgarea {
+	width: 30%;
+	padding: 0px;
+}
+.infoarea {
+	float: right;
+	width: 52%;
+	margin-left: 5%;
+	padding: 0px;
+}
+.detailsbottom {
+	clear: both;
+}
+.ul-select {
+	float: left;
+	list-style: none;
+	margin: 0px 20px 20px 0px;
+	padding: 0px;
+}
+.reviewul {
+	margin: 0px;
+	padding: 0px 0px 20px 0px;
+	border-bottom: 1px dotted;
+}
+.reviewul li {
+	display: inline;
+	list-style: none;
+}
+.ratings-imgs {
+    background: url("http://localhost/transaction/images/ratings-sprite.png") no-repeat scroll 0px -88px transparent;
+    margin-right: 10px;
+    float: left;
+    width: 113px;
+    height: 22px;
+}
+.selectarea {
+	clear: both;
+}
+.selectbox {
+	width: 150px;
+	height: 30px;
+}
+.size-box {
+	float: left;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	padding: 5px;
+	background-color: #30302e;
+	width: 60px;
+	height: 20px;
+	color: #ede7e7;
+	text-align: center;
+	display: block;
+	-moz-box-shadow: 0 1px 5px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.5)
+}
+#willbechange {
+	clear: both;
+}
+#buttonbox {
+	clear: both;
+	margin: 10px 0px;
+	height: 125px;
+	padding: 20px;
+	border: 1px solid black;
+}
+#price {
+	float: left;
+	margin: 10px;
+}
+#buynow {
+	float: right;
+	margin: 20px 20px 20px 70px;
+	padding: 20px;
+	width: 140px;
+	height: 50px;
+	color: white;
+	text-align: center;
+	background-color: #db1ae8;
+	font-size: 20px;
+	-moz-box-shadow: 0 1px 5px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.5)
+}
+.smallimg {
+	margin: 5px 0px 10px 0px;
+	width: 310px;
+	padding: 10px;
+	border: 1px solid black;
+}
+.smallimg ul {
+	margin: 0px;
+	padding: 0px;
+}
+.smallimg ul li {
+	border: 1 solid gray;
+	margin: 2px;
+	padding: 2px;
+	display: inline;
+	list-style: none;
+}

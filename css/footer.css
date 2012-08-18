@@ -1,0 +1,20 @@
+/*
+For footer
+*/
+footer {
+	background-color: #c8dbe1;
+	width: 1024px;
+	height: 150px;
+	margin: 10px 0 0 0;
+	padding: 0px;
+}
+footer ul {
+	float: left;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	width: 160px;
+}
+footer ul li a {
+	text-decoration: none;
+}
