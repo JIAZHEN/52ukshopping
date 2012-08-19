@@ -1,0 +1,21 @@
+#feedback { font-size: 1.2em; }
+#selectable .ui-selecting { background: #FECA40; }
+#selectable .ui-selected { background: #F39814; color: white; }
+#selectable { list-style-type: none; margin: 0; padding: 0; width: 200px; }
+#selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
+.ul-select {
+	float: left;
+	list-style: none;
+	margin: 0px 20px 20px 0px;
+	padding: 0px;
+}
+.ratings-imgs {
+    background: url("http://localhost/transaction/images/ratings-sprite.png") no-repeat scroll 0px -88px transparent;
+    margin-right: 10px;
+    float: left;
+    width: 113px;
+    height: 22px;
+}
+.toright {
+	float: right;
+}

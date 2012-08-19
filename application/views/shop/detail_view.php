@@ -66,8 +66,8 @@
 			<hr />
 			<p>Select a size</p>
 			<label class="radio inline"><input checked="checked" value="small" name="size" type="radio" />S</label>
-			<label class="radio inline"><input checked="checked" value="medium" name="size" type="radio" />M</label>
-			<label class="radio inline"><input checked="checked" value="large" name="size" type="radio" />L</label>
+			<label class="radio inline"><input value="medium" name="size" type="radio" />M</label>
+			<label class="radio inline"><input value="large" name="size" type="radio" />L</label>
 			<div class="selectarea"> <!-- selectarea -->
 				<ul class="ul-select">
 					<li>Colour</li>
