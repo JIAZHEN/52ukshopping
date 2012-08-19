@@ -31,7 +31,7 @@ class Shop extends CI_Controller {
 									 'bootstrap/js/bootstrap.js');
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
-		$this->load->view('shop/detail_view');
+		
 		$this->load->view('templates/footer', $footer_data);
 	}
 }

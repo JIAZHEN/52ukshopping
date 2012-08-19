@@ -1,16 +1,14 @@
 <div class="header">
-	<div class="logo">
-	logo
-	</div>
+	<div class="logo span2">
+		<a href="#"><img src="<?php echo base_url(); ?>images/logo.jpg" alt="" /></a></div>
 	<div class="searcharea">
-		<form method="post" action="">
-			<input type="text" id="searchbox" value="Search.." />
-			<input type="image" src="http://localhost/52UKSHOPPING/images/search_btn.jpg" id="go" alt="Search" title="Search" />
-			<p>Here is the text</p>
-		</form>
+		    <form class="well form-search">
+		    <input type="text" placeholder="Type here" class="input-medium search-query">
+		    <button type="submit" class="btn">Search</button>
+		    </form>
 	</div>
 	<div class="basket">
-		<ul>
+		<ul><li><a href="" class="btn btn-success"><i class="icon-shopping-cart icon-white"></i>Items <?php echo $this->cart->total_items(); ?></a></li>
           	<?php if(isset($session_email)) { 	echo '<li><a href="'.base_url().'main/logout" class="btn btn-danger">logout</a></li>';
           										echo '<li>|</li>';
           										echo '<li><a class="btn btn-info">Welcome '.$session_email.'</a></li>'; }

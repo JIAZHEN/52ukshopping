@@ -5,6 +5,8 @@ class Main extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->helper('url');
+		$this->load->library('cart');
 	}
 
 	public function index()
@@ -37,7 +39,7 @@ class Main extends CI_Controller {
 	function logout() {
 	   $this->session->unset_userdata('logged_in');
 	   session_destroy();
-	   redirect(base_url(), 'refresh');
+	   redirect(base_url().'main');
 	}
 }
 /* End of file main.php */
