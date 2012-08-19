@@ -1,72 +1,98 @@
-<div class="leftcategory"> <!-- leftcategory -->
-	<ul id="selectable">
-	     <li class="ui-widget-content">copyright</li>
-	     <li class="ui-widget-content">sitemap</li>
-	     <li class="ui-widget-content">contact</li>
-	     <li class="ui-widget-content">to top</li>
-	     <li class="ui-widget-content">copyright</li>
-	     <li class="ui-widget-content">sitemap</li>
-	     <li class="ui-widget-content">contact</li>
-	     <li class="ui-widget-content">to top</li>
-	     <li class="ui-widget-content">copyright</li>
-	     <li class="ui-widget-content">sitemap</li>
-	     <li class="ui-widget-content">contact</li>
-	     <li class="ui-widget-content">to top</li>
-    </ul>
-    <div id="slideimgs">
-	      <img class="imgstyle" src="<?php echo base_url();?>images/slide-img.png" />
-	      <img class="imgstyle" src="<?php echo base_url();?>images/slide-img-2.png" />
-	</div>
-</div> <!-- leftcategory -->
-<div class="rightmaindetails"> <!-- rightmaindetails -->
-	<div class="leftsection">
-		<h3> Home > shops > details</h3>
-	</div>
-	<div class="rightsecion">
-		<h3> Need help?</h3>
-	</div>
-	<div class="detailstop"> <!-- detailstop -->
-		<div class="infoarea"> <!-- infoarea -->
+<div class="row-fluid">
+<div class="span3"> <!--Sidebar content-->
+<ul id="selectable">
+     <li class="ui-widget-content">copyright</li>
+     <li class="ui-widget-content">sitemap</li>
+     <li class="ui-widget-content">contact</li>
+     <li class="ui-widget-content">to top</li>
+     <li class="ui-widget-content">copyright</li>
+     <li class="ui-widget-content">sitemap</li>
+     <li class="ui-widget-content">contact</li>
+     <li class="ui-widget-content">to top</li>
+     <li class="ui-widget-content">copyright</li>
+     <li class="ui-widget-content">sitemap</li>
+     <li class="ui-widget-content">contact</li>
+     <li class="ui-widget-content">to top</li>
+</ul>
+<img class="imgstyle" src="<?php echo base_url();?>images/slide-img.png" />
+<img class="imgstyle" src="<?php echo base_url();?>images/slide-img-2.png" />
+</div>
+<div class="span9"> <!--Body content-->
+	<div class="row"> <!-- breadcrumb -->
+		<div class="span12"> 
+			<ul class="breadcrumb">
+			    <li><a href="#">Home</a><span class="divider">/</span></li>
+			    <li><a href="#">Shop</a> <span class="divider">/</span></li>
+			    <li class="active">Detail</li>
+			    <a href="" class="pull-right">Need help?</a>
+		    </ul>
+		</div> 
+	</div> <!-- breadcrumb -->
+	<div class="row"> <!-- detailstop -->
+		<div class="span5"> <!-- imgarea -->
+			<img src="<?php echo base_url();?>images/full/1.jpg" />
+			<div>
+				<ul class="thumbnails">
+				    <li class="span4">
+				    	<a href="#" class="thumbnail">
+				    		<img class="visual-S" src="<?php echo base_url();?>images/tbsareaBigPic.jpg" />
+				    	</a>
+				    </li>
+				    <li class="span4">
+				    	<a href="#" class="thumbnail">
+				    		<img class="visual-S" src="<?php echo base_url();?>images/tbsareaBigPic.jpg" />
+				    	</a>
+				    </li>
+				    <li class="span4">
+				    	<a href="#" class="thumbnail">
+				    		<img class="visual-S" src="<?php echo base_url();?>images/tbsareaBigPic.jpg" />
+				    	</a>
+				    </li>
+			    </ul>
+			</div>
+		</div> <!-- imgarea -->
+		<div class="span7"> <!-- info area -->
+			<form action="<?php echo base_url().'cart/add_cart'; ?>" method="post">
 			<h2>SKU name</h2>
+			<input type="hidden" name="id" value="3" />
+			<input type="hidden" name="name" value="SKU" />
 			<span class="ratings-imgs"></span>
 			<p>Rate and recommends</p>
 			<ul class="reviewul">
 				<li><a href="#">Read Review</a></li>
-				<li>|</li>
+				<li><span class="divider">|</span></li>
 				<li><a href="#">Read Review</a></li>
 			</ul>
+			<hr />
 			<p>Select a size</p>
-			<span class="size-box">1 piece</span>
-			<span class="size-box">2 piece</span>
+			<label class="radio inline"><input checked="checked" value="small" name="size" type="radio" />S</label>
+			<label class="radio inline"><input checked="checked" value="medium" name="size" type="radio" />M</label>
+			<label class="radio inline"><input checked="checked" value="large" name="size" type="radio" />L</label>
 			<div class="selectarea"> <!-- selectarea -->
 				<ul class="ul-select">
-					<li>Quantity</li>
+					<li>Colour</li>
 					<li>
-						<select name="selectAge" id="selectquantity" class="selectbox">  
-					        <option value="1">18-21</option>  
-					        <option value="2">22-25</option>  
-					        <option value="3">26-29</option>  
-					        <option value="4">30-35</option>  
-					        <option value="5">Over35</option>  
+						<select name="colour" class="selectbox">  
+					        <option value="yellow">yellow</option>  
+					        <option value="blue">blue</option>  
+					        <option value="red">red</option> 
 				        </select>
 				    </li>
 				</ul>
 				<ul class="ul-select">
 					<li>Quantity</li>
-					<li>
-						<select name="selectAge" id="selectitem" class="selectbox">  
-					        <option value="1">18-21</option>  
-					        <option value="2">22-25</option>  
-					        <option value="3">26-29</option>  
-					        <option value="4">30-35</option>  
-					        <option value="5">Over35</option>  
-				        </select>
+					<li><input type="text" class="input-mini" size="1" name="quantity" value="1" />
 				    </li>
 				</ul>
 			</div> <!-- selectarea -->
 			<div id="buttonbox"> <!-- buttonbox -->
-				<div id="price">Price<h4>5 pounds</h4></div>
-				<div id="buynow">Buy now</div>
+					<div class="span6">
+						<p>Price</p><strong>5 pounds</strong>
+						<input type="hidden" name="price" value="5" />
+					</div>
+					<button class="span6 btn btn-success pull-right btn-large" type="submit">Buy now</button>
+					
+				
 			</div> <!-- buttonbox -->
 			<div id="willbechange">
 					<p>Made by Community Fair Trade supplier Teddy Exports in India</p>
@@ -76,42 +102,28 @@
 						<li>Durable</li>
 					</ul>
 			</div>
-		</div> <!-- infoarea -->
-		<div class="imgarea"> <!-- imgarea -->
-			<img src="<?php echo base_url();?>images/full/1.jpg" width="330" height="350" />
-			<div class="smallimg"> <!-- small imgs -->
-		    	<ul>
-					<li>
-						<img class="visual-S" src="<?php echo base_url();?>images/tbsareaBigPic.jpg" width="90px" height="90px" title="Satsuma Shower Gel/Cream" data-id="newin" />
-					</li>
-					<li>
-						<img class="visual-S" src="<?php echo base_url();?>images/thumbail2.png" width="90px" height="90px" title="Satsuma Shower Gel/Cream" data-id="newin" />
-					</li>
-					<li>
-						<img class="visual-S" src="<?php echo base_url();?>images/thumbail3.png" width="90px" height="90px" title="Satsuma Shower Gel/Cream" data-id="newin" />
-					</li>			
-				</ul>
-			</div> <!-- small imgs -->
-			<div class="shares"></div>
-		</div> <!-- imgarea -->
-		
+			</form>
+		</div> <!-- info area -->
 	</div> <!-- detailstop -->
-	<div class="detailsbottom"> <!-- detailsbottom -->
-		<div id="tabs"> <!-- tabs -->
-			<ul>
-				<li><a href="#tabs-1">Review</a></li>
-				<li><a href="#tabs-2">Q&A's</a></li>
-				<li><a href="#tabs-3">Delivery</a></li>
-			</ul>
-			<div id="tabs-1">
-				<p>Review</p>
-			</div>
-			<div id="tabs-2">
-				<p>Q&A's</p>
-			</div>
-			<div id="tabs-3">
-				<p>Delivery</p>
-			</div>
-		</div> <!-- tabs -->
+	<div class="row"> <!-- detailsbottom -->
+	<div class="span12">
+			<div id="tabs"> <!-- tabs -->
+				<ul>
+					<li><a href="#tabs-1">Review</a></li>
+					<li><a href="#tabs-2">Q&A's</a></li>
+					<li><a href="#tabs-3">Delivery</a></li>
+				</ul>
+				<div id="tabs-1">
+					<p>Review</p>
+				</div>
+				<div id="tabs-2">
+					<p>Q&A's</p>
+				</div>
+				<div id="tabs-3">
+					<p>Delivery</p>
+				</div>
+			</div> <!-- tabs -->
+	</div>
 	</div> <!-- detailsbottom -->
-</div><!-- rightmaindetails -->
+</div>
+</div><!--Body content-->

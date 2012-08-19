@@ -9,11 +9,12 @@
 	</div>
 	<div class="basket">
 		<ul><li><a href="" class="btn btn-success"><i class="icon-shopping-cart icon-white"></i>Items <?php echo $this->cart->total_items(); ?></a></li>
+			<li><span class="divider">|</span></li>
           	<?php if(isset($session_email)) { 	echo '<li><a href="'.base_url().'main/logout" class="btn btn-danger">logout</a></li>';
-          										echo '<li>|</li>';
+          										echo '<li><span class="divider">|</span></li>';
           										echo '<li><a class="btn btn-info">Welcome '.$session_email.'</a></li>'; }
           		  else {	echo '<li><a href="'.base_url().'login" class="btn btn-primary">login</a></li>';
-	          		  		echo '<li>|</li>';
+	          		  		echo '<li><span class="divider">|</span></li>';
 	          		  		echo '<li><a href="'.base_url().'users/register" class="btn btn-primary">register</a></li>';
           		  } ?>
 		</ul>
