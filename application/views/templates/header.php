@@ -3,6 +3,7 @@
 <head>
 	<title><?php echo $page_title ?> - 52UKSHOPPING</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="shortcut icon" href="<?php echo base_url().'images/logo.jpg'; ?>">
 	<?php if(isset($csses)) {  foreach ($csses as $css_path): ?>
 		<link rel="stylesheet" href="<?php echo base_url().$css_path; ?>" /> <!-- loop for CSS -->
 	<?php endforeach; } ?>
