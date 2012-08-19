@@ -10,4 +10,6 @@ $(document).ready(function() {
         var name = $(this).attr("alt");
         $('#'+idname+' .right-panel h4 a').text(name);
     });
+    
+    $('.carousel').carousel('cycle');
 });
