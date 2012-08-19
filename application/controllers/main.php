@@ -21,14 +21,14 @@ class Main extends CI_Controller {
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 								'bootstrap/css/bootstrap-responsive.css',
 								'css/nav.css', 
-								'css/style.css', 
-								'css/highlight.css', 
+								'css/style.css',
 								'css/scroll.css', 
 								'css/footer.css');
 		
 		$footer_data['jses'] = array('js/jquery.tools.min.js', 
 									 'js/scrollable.js', 
 									 'js/main_view.js',
+									 'bootstrap/js/bootstrap-carousel.js',
 									 'bootstrap/js/bootstrap.js');
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);

@@ -40,7 +40,9 @@ class Users extends CI_Controller {
 		}
 		else
 		{
+			$sess_array = array( 'email' => $this->input->post('email', true) );
 			$this->f_users_model->set_users();
+			$this->session->set_userdata('logged_in', $sess_array);
 			$this->load->view('users/success');
 		}
 		
