@@ -16,7 +16,7 @@ class Cart extends CI_Controller {
 	     $nav_data['session_email'] = $session_data['email'];
 	    }
 	    
-	    $nav_data['first_level_category'] = $this->d_category_model->get_first_level_categories();
+	    $nav_data['category'] = $this->d_category_model->conduct_categories();
 		$data['page_title'] = 'My cart';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 								'bootstrap/css/bootstrap-responsive.css',
