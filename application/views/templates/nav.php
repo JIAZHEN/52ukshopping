@@ -25,10 +25,15 @@
 <div class="oe_nav"> <!-- oe_nav -->
 	<div id="oe_overlay" class="oe_overlay"></div>
 	<ul id="oe_menu" class="oe_menu"> <!-- oe_menue -->
-		<li><a href="<?php echo base_url(); ?>">首页</a>
+		<li><a href="<?php echo base_url(); ?>">Home</a>
 		</li>
-		<li><a href="">英国流行大牌</a>
-			<div style="left:-111px;">
+		<!-- loop through the categories -->
+		<?php $startValue = -111;
+			  $counter = 0;
+			  $interval = -112; 
+			foreach ($first_level_category as $row): ?>
+			<li><a href=""><?php echo $row['category_name']; ?></a>
+			<div style="left:<?php echo ($startValue + $interval * $counter++); ?>px;">
 				<ul>
 					<li class="oe_heading">Summer 2011</li>
 					<li><a href="#">Milano</a></li>
@@ -56,173 +61,7 @@
 					<li><a href="#">Evening</a></li>
 				</ul>
 			</div>
-		</li>
-		<li><a href="">劲爆化妆品</a>
-			<div style="left:-223px;">
-				<ul>
-					<li class="oe_heading">Fashion Shows</li>
-					<li><a href="#">Milano</a></li>
-					<li><a href="#">Paris</a></li>
-					<li><a href="#">Berlin</a></li>
-					<li><a href="#">New York</a></li>
-					<li><a href="#">London</a></li>
-				</ul>
-				<ul>
-					<li class="oe_heading">Events</li>
-					<li><a href="#">Fashion Party 2011</a></li>
-					<li><a href="#">Evening specials</a></li>
-					<li><a href="#">Fashion Day Milano</a></li>
-					<li><a href="#">Model Workshops</a></li>
-				</ul>
-				<ul>
-					<li class="oe_heading">Media</li>
-					<li><a href="#">Wallpapers</a></li>
-					<li><a href="#">Downloads</a></li>
-					<li><a href="#">Images</a></li>
-					<li><a href="#">Contest 2011</a></li>
-					<li><a href="#">Fashion Mania</a></li>
-					<li><a href="#">Green Earth Day</a></li>
-				</ul>
-			</div>
-		</li>
-		<li><a href="">英国养生品</a>
-			<div style="left:-335px;">
-				<ul class="oe_full">
-					<li class="oe_heading">Fashion Fragrances</li>
-					<li><a href="#">Deálure</a></li>
-					<li><a href="#">Violet Woman</a></li>
-					<li><a href="#">Deep Blue for Men</a></li>
-					<li><a href="#">New York, New York</a></li>
-					<li><a href="#">Illusion</a></li>
-				</ul>
-			</div>
-		</li>
-		<li><a href="">英国奶制品</a>
-			<div style="left:-447px;">
-				<ul>
-					<li class="oe_heading">Shows 2010</li>
-					<li><a href="#">Milano</a></li>
-					<li><a href="#">Paris</a></li>
-					<li><a href="#">Berlin</a></li>
-					<li><a href="#">New York</a></li>
-					<li><a href="#">London</a></li>
-				</ul>
-				<ul>
-					<li class="oe_heading">Shows 2011</li>
-					<li><a href="#">Milano</a></li>
-					<li><a href="#">Paris</a></li>
-					<li><a href="#">Berlin</a></li>
-					<li><a href="#">New York</a></li>
-					<li><a href="#">London</a></li>
-				</ul>
-				<ul>
-					<li class="oe_heading">Special Events</li>
-					<li><a href="#">Fashion Party 2011</a></li>
-					<li><a href="#">Fashion Countdown Party 2010</a></li>
-					<li><a href="#">Fashion Day Milano</a></li>
-					<li><a href="#">Model Workshops</a></li>
-				</ul>
-			</div>
-		</li>
-		<li><a href="">奢侈品代购寄卖</a>
-			<div style="left:-559px;">
-				<ul>
-					<li class="oe_heading">Europe</li>
-					<li><a href="#">Milano</a></li>
-					<li><a href="#">Paris</a></li>
-					<li><a href="#">Berlin</a></li>
-					<li><a href="#">London</a></li>
-				</ul>
-				<ul>
-					<li class="oe_heading">Asia</li>
-					<li><a href="#">Hong Kong</a></li>
-					<li><a href="#">Tokio</a></li>
-					<li><a href="#">New Delhi</a></li>
-					<li><a href="#">Beijing</a></li>
-				</ul>
-				<ul>
-					<li class="oe_heading">United States</li>
-					<li><a href="#">New York</a></li>
-					<li><a href="#">Los Angeles</a></li>
-					<li><a href="#">Seattle</a></li>
-					<li><a href="#">Miami</a></li>
-				</ul>
-			</div>
-		</li>
-		<li><a href="">当季英国风</a>
-			<div style="left:-671px;">
-				<ul>
-					<li class="oe_heading">Europe</li>
-					<li><a href="#">Milano</a></li>
-					<li><a href="#">Paris</a></li>
-					<li><a href="#">Berlin</a></li>
-					<li><a href="#">London</a></li>
-				</ul>
-				<ul>
-					<li class="oe_heading">Asia</li>
-					<li><a href="#">Hong Kong</a></li>
-					<li><a href="#">Tokio</a></li>
-					<li><a href="#">New Delhi</a></li>
-					<li><a href="#">Beijing</a></li>
-				</ul>
-				<ul>
-					<li class="oe_heading">United States</li>
-					<li><a href="#">New York</a></li>
-					<li><a href="#">Los Angeles</a></li>
-					<li><a href="#">Seattle</a></li>
-					<li><a href="#">Miami</a></li>
-				</ul>
-			</div>
-		</li>
-		<li><a href="">预定您的特别品</a>
-			<div style="left:-783px;">
-				<ul>
-					<li class="oe_heading">Europe</li>
-					<li><a href="#">Milano</a></li>
-					<li><a href="#">Paris</a></li>
-					<li><a href="#">Berlin</a></li>
-					<li><a href="#">London</a></li>
-				</ul>
-				<ul>
-					<li class="oe_heading">Asia</li>
-					<li><a href="#">Hong Kong</a></li>
-					<li><a href="#">Tokio</a></li>
-					<li><a href="#">New Delhi</a></li>
-					<li><a href="#">Beijing</a></li>
-				</ul>
-				<ul>
-					<li class="oe_heading">United States</li>
-					<li><a href="#">New York</a></li>
-					<li><a href="#">Los Angeles</a></li>
-					<li><a href="#">Seattle</a></li>
-					<li><a href="#">Miami</a></li>
-				</ul>
-			</div>
-		</li>
-		<li><a href="">官方微博</a>
-			<div style="left:-895px;">
-				<ul>
-					<li class="oe_heading">Europe</li>
-					<li><a href="#">Milano</a></li>
-					<li><a href="#">Paris</a></li>
-					<li><a href="#">Berlin</a></li>
-					<li><a href="#">London</a></li>
-				</ul>
-				<ul>
-					<li class="oe_heading">Asia</li>
-					<li><a href="#">Hong Kong</a></li>
-					<li><a href="#">Tokio</a></li>
-					<li><a href="#">New Delhi</a></li>
-					<li><a href="#">Beijing</a></li>
-				</ul>
-				<ul>
-					<li class="oe_heading">United States</li>
-					<li><a href="#">New York</a></li>
-					<li><a href="#">Los Angeles</a></li>
-					<li><a href="#">Seattle</a></li>
-					<li><a href="#">Miami</a></li>
-				</ul>
-			</div>
-		</li>
+			</li>
+		<?php endforeach;?>
 	</ul><!-- oe_menue -->
 </div><!-- oe_nav -->

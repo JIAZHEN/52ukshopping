@@ -1,27 +1,19 @@
 <?php
-class F_users_model extends CI_Model {
+class D_category_model extends CI_Model {
 
 	public function __construct()
 	{
 		$this->load->database();
 	}
 	
-	function get_users($id = FALSE)
+	function get_first_level_categories()
 	{
-		if ($id === FALSE)
-		{
-			$query = $this->db->get('f_users');
-			return $query->result_array();
-		}
-		
-		$query = $this->db->get_where('f_users', array('id' => $id));
-		return $query->row_array();
+		$query = $this->db->get_where('d_category', array('parent_id' => 0));
+		return $query->result_array();
 	}
 	
 	function set_users()
 	{
-		//$this->load->helper('url');
-		
 		$data = array(
 			'title' => $this->input->post('title', true),
 			'first_name' => $this->input->post('firstname', true),
@@ -66,5 +58,5 @@ class F_users_model extends CI_Model {
 	}
 	
 }
-/* End of file f_users_model.php */
-/* Location: ./application/models/f_users_model.php */
+/* End of file d_category_model.php */
+/* Location: ./application/models/d_category_model.php */

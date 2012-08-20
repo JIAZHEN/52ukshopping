@@ -6,6 +6,7 @@ class Shop extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->library('cart');
+		$this->load->model('d_category_model');
 	}
 	
 	public function category() 
@@ -14,8 +15,8 @@ class Shop extends CI_Controller {
 	     $session_data = $this->session->userdata('logged_in');
 	     $nav_data['session_email'] = $session_data['email'];
 	    }
-	    
-	    $nav_data['init'] = "";
+
+	    $nav_data['first_level_category'] = $this->d_category_model->get_first_level_categories();
 		$data['page_title'] = 'Category';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 								'bootstrap/css/bootstrap-responsive.css',
@@ -31,6 +32,7 @@ class Shop extends CI_Controller {
 									 'jqueryui/js/ui.selectmenu.js',
 									 'js/shop/detail.js',
 									 'bootstrap/js/bootstrap.js');
+									 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
 		$this->load->view('shop/category_view');
@@ -45,7 +47,7 @@ class Shop extends CI_Controller {
 	     $nav_data['session_email'] = $session_data['email'];
 	    }
 	    
-	    $nav_data['init'] = "";
+	    $nav_data['first_level_category'] = $this->d_category_model->get_first_level_categories();
 		$data['page_title'] = 'Detail';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 								'bootstrap/css/bootstrap-responsive.css',

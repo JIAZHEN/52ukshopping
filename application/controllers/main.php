@@ -7,6 +7,7 @@ class Main extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->library('cart');
+		$this->load->model('d_category_model');
 	}
 
 	public function index()
@@ -16,7 +17,7 @@ class Main extends CI_Controller {
 	     $nav_data['session_email'] = $session_data['email'];
 	    }
 	    
-	    $nav_data['init'] = "";
+	    $nav_data['first_level_category'] = $this->d_category_model->get_first_level_categories();
 		$data['page_title'] = 'Welcome';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 								'bootstrap/css/bootstrap-responsive.css',
