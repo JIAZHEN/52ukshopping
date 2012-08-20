@@ -25,42 +25,27 @@
 <div class="oe_nav"> <!-- oe_nav -->
 	<div id="oe_overlay" class="oe_overlay"></div>
 	<ul id="oe_menu" class="oe_menu"> <!-- oe_menue -->
-		<li><a href="<?php echo base_url(); ?>">Home</a>
-		</li>
+		<li><a href="<?php echo base_url(); ?>">Home</a></li>
 		<!-- loop through the categories -->
 		<?php $startValue = -111;
 			  $counter = 0;
 			  $interval = -112; 
-			foreach ($first_level_category as $row): ?>
-			<li><a href=""><?php echo $row['category_name']; ?></a>
-			<div style="left:<?php echo ($startValue + $interval * $counter++); ?>px;">
-				<ul>
-					<li class="oe_heading">Summer 2011</li>
-					<li><a href="#">Milano</a></li>
-					<li><a href="#">Paris</a></li>
-					<li><a href="#">Special Events</a></li>
-					<li><a href="#">Runway Show</a></li>
-					<li><a href="#">Overview</a></li>
-				</ul>
-				<ul>
-					<li class="oe_heading">Winter 2010</li>
-					<li><a href="#">Milano</a></li>
-					<li><a href="#">New York</a></li>
-					<li><a href="#">Behind the scenes</a></li>
-					<li><a href="#">Interview</a></li>
-					<li><a href="#">Photos</a></li>
-					<li><a href="#">Download</a></li>
-				</ul>
-				<ul>
-					<li class="oe_heading">Categories</li>
-					<li><a href="#">Casual</a></li>
-					<li><a href="#">Business</a></li>
-					<li><a href="#">Underwear</a></li>
-					<li><a href="#">Nature Pure</a></li>
-					<li><a href="#">Swimwear</a></li>
-					<li><a href="#">Evening</a></li>
-				</ul>
-			</div>
+			foreach($category as $key => $value): ?>
+				<li><a href=""><?php echo $value['name']; ?></a>
+				<?php if(sizeof($value['children']) > 0) : ?>
+					<div style="left:<?php echo ($startValue + $interval * $counter); ?>px;">
+					<?php foreach($value['children'] as $sub_key => $sub_value): ?>
+						<ul>
+							<li class="oe_heading"><?php echo $sub_value['name']; ?></li>
+							<li><a href="#">Milano</a></li>
+							<li><a href="#">Paris</a></li>
+							<li><a href="#">Special Events</a></li>
+							<li><a href="#">Runway Show</a></li>
+							<li><a href="#">Overview</a></li>
+						</ul>
+					<?php endforeach; ?>
+					</div>
+				<?php endif; $counter++; ?>
 			</li>
 		<?php endforeach;?>
 	</ul><!-- oe_menue -->
