@@ -1,6 +1,6 @@
 <div class="header">
 	<div class="logo span2">
-		<a href="#"><img src="<?php echo base_url(); ?>images/logo.jpg" alt="" /></a></div>
+		<a href="<?php echo base_url(); ?>"><img src="<?php echo base_url(); ?>images/logo.jpg" alt="" /></a></div>
 	<div class="searcharea">
 		    <form class="well form-search">
 		    <input type="text" placeholder="Type here" class="input-medium search-query">
@@ -8,7 +8,7 @@
 		    </form>
 	</div>
 	<div class="basket">
-		<ul><li><a href="" class="btn btn-success"><i class="icon-shopping-cart icon-white"></i>Items <?php echo $this->cart->total_items(); ?></a></li>
+		<ul><li><a href="<?php echo base_url().'cart'; ?>" class="btn btn-success"><i class="icon-shopping-cart icon-white"></i>Items <?php echo $this->cart->total_items(); ?></a></li>
 			<li><span class="divider">|</span></li>
           	<?php if(isset($session_email)) { 	echo '<li><a href="'.base_url().'main/logout" class="btn btn-danger">logout</a></li>';
           										echo '<li><span class="divider">|</span></li>';
