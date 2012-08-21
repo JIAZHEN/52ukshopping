@@ -32,9 +32,16 @@ class Users extends CI_Controller {
 		
 		if ($this->form_validation->run() === FALSE)
 		{
-			$data['csses'] = array('bootstrap/css/bootstrap.css', 'bootstrap/css/bootstrap-responsive.css', 'bootstrap/css/datepicker.css','css/users/register.css');
+			$data['csses'] = array('bootstrap/css/bootstrap.css', 
+									'bootstrap/css/bootstrap-responsive.css', 
+									'bootstrap/css/datepicker.css',
+									'css/users/register.css');
 		
-			$register_data['jses'] = array('js/jquery-1.8.0.min.js', 'bootstrap/js/bootstrap.js', 'bootstrap/js/bootstrap-datepicker.js', 'js/users/register.js');
+			$register_data['jses'] = array('js/jquery-1.8.0.min.js', 
+											'bootstrap/js/bootstrap.js', 
+											'bootstrap/js/bootstrap-datepicker.js', 
+											'js/users/register.js');
+											
 			$this->load->view('templates/header', $data);
 			$this->load->view('users/register', $register_data);
 		}

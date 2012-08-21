@@ -29,7 +29,6 @@ class Main extends CI_Controller {
 		$footer_data['jses'] = array('js/jquery.tools.min.js', 
 									 'js/scrollable.js', 
 									 'js/main_view.js',
-									 'bootstrap/js/bootstrap-carousel.js',
 									 'bootstrap/js/bootstrap.js');
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);

@@ -36,11 +36,11 @@
 </table>
 <div class="row">
 <div class="span1">
-	<a href="<?php echo base_url().'cart/destroy_cart'; ?>" class="btn btn-danger">Clean</a>
+	<a href="<?php echo base_url().'cart/destroy_cart'; ?>" class="btn btn-danger btn-small">Clean</a>
 </div>
 <div class="span2 offset7">
-	<button class="btn btn-primary" type="submit">Update</button>
-	<a href="" class="btn btn-success"><i class="icon-shopping-cart icon-white"></i>Checkout</a>
+	<button class="btn btn-primary btn-small" type="submit">Update</button>
+	<a href="" class="btn btn-success btn-small"><i class="icon-shopping-cart icon-white"></i>Checkout</a>
 </div>
 
 </div>
