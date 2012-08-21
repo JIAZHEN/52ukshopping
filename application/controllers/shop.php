@@ -19,8 +19,9 @@ class Shop extends CI_Controller {
 
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
 	    $category_date['first_lv_cat'] = $this->d_category_model->getCategoryByLevel(1);
+	    $category_date['page_title'] = 'Shop';
 	    
-		$data['page_title'] = 'Category';
+		$data['page_title'] = 'Shop';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 								'bootstrap/css/bootstrap-responsive.css',
 								'css/nav.css',

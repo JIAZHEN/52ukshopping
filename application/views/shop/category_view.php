@@ -1,19 +1,14 @@
 <div class="row-fluid">
 <div class="span3"> <!--Sidebar content-->
-<ul id="selectable">
-     <li class="ui-widget-content">copyright</li>
-     <li class="ui-widget-content">sitemap</li>
-     <li class="ui-widget-content">contact</li>
-     <li class="ui-widget-content">to top</li>
-     <li class="ui-widget-content">copyright</li>
-     <li class="ui-widget-content">sitemap</li>
-     <li class="ui-widget-content">contact</li>
-     <li class="ui-widget-content">to top</li>
-     <li class="ui-widget-content">copyright</li>
-     <li class="ui-widget-content">sitemap</li>
-     <li class="ui-widget-content">contact</li>
-     <li class="ui-widget-content">to top</li>
+<?php if(isset($first_lv_cat) && count($first_lv_cat) > 0): ?>
+<ul class="span10 nav nav-tabs nav-stacked">
+	<li><a href=""><h3><?php echo $page_title; ?></h3></a></li>
+<?php foreach($first_lv_cat as $value):?>
+	 <li><a href="#"><?php echo $value['category_name']; ?><i class="icon-chevron-right pull-right"></i></a></li>
+<?php endforeach; ?>
 </ul>
+<?php endif; ?>
+
 <img width="200px" src="<?php echo base_url();?>images/slide-img.png" />
 <img width="200px" src="<?php echo base_url();?>images/slide-img-2.png" />
 </div>
@@ -22,8 +17,7 @@
 		<div class="span12"> 
 			<ul class="breadcrumb">
 			    <li><a href="#">Home</a><span class="divider">/</span></li>
-			    <li><a href="#">Shop</a> <span class="divider">/</span></li>
-			    <li class="active">Category</li>
+			    <li class="active">Shop</li>
 			    <a href="" class="pull-right">Need help?</a>
 		    </ul>
 		</div> 
