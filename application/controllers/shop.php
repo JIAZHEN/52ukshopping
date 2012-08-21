@@ -18,8 +18,9 @@ class Shop extends CI_Controller {
 	    }
 
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
-	    $category_date['first_lv_cat'] = $this->d_category_model->getCategoryByLevel(1);
-	    $category_date['page_title'] = 'Shop';
+	    $category_date['lv_cat'] = $this->d_category_model->getCategoryByLevel(1);
+	    $category_date['breadcrumb'] = array('0' => array('name' => 'Home', 'url' => base_url()), 
+	    									 '1' => 'Shop');
 	    
 		$data['page_title'] = 'Shop';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
@@ -44,15 +45,44 @@ class Shop extends CI_Controller {
 
 	}
 	
-	public function category() 
+	public function category($cat_id) 
 	{
+	
+		// detect if cat_id is null or negative
+		if(isset($cat_id) == false || $cat_id <= 0) {
+			redirect(base_url().'shop');
+		}
+		// conduct breadcrumb
+		$category_date['breadcrumb'] = array('0' => array('name' => 'Home', 'url' => base_url()), 
+	    									 '1' => array('name' => 'Shop', 'url' => base_url().'shop') );
+		$cat_query = $this->d_category_model->getCategoryById($cat_id);
+		if($cat_query['cat_level'] == 1) {
+			$category_date['breadcrumb'][2] = $cat_query['category_name'];
+		} else if ($cat_query['cat_level'] == 2) {
+			$lv1_cat_query = $this->d_category_model->getCategoryById($cat_query['parent_id']);
+			$category_date['breadcrumb'][2] = array('name' => $lv1_cat_query['category_name'], 
+													'url' => base_url().'shop/category/'.$lv1_cat_query['id']);
+			$category_date['breadcrumb'][3] = $cat_query['category_name'];
+		} else {
+			$lv2_cat_query = $this->d_category_model->getCategoryById($cat_query['parent_id']);
+			$lv1_cat_query = $this->d_category_model->getCategoryById($lv2_cat_query['parent_id']);
+			$category_date['breadcrumb'][2] = array('name' => $lv1_cat_query['category_name'], 
+													'url' => base_url().'shop/category/'.$lv1_cat_query['id']);
+			$category_date['breadcrumb'][3] = array('name' => $lv2_cat_query['category_name'], 
+													'url' => base_url().'shop/category/'.$lv2_cat_query['id']);
+			$category_date['breadcrumb'][4] = $cat_query['category_name'];
+		}
+		$category_date['lv_cat'] = $this->d_category_model->getCategoryByLevelAndParent(
+															$cat_query['cat_level'] + 1, 
+															$cat_id);
+	
 		if($this->session->userdata('logged_in')) {
 	     $session_data = $this->session->userdata('logged_in');
 	     $nav_data['session_email'] = $session_data['email'];
 	    }
 
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
-		$data['page_title'] = 'Category';
+		$data['page_title'] = $cat_query['category_name'];
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 								'bootstrap/css/bootstrap-responsive.css',
 								'css/nav.css',
@@ -70,7 +100,7 @@ class Shop extends CI_Controller {
 									 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
-		$this->load->view('shop/category_view');
+		$this->load->view('shop/category_view', $category_date);
 		$this->load->view('templates/footer', $footer_data);
 
 	}

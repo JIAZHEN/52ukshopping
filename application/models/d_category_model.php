@@ -11,6 +11,16 @@ class D_category_model extends CI_Model {
 		return $query->result_array();
 	}
 	
+	public function getCategoryById($cat_id) {
+		$query = $this->db->get_where('d_category', array('id' => $cat_id));
+		return $query->row_array();
+	}
+	
+	public function getCategoryByLevelAndParent($cat_level, $parent_id) {
+		$query = $this->db->get_where('d_category', array('cat_level' => $cat_level, 'parent_id' => $parent_id));
+		return $query->result_array();
+	}
+	
 	public function conduct_categories() {
 		/**
 		first_level_id = array (name, a list of second category array (
