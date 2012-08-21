@@ -28,9 +28,10 @@
 		    </ul>
 		</div> 
 	</div> <!-- breadcrumb -->
+	<?php if(isset($info)): ?>
 	<div class="row"> <!-- detailstop -->
 		<div class="span5"> <!-- imgarea -->
-			<img src="<?php echo base_url();?>images/full/1.jpg" />
+			<img src="<?php echo base_url().$info['image'];?>" />
 			<div>
 				<ul class="thumbnails">
 				    <li class="span4">
@@ -87,7 +88,7 @@
 			</div> <!-- selectarea -->
 			<div id="buttonbox"> <!-- buttonbox -->
 					<div class="span6">
-						<p>Price</p><strong>5 pounds</strong>
+						<p>Price</p><strong>£ <?php echo number_format($info['price'],2); ?></strong>
 						<input type="hidden" name="price" value="5" />
 					</div>
 					<button class="span6 btn btn-success pull-right btn-large" type="submit">Buy now</button>
@@ -105,6 +106,7 @@
 			</form>
 		</div> <!-- info area -->
 	</div> <!-- detailstop -->
+	<?php endif; ?>
 	<div class="row"> <!-- detailsbottom -->
 	<div class="span12">
 			<div id="tabs"> <!-- tabs -->

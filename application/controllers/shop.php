@@ -7,6 +7,7 @@ class Shop extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->library('cart');
 		$this->load->model('d_category_model');
+		$this->load->model('f_item_model');
 	}
 	
 	public function category() 
@@ -40,13 +41,17 @@ class Shop extends CI_Controller {
 
 	}
 
-	public function detail()
+	public function detail($id)
 	{
 		if($this->session->userdata('logged_in')) {
 	     $session_data = $this->session->userdata('logged_in');
 	     $nav_data['session_email'] = $session_data['email'];
 	    }
 	    
+	    if ($id > 0) {
+		    $detail_data['info'] = $this->f_item_model->getItemById($id);
+	    }
+	    $detail_data['ini'] = '';
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
 		$data['page_title'] = 'Detail';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
@@ -65,7 +70,7 @@ class Shop extends CI_Controller {
 									 'bootstrap/js/bootstrap.js');
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
-		$this->load->view('shop/detail_view');
+		$this->load->view('shop/detail_view', $detail_data);
 		$this->load->view('templates/footer', $footer_data);
 	}
 }

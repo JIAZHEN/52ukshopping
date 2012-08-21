@@ -3,7 +3,7 @@
 		<h4><a href="">My cart</a></h4>
 	</div>
 	<div class="span4">
-	<h4>There are <a href=""><?php echo $this->cart->total_items(); ?></a> items, in total <a href=""><?php echo $this->cart->total(); ?></a> pounds</h4>
+	<h5>There are <a href=""><?php echo $this->cart->total_items(); ?></a> items, in total <a href=""><?php echo $this->cart->total(); ?></a> pounds</h5>
 	</div>
 </div>
 <form action="<?php echo base_url().'cart/update_cart'; ?>" method="post">
