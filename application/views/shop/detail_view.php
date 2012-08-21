@@ -28,7 +28,7 @@
 		    </ul>
 		</div> 
 	</div> <!-- breadcrumb -->
-	<?php if(isset($info)): ?>
+	<?php if(isset($info) && count($info) > 0): ?>
 	<div class="row"> <!-- detailstop -->
 		<div class="span5"> <!-- imgarea -->
 			<img src="<?php echo base_url().$info['image'];?>" />
