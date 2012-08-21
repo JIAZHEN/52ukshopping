@@ -16,7 +16,7 @@
 	<div class="row"> <!-- breadcrumb -->
 		<div class="span12"> 
 			<ul class="breadcrumb">
-			    <li><a href="#">Home</a><span class="divider">/</span></li>
+			    <li><a href="<?php echo base_url(); ?>">Home</a><span class="divider">/</span></li>
 			    <li class="active">Shop</li>
 			    <a href="" class="pull-right">Need help?</a>
 		    </ul>
@@ -38,7 +38,7 @@
 		              <span class="ratings-imgs" title="4.9/5" data-ratings="4.9"></span>
 		              <p class="detail">(4.9 / 5)</p>
 		              <br />
-		              <a href="#" class="btn btn-primary">Buy</a>
+		              <a href="#" class="btn btn-primary">View</a>
 		            </div>
 		          </div>
 		        </li>

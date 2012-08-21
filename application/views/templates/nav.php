@@ -31,7 +31,7 @@
 			  $counter = 0;
 			  $interval = -112; 
 			foreach($category as $key => $value): ?> <!-- first category -->
-				<li><a href=""><?php echo $value['name']; ?></a>
+				<li><a href="<?php if($key == 8) { echo base_url().'shop'; } else {echo base_url().'category/'.$key;} ?>"><?php echo $value['name']; ?></a>
 				<?php if(sizeof($value['children']) > 0) : ?>
 					<div style="left:<?php echo ($startValue + $interval * $counter); ?>px;">
 					<?php foreach($value['children'] as $sub_key => $sub_value): ?> <!-- second category -->
