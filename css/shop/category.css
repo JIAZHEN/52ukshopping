@@ -19,3 +19,27 @@
 .toright {
 	float: right;
 }
+/*
+
+<?php if(isset($first_lv_cat) && count($first_lv_cat) > 0) : echo 'i AM HERE';?>
+	<?php 	for($i = 0; i < 1; $i++) :?>
+		<ul class="thumbnails">
+			<?php for($j = 0; $j < 3; $j++): ?>
+				<li class="span4">
+		          <div class="thumbnail">
+		            <a class="visual" href="#" title="<?php echo $first_lv_cat[0]['category_name']; ?>"></a>
+					<img class="product" src="http://www.thebodyshop.co.uk/images/product/Med_Large/06973m_m_l.jpg" /></a>
+		            <div class="caption">
+		              <h4 class="name"><a href="#"><?php echo $first_lv_cat[0]['category_name']; ?></a></h4>
+		              <span class="ratings-imgs" title="4.9/5" data-ratings="4.9"></span>
+		              <p class="detail">(4.9 / 5)</p>
+		              <br />
+		              <a href="#" class="btn btn-primary">Buy</a>
+		            </div>
+		          </div>
+		        </li>
+			<?php endfor; ?>
+		</ul>
+	<?php 	endfor; ?>
+	<?php endif; ?>
+*/

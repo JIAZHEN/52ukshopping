@@ -14,8 +14,8 @@
      <li class="ui-widget-content">contact</li>
      <li class="ui-widget-content">to top</li>
 </ul>
-<img class="imgstyle" src="<?php echo base_url();?>images/slide-img.png" />
-<img class="imgstyle" src="<?php echo base_url();?>images/slide-img-2.png" />
+<img width="200px" src="<?php echo base_url();?>images/slide-img.png" />
+<img width="200px" src="<?php echo base_url();?>images/slide-img-2.png" />
 </div>
 <div class="span9"> <!--Body content-->
 	<div class="row"> <!-- breadcrumb -->
@@ -30,13 +30,17 @@
 	</div> <!-- breadcrumb -->
 	<div class="row"> <!-- detailstop -->
 		<div class="span12">
-			<ul class="thumbnails">
-		        <li class="span4">
+			<?php if(isset($first_lv_cat) && count($first_lv_cat) > 0): ?>
+				<?php for($row = 0; $row < intval(count($first_lv_cat) / 3) + 1; $row++): ?>
+				<ul class="thumbnails">
+					<?php for($column = 0; $column < 3; $column++ ): ?>
+					<?php if( ($row*3 + $column) < count($first_lv_cat)) : ?>
+				<li class="span4">
 		          <div class="thumbnail">
-		            <a class="visual" href="#" title="Satsuma Shower Gel/Cream">
+		            <a class="visual" href="#" title="<?php echo $first_lv_cat[$row*3 + $column]['category_name']; ?>"></a>
 					<img class="product" src="http://www.thebodyshop.co.uk/images/product/Med_Large/06973m_m_l.jpg" /></a>
 		            <div class="caption">
-		              <h4 class="name"><a href="#">Satsuma Shower Gel/Cream</a></h4>
+		              <h4 class="name"><a href="#"><?php echo $first_lv_cat[$row*3 + $column]['category_name']; ?></a></h4>
 		              <span class="ratings-imgs" title="4.9/5" data-ratings="4.9"></span>
 		              <p class="detail">(4.9 / 5)</p>
 		              <br />
@@ -44,33 +48,11 @@
 		            </div>
 		          </div>
 		        </li>
-		        <li class="span4">
-		          <div class="thumbnail">
-		            <a class="visual" href="#" title="Satsuma Shower Gel/Cream">
-					<img class="product" src="http://www.thebodyshop.co.uk/images/product/Med_Large/06973m_m_l.jpg" /></a>
-		            <div class="caption">
-		              <h4 class="name"><a href="#">Satsuma Shower Gel/Cream</a></h4>
-		              <span class="ratings-imgs" title="4.9/5" data-ratings="4.9"></span>
-		              <p class="detail">(4.9 / 5)</p>
-		              <br />
-		              <a href="#" class="btn btn-primary">Buy</a>
-		            </div>
-		          </div>
-		        </li>
-		        <li class="span4">
-		          <div class="thumbnail">
-		            <a class="visual" href="#" title="Satsuma Shower Gel/Cream">
-					<img class="product" src="http://www.thebodyshop.co.uk/images/product/Med_Large/06973m_m_l.jpg" /></a>
-		            <div class="caption">
-		              <h4 class="name"><a href="#">Satsuma Shower Gel/Cream</a></h4>
-		              <span class="ratings-imgs" title="4.9/5" data-ratings="4.9"></span>
-		              <p class="detail">(4.9 / 5)</p>
-		              <br />
-		              <a href="#" class="btn btn-primary">Buy</a>
-		            </div>
-		          </div>
-		        </li>
-		      </ul>
+			        <?php endif; ?>
+			        <?php endfor; ?>
+				</ul>
+				<?php endfor;?>
+			<?php endif; ?>
 		</div>
 	</div> <!-- detailstop -->
 	<div class="row"> <!-- detailsbottom -->
