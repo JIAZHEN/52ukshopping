@@ -27,15 +27,12 @@ class Shop extends CI_Controller {
 								'bootstrap/css/bootstrap-responsive.css',
 								'css/nav.css',
 								'jqueryui/css/ui-lightness/jquery-ui-1.8.22.custom.css', 
-								'jqueryui/css/ui.selectmenu.css',
 								'css/shop/category.css',
 								'css/footer.css');
 		
-		$footer_data['jses'] = array('js/jquery.tools.min.js',
-									 'js/jquery-1.8.0.min.js',
+		$footer_data['jses'] = array('js/jquery-1.8.0.min.js',
 									 'jqueryui/js/jquery-ui-1.8.22.custom.min.js',
-									 'jqueryui/js/ui.selectmenu.js',
-									 'js/shop/detail.js',
+									 'js/shop/detail.js', // will be replaced
 									 'bootstrap/js/bootstrap.js');
 									 
 		$this->load->view('templates/header', $data);
@@ -52,10 +49,15 @@ class Shop extends CI_Controller {
 		if(isset($cat_id) == false || $cat_id <= 0) {
 			redirect(base_url().'shop');
 		}
+		$cat_query = $this->d_category_model->getCategoryById($cat_id);
+		// go to browse
+		if($cat_query['cat_level'] == 3) {
+			redirect(base_url().'shop/browse/'.$cat_id);;
+		}
 		// conduct breadcrumb
 		$category_date['breadcrumb'] = array('0' => array('name' => 'Home', 'url' => base_url()), 
-	    									 '1' => array('name' => 'Shop', 'url' => base_url().'shop') );
-		$cat_query = $this->d_category_model->getCategoryById($cat_id);
+	    									 '1' => array('name' => 'Shop', 'url' => base_url().'shop') );			 
+		
 		if($cat_query['cat_level'] == 1) {
 			$category_date['breadcrumb'][2] = $cat_query['category_name'];
 		} else if ($cat_query['cat_level'] == 2) {
@@ -86,21 +88,61 @@ class Shop extends CI_Controller {
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 								'bootstrap/css/bootstrap-responsive.css',
 								'css/nav.css',
-								'jqueryui/css/ui-lightness/jquery-ui-1.8.22.custom.css', 
-								'jqueryui/css/ui.selectmenu.css',
+								'jqueryui/css/ui-lightness/jquery-ui-1.8.22.custom.css',
 								'css/shop/category.css',
 								'css/footer.css');
 		
-		$footer_data['jses'] = array('js/jquery.tools.min.js',
-									 'js/jquery-1.8.0.min.js',
+		$footer_data['jses'] = array('js/jquery-1.8.0.min.js',
 									 'jqueryui/js/jquery-ui-1.8.22.custom.min.js',
-									 'jqueryui/js/ui.selectmenu.js',
-									 'js/shop/detail.js',
+									 'js/shop/detail.js', // will be replaced
 									 'bootstrap/js/bootstrap.js');
 									 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
 		$this->load->view('shop/category_view', $category_date);
+		$this->load->view('templates/footer', $footer_data);
+
+	}
+	
+	public function browse($lv3_cat_id) {
+		if($this->session->userdata('logged_in')) {
+	     $session_data = $this->session->userdata('logged_in');
+	     $nav_data['session_email'] = $session_data['email'];
+	    }
+
+	    $nav_data['category'] = $this->d_category_model->conduct_categories();
+	    
+	    $browse_data['items'] = $this->f_item_model->getItemByCatId($lv3_cat_id);
+	    $browse_data['lv_cat'] = $this->d_category_model->getCategoryByLevel(1);
+	    
+	    $cat_query = $this->d_category_model->getCategoryById($lv3_cat_id);
+	    $browse_data['breadcrumb'] = array( '0' => array('name' => 'Home', 'url' => base_url()), 
+	    									'1' => 'Shop');
+	    									
+	    $lv2_cat_query = $this->d_category_model->getCategoryById($cat_query['parent_id']);
+		$lv1_cat_query = $this->d_category_model->getCategoryById($lv2_cat_query['parent_id']);
+		$browse_data['breadcrumb'][2] = array('name' => $lv1_cat_query['category_name'], 
+												'url' => base_url().'shop/category/'.$lv1_cat_query['id']);
+		$browse_data['breadcrumb'][3] = array('name' => $lv2_cat_query['category_name'], 
+												'url' => base_url().'shop/category/'.$lv2_cat_query['id']);
+		$browse_data['breadcrumb'][4] = $cat_query['category_name'];
+	    
+		$data['page_title'] = $cat_query['category_name'];
+		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+								'bootstrap/css/bootstrap-responsive.css',
+								'css/nav.css',
+								'jqueryui/css/ui-lightness/jquery-ui-1.8.22.custom.css',
+								'css/shop/category.css',
+								'css/footer.css');
+		
+		$footer_data['jses'] = array('js/jquery-1.8.0.min.js',
+									 'jqueryui/js/jquery-ui-1.8.22.custom.min.js',
+									 'js/shop/detail.js', // will be replace
+									 'bootstrap/js/bootstrap.js');
+									 
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/nav', $nav_data);
+		$this->load->view('shop/browse_view', $browse_data);
 		$this->load->view('templates/footer', $footer_data);
 
 	}
@@ -122,15 +164,12 @@ class Shop extends CI_Controller {
 								'bootstrap/css/bootstrap-responsive.css',
 								'css/nav.css',
 								'jqueryui/css/ui-lightness/jquery-ui-1.8.22.custom.css', 
-								'jqueryui/css/ui.selectmenu.css',
 								'css/shop/detail.css',
 								'css/footer.css');
 		
-		$footer_data['jses'] = array('js/jquery.tools.min.js',
-									 'js/jquery-1.8.0.min.js',
+		$footer_data['jses'] = array('js/jquery-1.8.0.min.js',
 									 'jqueryui/js/jquery-ui-1.8.22.custom.min.js',
 									 'js/shop/detail.js',
-									 'jqueryui/js/ui.selectmenu.js',
 									 'bootstrap/js/bootstrap.js');
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);

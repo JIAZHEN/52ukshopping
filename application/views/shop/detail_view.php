@@ -54,9 +54,9 @@
 		</div> <!-- imgarea -->
 		<div class="span7"> <!-- info area -->
 			<form action="<?php echo base_url().'cart/add_cart'; ?>" method="post">
-			<h2>SKU name</h2>
-			<input type="hidden" name="id" value="3" />
-			<input type="hidden" name="name" value="SKU" />
+			<h2><?php echo $info['item_name']; ?></h2>
+			<input type="hidden" name="id" value="<?php echo $info['id']; ?>" />
+			<input type="hidden" name="name" value="<?php echo $info['item_name']; ?>" />
 			<span class="ratings-imgs"></span>
 			<p>Rate and recommends</p>
 			<ul class="reviewul">
