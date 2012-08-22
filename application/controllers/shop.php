@@ -105,6 +105,18 @@ class Shop extends CI_Controller {
 	}
 	
 	public function browse($lv3_cat_id) {
+	
+		// detect if cat_id is null or negative
+		if(isset($lv3_cat_id) == false || $lv3_cat_id <= 0) {
+			redirect(base_url().'shop');
+		}
+		$cat_query = $this->d_category_model->getCategoryById($lv3_cat_id);
+		if($cat_query['cat_level'] != 3) {
+			redirect(base_url().'shop/category/'.$lv3_cat_id);
+		}
+		
+		
+	
 		if($this->session->userdata('logged_in')) {
 	     $session_data = $this->session->userdata('logged_in');
 	     $nav_data['session_email'] = $session_data['email'];
@@ -113,11 +125,10 @@ class Shop extends CI_Controller {
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
 	    
 	    $browse_data['items'] = $this->f_item_model->getItemByCatId($lv3_cat_id);
-	    $browse_data['lv_cat'] = $this->d_category_model->getCategoryByLevel(1);
 	    
-	    $cat_query = $this->d_category_model->getCategoryById($lv3_cat_id);
+	    
 	    $browse_data['breadcrumb'] = array( '0' => array('name' => 'Home', 'url' => base_url()), 
-	    									'1' => 'Shop');
+	    									'1' => array('name' => 'Shop', 'url' => base_url().'shop'));
 	    									
 	    $lv2_cat_query = $this->d_category_model->getCategoryById($cat_query['parent_id']);
 		$lv1_cat_query = $this->d_category_model->getCategoryById($lv2_cat_query['parent_id']);
@@ -149,6 +160,11 @@ class Shop extends CI_Controller {
 
 	public function detail($id)
 	{
+		// detect if cat_id is null or negative
+		if(isset($id) == false || $id <= 0) {
+			redirect(base_url().'shop');
+		}
+	
 		if($this->session->userdata('logged_in')) {
 	     $session_data = $this->session->userdata('logged_in');
 	     $nav_data['session_email'] = $session_data['email'];
