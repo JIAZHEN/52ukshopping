@@ -155,7 +155,6 @@ class Shop extends CI_Controller {
 		
 		$footer_data['jses'] = array('js/jquery-1.8.0.min.js',
 									 'jqueryui/js/jquery-ui-1.8.22.custom.min.js',
-									 'js/shop/detail.js',
 									 'bootstrap/js/bootstrap.js');
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);

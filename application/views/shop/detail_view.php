@@ -1,21 +1,48 @@
 <div class="row-fluid">
 <div class="span3"> <!--Sidebar content-->
-<ul id="selectable">
-     <li class="ui-widget-content">copyright</li>
-     <li class="ui-widget-content">sitemap</li>
-     <li class="ui-widget-content">contact</li>
-     <li class="ui-widget-content">to top</li>
-     <li class="ui-widget-content">copyright</li>
-     <li class="ui-widget-content">sitemap</li>
-     <li class="ui-widget-content">contact</li>
-     <li class="ui-widget-content">to top</li>
-     <li class="ui-widget-content">copyright</li>
-     <li class="ui-widget-content">sitemap</li>
-     <li class="ui-widget-content">contact</li>
-     <li class="ui-widget-content">to top</li>
+<ul class="span10 nav nav-tabs nav-stacked">
+	<li><a href=""><h3><?php echo $info['item_name']; ?></h3></a></li>
+	<div class="accordion" id="accordion2">
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+              Collapsible Group Item #1
+            </a>
+          </div>
+          <div id="collapseOne" class="accordion-body collapse in">
+            <div class="accordion-inner">
+              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+              Collapsible Group Item #2
+            </a>
+          </div>
+          <div id="collapseTwo" class="accordion-body collapse">
+            <div class="accordion-inner">
+              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+              Collapsible Group Item #3
+            </a>
+          </div>
+          <div id="collapseThree" class="accordion-body collapse">
+            <div class="accordion-inner">
+              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            </div>
+          </div>
+        </div>
+      </div>
 </ul>
-<img class="imgstyle" src="<?php echo base_url();?>images/slide-img.png" />
-<img class="imgstyle" src="<?php echo base_url();?>images/slide-img-2.png" />
+<img width="200px" src="<?php echo base_url();?>images/slide-img.png" />
+<img width="200px" src="<?php echo base_url();?>images/slide-img-2.png" />
 </div>
 <div class="span9"> <!--Body content-->
 	<div class="row"> <!-- breadcrumb -->
@@ -74,7 +101,7 @@
 				<ul class="ul-select">
 					<li>Colour</li>
 					<li>
-						<select name="colour" class="selectbox">  
+						<select name="colour">  
 					        <option value="yellow">yellow</option>  
 					        <option value="blue">blue</option>  
 					        <option value="red">red</option> 
@@ -110,23 +137,26 @@
 	<?php endif; ?>
 	<div class="row"> <!-- detailsbottom -->
 	<div class="span12">
-			<div id="tabs"> <!-- tabs -->
-				<ul>
-					<li><a href="#tabs-1">Review</a></li>
-					<li><a href="#tabs-2">Q&A's</a></li>
-					<li><a href="#tabs-3">Delivery</a></li>
-				</ul>
-				<div id="tabs-1">
-					<p>Review</p>
-				</div>
-				<div id="tabs-2">
-					<p>Q&A's</p>
-				</div>
-				<div id="tabs-3">
-					<p>Delivery</p>
-				</div>
-			</div> <!-- tabs -->
+		<ul class="nav nav-tabs">
+          <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+          <li><a href="#profile" data-toggle="tab">Profile</a></li>
+          <li><a href="#dropdown1" data-toggle="tab">Third</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade in active" id="home">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          <div class="tab-pane fade" id="profile">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          <div class="tab-pane fade" id="dropdown1">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+        </div>
+    <hr />
 	</div>
+	
 	</div> <!-- detailsbottom -->
+	
 </div>
 </div><!--Body content-->
