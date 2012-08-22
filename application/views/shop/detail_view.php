@@ -21,9 +21,10 @@
 	<div class="row"> <!-- breadcrumb -->
 		<div class="span12"> 
 			<ul class="breadcrumb">
-			    <li><a href="#">Home</a><span class="divider">/</span></li>
-			    <li><a href="#">Shop</a> <span class="divider">/</span></li>
-			    <li class="active">Detail</li>
+			    <?php for($i = 0; $i < count($breadcrumb) - 1; $i++) : ?>
+					<li><a href="<?php echo $breadcrumb[$i]['url']; ?>"><?php echo $breadcrumb[$i]['name']; ?></a><span class="divider">/</span></li>
+				<?php endfor; ?>
+			    <li class="active"><?php echo $breadcrumb[count($breadcrumb) - 1]; ?></li>
 			    <a href="" class="pull-right">Need help?</a>
 		    </ul>
 		</div> 

@@ -57,6 +57,57 @@ class D_category_model extends CI_Model {
 		}
 		return $first_array;
 	}
+	
+	public function getBreadcrumb($cat_id) {
+		if($cat_id == 0) {
+			return array(	'0' => array('name' => 'Home', 'url' => base_url()), 
+	    					'1' => 'Shop' );
+	    } 
+	    $cat_query = $this->d_category_model->getCategoryById($cat_id);
+	    
+	    $category_data = array(	'0' => array('name' => 'Home', 'url' => base_url()), 
+	    						'1' => array('name' => 'Shop', 'url' => base_url().'shop') );
+	    	    
+	    if($cat_query['cat_level'] == 1) {
+			$category_data[2] = $cat_query['category_name'];
+		} else if ($cat_query['cat_level'] == 2) {
+			$lv1_cat_query = $this->d_category_model->getCategoryById($cat_query['parent_id']);
+			
+			$category_data[2] = array(	'name' => $lv1_cat_query['category_name'], 
+										'url' => base_url().'shop/category/'.$lv1_cat_query['id']);
+										
+			$category_data[3] = $cat_query['category_name'];
+		} else {
+			$lv2_cat_query = $this->d_category_model->getCategoryById($cat_query['parent_id']);
+			$lv1_cat_query = $this->d_category_model->getCategoryById($lv2_cat_query['parent_id']);
+			
+			$category_data[2] = array(	'name' => $lv1_cat_query['category_name'], 
+										'url' => base_url().'shop/category/'.$lv1_cat_query['id']);
+			$category_data[3] = array(	'name' => $lv2_cat_query['category_name'], 
+										'url' => base_url().'shop/category/'.$lv2_cat_query['id']);
+			$category_data[4] = $cat_query['category_name'];
+		}
+		
+		return $category_data;
+	}
+	
+	public function getBreadcrumbForDetail($cat_id, $item_name) {
+		$cat_query = $this->d_category_model->getCategoryById($cat_id);
+		$lv2_cat_query = $this->d_category_model->getCategoryById($cat_query['parent_id']);
+		$lv1_cat_query = $this->d_category_model->getCategoryById($lv2_cat_query['parent_id']);
+	    
+	    $category_data = array(	'0' => array('name' => 'Home', 'url' => base_url()), 
+	    						'1' => array('name' => 'Shop', 'url' => base_url().'shop'),
+	    						'2' => array(	'name' => $lv1_cat_query['category_name'], 
+												'url' => base_url().'shop/category/'.$lv1_cat_query['id']),
+								'3' => array(	'name' => $lv2_cat_query['category_name'], 
+												'url' => base_url().'shop/category/'.$lv2_cat_query['id']),
+								'4' => array(	'name' => $cat_query['category_name'], 
+												'url' => base_url().'shop/browse/'.$cat_query['id']),
+								'5' => $item_name			 );
+		return $category_data;
+	    			
+	}
 }
 /* End of file d_category_model.php */
 /* Location: ./application/models/d_category_model.php */
