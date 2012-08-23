@@ -7,6 +7,12 @@
 	</div>
 </div>
 <form id="cartform" action="<?php echo base_url().'cart/update_cart'; ?>" method="post">
+<input type="hidden" name="cmd" value="_cart">
+<input type="hidden" name="upload" value="1">
+<input type="hidden" name="business" value="qiulu_1345737075_biz@gmail.com">
+<input type="hidden" name="currency_code" value="GBP">
+<input type="hidden" name="lc" value="UK">
+<input type="hidden" name="return" value="http://www.sqlview.com/payment/notify.php">
 <table class="table table-striped table-condensed">
     <thead class="table table-bordered">
 	  <tr>
@@ -20,33 +26,43 @@
 	  </tr>
 	</thead>
 <tbody>
+	<?php $item_counter = 1; ?>
 	<?php foreach($this->cart->contents() as $item) : ?>
 		<?php $productarray = $this->cart->product_options($item['rowid']); ?>
 		<tr>
 		<td><input type="hidden" name="rowid" value="<?php echo $item['rowid']; ?>" /></td>
+		
 		<td><a href=""><?php echo $item['name']; ?></a></td>
+		<input type="hidden" name="item_name_<?php echo $item_counter; ?>" value="<?php echo $item['name']; ?>">
+		
 		<td><?php echo $this->cart->format_number($item['price']); ?> </td>
+		
 		<td><input type="text" class="input-mini" size="1" name="qty" value="<?php echo $item['qty']; ?>" /></td>
+		<input type="hidden" name="quantity_<?php echo $item_counter; ?>" value="<?php echo $item['qty']; ?>">
+		
 		<td><?php echo $productarray['size']; ?></td>
-		<td><?php if(isset($productarray['colour'])) echo $productarray['colour']; else echo ''; ?></td>
+		<input type="hidden" name="on0_<?php echo $item_counter; ?>" value="size">
+		<input type="hidden" name="os0_<?php echo $item_counter; ?>" value="<?php echo $productarray['size']; ?>">
+		<?php if(isset($productarray['colour'])): ?>
+			<td><?php echo $productarray['colour']; ?></td>
+			<input type="hidden" name="on1_<?php echo $item_counter; ?>" value="colour">
+			<input type="hidden" name="os1_<?php echo $item_counter; ?>" value="<?php echo $productarray['colour']; ?>">
+		<?php else : ?>
+			<td><?php echo ''; ?></td>
+		<?php endif; ?>
+		
+		
 		<td><?php echo $this->cart->format_number($item['subtotal']); ?></td>
+		<input type="hidden" name="amount_<?php echo $item_counter; ?>" value="<?php echo $this->cart->format_number($item['subtotal']); ?>">
 		</tr>
+		
+		
+		
+		
+	<?php $item_counter++; ?>
 	<?php endforeach; ?>
 </tbody>
-<input type="hidden" name="cmd" value="_cart">
-<input type="hidden" name="upload" value="1">
-<input type="hidden" name="business" value="qiulu_1345737075_biz@gmail.com">
-<input type="hidden" name="item_name_1" value="San Francisco Bay(32'X32')">
-<input type="hidden" name="amount_1" value="250.00">
-<input type="hidden" name="quantity_1" value="1">
-<input type="hidden" name="on0_1" value="size">
-<input type="hidden" name="os0_1" value="small">
-<input type="hidden" name="item_name_2" value="Mount Hamilton(24'x15')">
-<input type="hidden" name="amount_2" value="50.00">
-<input type="hidden" name="quantity_2" value="1">
-<input type="hidden" name="currency_code" value="GBP">
-<input type="hidden" name="lc" value="UK">
-<input type="hidden" name="return" value="http://www.sqlview.com/payment/notify.php">
+
 </table>
 <div class="row">
 <div class="span1">
