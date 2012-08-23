@@ -39,6 +39,8 @@
 <input type="hidden" name="item_name_1" value="San Francisco Bay(32'X32')">
 <input type="hidden" name="amount_1" value="250.00">
 <input type="hidden" name="quantity_1" value="1">
+<input type="hidden" name="on0_1" value="size">
+<input type="hidden" name="os0_1" value="small">
 <input type="hidden" name="item_name_2" value="Mount Hamilton(24'x15')">
 <input type="hidden" name="amount_2" value="50.00">
 <input type="hidden" name="quantity_2" value="1">
