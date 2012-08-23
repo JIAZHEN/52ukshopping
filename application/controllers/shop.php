@@ -149,13 +149,14 @@ class Shop extends CI_Controller {
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 								'bootstrap/css/bootstrap-responsive.css',
 								'css/nav.css',
-								'jqueryui/css/ui-lightness/jquery-ui-1.8.22.custom.css', 
 								'css/shop/detail.css',
+								'css/cloud-zoom.css',
 								'css/footer.css');
 		
-		$footer_data['jses'] = array('js/jquery-1.8.0.min.js',
-									 'jqueryui/js/jquery-ui-1.8.22.custom.min.js',
-									 'bootstrap/js/bootstrap.js');
+		$footer_data['jses'] = array(	'js/jquery-1.8.0.min.js',
+										'js/shop/detail.js',
+										'js/cloud-zoom.1.0.2.js',
+										'bootstrap/js/bootstrap.js');
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
 		$this->load->view('shop/detail_view', $detail_data);

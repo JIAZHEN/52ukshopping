@@ -58,27 +58,50 @@
 	</div> <!-- breadcrumb -->
 	<?php if(isset($info) && count($info) > 0): ?>
 	<div class="row"> <!-- detailstop -->
-		<div class="span5"> <!-- imgarea -->
-			<img src="<?php echo base_url().$info['image'];?>" />
-			<div>
-				<ul class="thumbnails">
-				    <li class="span4">
-				    	<a href="#" class="thumbnail">
-				    		<img class="visual-S" src="<?php echo base_url();?>images/tbsareaBigPic.jpg" />
-				    	</a>
-				    </li>
-				    <li class="span4">
-				    	<a href="#" class="thumbnail">
-				    		<img class="visual-S" src="<?php echo base_url();?>images/tbsareaBigPic.jpg" />
-				    	</a>
-				    </li>
-				    <li class="span4">
-				    	<a href="#" class="thumbnail">
-				    		<img class="visual-S" src="<?php echo base_url();?>images/tbsareaBigPic.jpg" />
-				    	</a>
-				    </li>
-			    </ul>
-			</div>
+		<div class="span4"> <!-- imgarea -->
+		
+		
+		<!-- ZOOM -->
+		<!--	
+        An anchor with class of 'cloud-zoom' should surround the small image.
+        The anchor's href should point to the big zoom image.
+        Any options can be specified in the rel attribute of the anchor.
+        Options should be specified in regular JavaScript object format,
+        but without the braces.
+        -->
+    	
+        <a href='http://www.professorcloud.com/images/zoomengine/bigimage00.jpg' class = 'cloud-zoom' id='zoom1'
+            rel="adjustX: 10, adjustY:-4, softFocus:true">
+            <img src="http://www.professorcloud.com/images/zoomengine/smallimage.jpg" class="img-polaroid" alt='' align="left" title="Optional title display" />
+        </a>
+        
+    <!--	
+        You can optionally create a gallery by creating anchors with a class of 'cloud-zoom-gallery'.
+        The anchor's href should point to the big zoom image.
+        In the rel attribute you must specify the id of the zoom to use (useZoom: 'zoom1'),
+        and also the small image to use (smallImage: /images/....)
+        -->
+		<ul class="span12" id="zoomthumbs">
+			    <li>
+			    	 <a href='http://www.professorcloud.com/images/zoomengine/bigimage00.jpg' class='cloud-zoom-gallery' title='Thumbnail 1'
+        	rel="useZoom: 'zoom1', smallImage: 'http://www.professorcloud.com/images/zoomengine/smallimage.jpg' ">
+        <img src="http://www.professorcloud.com/images/zoomengine/tinyimage.jpg" class="img-polaroid" alt = "Thumbnail 1"/></a>
+			    </li>
+			    <li>
+			    	<a href='http://www.professorcloud.com/images/zoomengine/bigimage01.jpg' class='cloud-zoom-gallery' title='Thumbnail 2'
+        	rel="useZoom: 'zoom1', smallImage: ' http://www.professorcloud.com/images/zoomengine/smallimage-1.jpg'">
+        <img src="http://www.professorcloud.com/images/zoomengine/tinyimage-1.jpg" class="img-polaroid" alt = "Thumbnail 2"/></a>
+			    </li>
+			    <li>
+			    	<a href='http://www.professorcloud.com/images/zoomengine/bigimage02.jpg' class='cloud-zoom-gallery' title='Thumbnail 3'
+        	rel="useZoom: 'zoom1', smallImage: 'http://www.professorcloud.com/images/zoomengine/smallimage-2.jpg' ">
+        <img src="http://www.professorcloud.com/images/zoomengine/tinyimage-2.jpg" class="img-polaroid" alt = "Thumbnail 3"/></a>
+			    </li>
+		    </ul>
+	
+	<!-- ZOOM -->
+		
+			
 		</div> <!-- imgarea -->
 		<div class="span7"> <!-- info area -->
 			<form action="<?php echo base_url().'cart/add_cart'; ?>" method="post">
