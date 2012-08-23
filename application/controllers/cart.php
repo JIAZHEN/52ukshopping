@@ -24,7 +24,8 @@ class Cart extends CI_Controller {
 								'css/footer.css');
 		
 		$footer_data['jses'] = array('js/jquery.tools.min.js',
-									 'bootstrap/js/bootstrap.js');
+									 'bootstrap/js/bootstrap.js',
+									 'js/cart/cart.js');
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
 		$this->load->view('cart/index');
