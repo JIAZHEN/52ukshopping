@@ -44,3 +44,7 @@
 	display: inline;
 	list-style: none;
 }
+
+#zoomthumbs img {
+	margin: 5px 0px;
+}
