@@ -81,7 +81,23 @@
         In the rel attribute you must specify the id of the zoom to use (useZoom: 'zoom1'),
         and also the small image to use (smallImage: /images/....)
         -->
+        
 		<ul class="span12" id="zoomthumbs">
+			    <li>
+			    	 <a href='http://www.professorcloud.com/images/zoomengine/bigimage00.jpg' class='cloud-zoom-gallery' title='Thumbnail 1'
+        	rel="useZoom: 'zoom1', smallImage: 'http://www.professorcloud.com/images/zoomengine/smallimage.jpg' ">
+        <img src="http://www.professorcloud.com/images/zoomengine/tinyimage.jpg" class="img-polaroid" alt = "Thumbnail 1"/></a>
+			    </li>
+			    <li>
+			    	<a href='http://www.professorcloud.com/images/zoomengine/bigimage01.jpg' class='cloud-zoom-gallery' title='Thumbnail 2'
+        	rel="useZoom: 'zoom1', smallImage: ' http://www.professorcloud.com/images/zoomengine/smallimage-1.jpg'">
+        <img src="http://www.professorcloud.com/images/zoomengine/tinyimage-1.jpg" class="img-polaroid" alt = "Thumbnail 2"/></a>
+			    </li>
+			    <li>
+			    	<a href='http://www.professorcloud.com/images/zoomengine/bigimage02.jpg' class='cloud-zoom-gallery' title='Thumbnail 3'
+        	rel="useZoom: 'zoom1', smallImage: 'http://www.professorcloud.com/images/zoomengine/smallimage-2.jpg' ">
+        <img src="http://www.professorcloud.com/images/zoomengine/tinyimage-2.jpg" class="img-polaroid" alt = "Thumbnail 3"/></a>
+			    </li>
 			    <li>
 			    	 <a href='http://www.professorcloud.com/images/zoomengine/bigimage00.jpg' class='cloud-zoom-gallery' title='Thumbnail 1'
         	rel="useZoom: 'zoom1', smallImage: 'http://www.professorcloud.com/images/zoomengine/smallimage.jpg' ">
