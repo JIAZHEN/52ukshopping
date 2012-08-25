@@ -111,12 +111,13 @@ class Shop extends CI_Controller {
 								'css/footer.css');
 		
 		$footer_data['jses'] = array('js/jquery-1.8.0.min.js',
-									 'bootstrap/js/bootstrap.js');
+									 'bootstrap/js/bootstrap.js',
+									 'js/shop/browse.js');
 									 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
 		$this->load->view('shop/browse_view', $browse_data);
-		$this->load->view('templates/footer', $footer_data);
+		$this->load->view('templates/footer_custom_js_view', $footer_data);
 
 	}
 
@@ -152,6 +153,11 @@ class Shop extends CI_Controller {
 		$this->load->view('templates/nav', $nav_data);
 		$this->load->view('shop/detail_view', $detail_data);
 		$this->load->view('templates/footer', $footer_data);
+	}
+	
+	public function pagination() {
+		$output = 'asdfasefqwegsdsd';
+		$this->output->append_output($output);
 	}
 }
 /* End of file shop.php */

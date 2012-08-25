@@ -1,4 +1,5 @@
 <div class="row-fluid">
+
 <div class="span3"> <!--Sidebar content-->
 <ul class="span10 nav nav-tabs nav-stacked">
 	<li><a href=""><h3><?php echo $page_title; ?></h3></a></li>
@@ -11,7 +12,8 @@
 
 <img width="200px" src="<?php echo base_url();?>images/slide-img.png" />
 <img width="200px" src="<?php echo base_url();?>images/slide-img-2.png" />
-</div>
+</div> <!--Sidebar content-->
+
 <div class="span9"> <!--Body content-->
 	<div class="row"> <!-- breadcrumb -->
 		<div class="span12"> 
@@ -24,6 +26,13 @@
 		    </ul>
 		</div> 
 	</div> <!-- breadcrumb -->
+	
+	<div class="row"> <!-- pagination -->
+		<label for="showdata">Feedback</label><input id="showdata" type="text" name="data" value="wait" />
+        <button class="btn btn-primary" id="ajaxbtn">Click</button>
+	</div> <!-- pagination -->
+	
+	
 	<div class="row"> <!-- detailstop -->
 		<div class="span12">
 			<?php for($row = 0; $row < intval(count($items) / 4) + 1; $row++) : ?>
@@ -74,3 +83,5 @@
 	</div> <!-- detailsbottom -->
 </div>
 </div><!--Body content-->
+
+

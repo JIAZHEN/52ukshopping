@@ -38,7 +38,28 @@
 <?php if(isset($jses)) {  foreach ($jses as $js_path): ?>
 	<script type="text/javascript" src="<?php echo base_url().$js_path; ?>"></script> <!-- loop for javascript -->
 <?php endforeach; } ?>
-<script type="text/javascript" src="<?php echo base_url(); ?>js/navigation.js"></script>	
+<script type="text/javascript" src="<?php echo base_url(); ?>js/navigation.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	    $("#ajaxbtn").click(function(){  
+                       //post the pictureID to controller and return the picture and embed it to the photoboard.  
+                       $.ajax({  
+                               type:"post",  
+                               data: "id=" + $(this).attr("id"),  
+                               url:"<?php echo site_url('shop/pagination'); ?>",  
+                               success: function(data){  
+                                          alert(data);  
+                               },  
+  
+                                error: function() {  
+                                          alert("ajax error");  
+                                }  
+                       }); 
+      
+    });  
+});
+	
 </script>
 </body>
 </html>
