@@ -34,14 +34,14 @@
 	
 	
 	<div class="row"> <!-- detailstop -->
-		<div class="span12">
+		<div id="display" class="span12">
 			<?php for($row = 0; $row < intval(count($items) / 4) + 1; $row++) : ?>
 				<ul class="thumbnails">
 				<?php for($column = 0; $column < 4; $column++ ): ?>
 					<?php if( ($row*4 + $column) < count($items)) : ?>
 				<li class="span3">
 		          <div class="thumbnail">
-		            <a class="visual" href="#" title="<?php echo $items[$row*4 + $column]['item_name']; ?>"></a>
+		            <a class="visual" href="#" title="<?php echo $items[$row*4 + $column]['item_name']; ?>">
 					<img class="product" src="http://www.thebodyshop.co.uk/images/product/Med_Large/06973m_m_l.jpg" /></a>
 		            <div class="caption">
 		              <h4 class="name"><a href="#"><?php echo $items[$row*4 + $column]['item_name']; ?></a></h4>

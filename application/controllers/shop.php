@@ -156,8 +156,8 @@ class Shop extends CI_Controller {
 	}
 	
 	public function pagination() {
-		$output = 'asdfasefqwegsdsd';
-		$this->output->append_output($output);
+		$output = array('message' => 'This is json', 'location' => 'location 2');
+		echo json_encode($output);
 	}
 }
 /* End of file shop.php */
