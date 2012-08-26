@@ -59,6 +59,19 @@
 				
 		</div>
 	</div> <!-- detailstop -->
+	
+	<div class="row">
+		<ul class="pager">
+		  <li><a href="#">&larr; First</a></li>
+		  <li><a href="#">Prev</a></li>
+		  <?php for($item_counter = 1; $item_counter <= $total_amount; $item_counter++): ?>
+		  	<li><a href="#"><?php echo $item_counter; ?></a></li>
+		  <?php endfor; ?>
+		  <li><a href="#">Next</a></li>
+		  <li><a href="#">Last &rarr;</a></li>
+		</ul>
+	</div>
+	
 	<div class="row"> <!-- detailsbottom -->
 	<div class="span12">
 			
@@ -80,6 +93,8 @@
         </div>
     <hr />
 	</div>
+	
+	
 	</div> <!-- detailsbottom -->
 </div>
 </div><!--Body content-->

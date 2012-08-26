@@ -10,6 +10,11 @@ class Shop extends CI_Controller {
 		$this->load->model('f_item_model');
 	}
 	
+	public function test($cat_id) {
+		$item_query = $this->f_item_model->getNumOfItems($cat_id);
+		echo $item_query['total'];
+	}
+	
 	public function index() 
 	{
 		if($this->session->userdata('logged_in')) {
@@ -100,8 +105,10 @@ class Shop extends CI_Controller {
 	    
 	    $browse_data['items'] = $this->f_item_model->getItemByCatId($lv3_cat_id);
 	    
-	    
 	    $browse_data['breadcrumb'] = $this->d_category_model->getBreadcrumb($lv3_cat_id);
+	    
+	    $item_query = $this->f_item_model->getNumOfItems($lv3_cat_id);
+	    $browse_data['total_amount'] = $item_query['total'];
 	    
 		$data['page_title'] = $cat_query['category_name'];
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
@@ -155,8 +162,9 @@ class Shop extends CI_Controller {
 		$this->load->view('templates/footer', $footer_data);
 	}
 	
-	public function pagination() {
-		$output = array('message' => 'This is json', 'location' => 'location 2');
+	public function pagination($cat_id) {
+		$item_query = $this->f_item_model->getNumOfItems($cat_id);
+		$output = array('message' => 'This is json', 'location' => 'location 2', 'total' => $item_query['total']);
 		echo json_encode($output);
 	}
 }

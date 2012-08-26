@@ -48,10 +48,10 @@ $(document).ready(function() {
                                type:"post",
                                dataType: "json",
                                data: "id=" + $(this).attr("id"),  
-                               url:"<?php echo site_url('shop/pagination'); ?>",  
+                               url:"<?php echo site_url('shop/pagination/18'); ?>",  
                                success: function(data){
                                			var skuname = "<?php echo 'I am here'; ?>";
-                               			var price = 5;
+                               			var price = data.total;
                                			var html_string = '<ul class="thumbnails">';
                                			html_string += '<li class="span3">';
                                			html_string += '<div class="thumbnail">';
