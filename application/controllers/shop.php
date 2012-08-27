@@ -100,6 +100,9 @@ class Shop extends CI_Controller {
 	     $session_data = $this->session->userdata('logged_in');
 	     $nav_data['session_email'] = $session_data['email'];
 	    }
+	    
+	    $per_page = 2;
+		$max_pagenum = 3;
 
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
 	    
@@ -108,7 +111,8 @@ class Shop extends CI_Controller {
 	    $browse_data['breadcrumb'] = $this->d_category_model->getBreadcrumb($lv3_cat_id);
 	    
 	    $item_query = $this->f_item_model->getNumOfItems($lv3_cat_id);
-	    $browse_data['total_amount'] = $item_query['total'];
+	    $browse_data['total_page_amount'] = intval($item_query['total'] / $per_page) + 1;
+	    $browse_data['max_pagenum'] = $max_pagenum;
 	    
 		$data['page_title'] = $cat_query['category_name'];
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 

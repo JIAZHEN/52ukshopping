@@ -64,9 +64,17 @@
 		<ul class="pager">
 		  <li><a href="#">&larr; First</a></li>
 		  <li><a href="#">Prev</a></li>
-		  <?php for($item_counter = 1; $item_counter <= $total_amount; $item_counter++): ?>
-		  	<li><a href="#"><?php echo $item_counter; ?></a></li>
-		  <?php endfor; ?>
+		  <?php if($total_page_amount > $max_pagenum) : ?>
+			  		<?php for($item_counter = 1; $item_counter <= $max_pagenum; $item_counter++): ?>
+				  		<li><a href="#"><?php echo $item_counter; ?></a></li>
+				  	<?php endfor; ?>
+				  	<li><a href="#">...</a></li>
+			  	<?php else : ?>	
+			  		<?php for($item_counter = 1; $item_counter <= $total_page_amount; $item_counter++): ?>
+				  		<li><a href="#"><?php echo $item_counter; ?></a></li>
+				  	<?php endfor; ?>  	
+		  <?php endif; ?>
+		  
 		  <li><a href="#">Next</a></li>
 		  <li><a href="#">Last &rarr;</a></li>
 		</ul>
