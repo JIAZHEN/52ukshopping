@@ -20,6 +20,14 @@ class F_item_model extends CI_Model {
 		$query = $this->db->get_where('f_item', array('category_id' => $cat_id));
 		return $query->row_array();
 	}
+	
+	public function getItemsForPagination($cat_id, $limit, $offset) {
+		
+		$this -> db -> where('category_id = ' . $cat_id);
+		$query = $this->db->get('f_item', $limit, $offset);
+		
+		return $query->result_array();
+	}
 }
 /* End of file f_item_model.php */
 /* Location: ./application/models/f_item_model.php */

@@ -25,13 +25,7 @@
 			    <a href="" class="pull-right">Need help?</a>
 		    </ul>
 		</div> 
-	</div> <!-- breadcrumb -->
-	
-	<div class="row"> <!-- pagination -->
-		<label for="showdata">Feedback</label><input id="showdata" type="text" name="data" value="wait" />
-        <button class="btn btn-primary" id="ajaxbtn">Click</button>
-	</div> <!-- pagination -->
-	
+	</div> <!-- breadcrumb -->	
 	
 	<div class="row"> <!-- detailstop -->
 		<div id="display" class="span12">
@@ -61,23 +55,8 @@
 	</div> <!-- detailstop -->
 	
 	<div class="row">
-		<ul class="pager">
-		  <li><a href="#">&larr; First</a></li>
-		  <li><a href="#">Prev</a></li>
-		  <?php if($total_page_amount > $max_pagenum) : ?>
-			  		<?php for($item_counter = 1; $item_counter <= $max_pagenum; $item_counter++): ?>
-				  		<li><a href="#"><?php echo $item_counter; ?></a></li>
-				  	<?php endfor; ?>
-				  	<li><a href="#">...</a></li>
-			  	<?php else : ?>	
-			  		<?php for($item_counter = 1; $item_counter <= $total_page_amount; $item_counter++): ?>
-				  		<li><a href="#"><?php echo $item_counter; ?></a></li>
-				  	<?php endfor; ?>  	
-		  <?php endif; ?>
-		  
-		  <li><a href="#">Next</a></li>
-		  <li><a href="#">Last &rarr;</a></li>
-		</ul>
+		<div id="demo4" class="pagination pagination-centered">                   
+        </div>
 	</div>
 	
 	<div class="row"> <!-- detailsbottom -->

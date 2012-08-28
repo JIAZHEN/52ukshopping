@@ -10,9 +10,12 @@ class Shop extends CI_Controller {
 		$this->load->model('f_item_model');
 	}
 	
-	public function test($cat_id) {
-		$item_query = $this->f_item_model->getNumOfItems($cat_id);
-		echo $item_query['total'];
+	public function test() {
+		$item_query = $this->f_item_model->getItemsForPagination(18, 3, (1 - 1) * 3);
+		foreach	($item_query as $item_key => $item_value) {
+			print_r($item_value);
+			echo '<br>';
+		}
 	}
 	
 	public function index() 
@@ -106,7 +109,8 @@ class Shop extends CI_Controller {
 
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
 	    
-	    $browse_data['items'] = $this->f_item_model->getItemByCatId($lv3_cat_id);
+	    $browse_data['cat_id'] = $lv3_cat_id;
+	    $browse_data['items'] = $this->f_item_model->getItemsForPagination($lv3_cat_id, $per_page, 0);
 	    
 	    $browse_data['breadcrumb'] = $this->d_category_model->getBreadcrumb($lv3_cat_id);
 	    
@@ -119,10 +123,12 @@ class Shop extends CI_Controller {
 								'bootstrap/css/bootstrap-responsive.css',
 								'css/nav.css',
 								'css/shop/category.css',
-								'css/footer.css');
+								'css/jpaginate/style.css',
+								'css/footer.css',);
 		
 		$footer_data['jses'] = array('js/jquery-1.8.0.min.js',
 									 'bootstrap/js/bootstrap.js',
+									 'js/jpaginate/jquery.paginate.js',
 									 'js/shop/browse.js');
 									 
 		$this->load->view('templates/header', $data);
@@ -166,10 +172,15 @@ class Shop extends CI_Controller {
 		$this->load->view('templates/footer', $footer_data);
 	}
 	
-	public function pagination($cat_id) {
-		$item_query = $this->f_item_model->getNumOfItems($cat_id);
-		$output = array('message' => 'This is json', 'location' => 'location 2', 'total' => $item_query['total']);
-		echo json_encode($output);
+	public function pagination() {
+	
+		$cat_id = $this->input->post('cat_id');
+		$pagenum = $this->input->post('pagenum');
+		$per_page = 2;
+		
+		$item_query = $this->f_item_model->getItemsForPagination($cat_id, $per_page, ($pagenum - 1) * $per_page);
+		
+		echo json_encode($item_query);
 	}
 }
 /* End of file shop.php */
