@@ -26,7 +26,9 @@ class Main extends CI_Controller {
 								'css/scroll.css', 
 								'css/footer.css');
 		
-		$footer_data['jses'] = array('js/jquery.tools.min.js', 
+		$footer_data['jses'] = array(
+									 'js/jquery-1.8.0.min.js',
+									 'js/jquery.tools.min.js',
 									 'js/scrollable.js', 
 									 'js/main_view.js',
 									 'bootstrap/js/bootstrap.js');

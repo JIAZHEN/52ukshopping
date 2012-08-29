@@ -8,19 +8,40 @@
 		    </form>
 	</div>
 	<div class="basket">
-		<ul>
-		<li><a href="<?php echo base_url().'cart'; ?>" class="btn btn-success"><i class="icon-shopping-cart icon-white"></i>Items <?php echo $this->cart->total_items(); ?></a></li>
-          	<?php if(isset($session_email)) { 	echo '<li><a href="'.base_url().'main/logout" class="btn btn-danger">logout</a></li>';
-          										//echo '<li><span class="divider">|</span></li>';
-          										echo '<li><a class="btn btn-info">Welcome '.$session_email.'</a></li>'; }
-          		  else {	echo '<li><a href="'.base_url().'login" class="btn btn-primary">login</a></li>';
-	          		  		//echo '<li><span class="divider">|</span></li>';
-	          		  		echo '<li><a href="'.base_url().'users/register" class="btn btn-primary">register</a></li>';
-          		  } ?>
-		</ul>
-		
+		<div class="btn-toolbar" style="margin: 0;">
+              <?php if(isset($session_email)) : ?> 
+               <div class="btn-group">
+               		<a class="btn btn-info"><?php echo 'Welcome '.$session_email; ?></a>
+               		<a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+				    <ul class="dropdown-menu">
+				    <li><a href="#"><i class="icon-pencil"></i> Edit</a></li>
+				    <li><a href="#"><i class="icon-trash"></i> Delete</a></li>
+				    <li><a href="#"><i class="icon-ban-circle"></i> Ban</a></li>
+				    <li class="divider"></li>
+				    <li><a href="#"><i class="i"></i> Make admin</a></li>
+				    </ul>
+               </div>
+                <div class="btn-group">
+               		<a href="<?php echo base_url().'main/logout'; ?>" class="btn btn-danger">logout</a>
+               </div>
+               <?php else: ?>
+               		<div class="btn-group">
+               			<a href="<?php echo base_url().'login'; ?>" class="btn btn-primary">login</a>
+               		</div>
+               		<div class="btn-group">
+	          			<a href="<?php echo base_url().'users/register'; ?>" class="btn btn-primary">register</a>
+	          		</div>
+	          <?php endif; ?>
+	          <div class="btn-group">
+                <a href="<?php echo base_url().'cart'; ?>" class="btn btn-success"><i class="icon-shopping-cart icon-white"></i>Items <?php echo $this->cart->total_items(); ?></a>
+              </div><!-- /btn-group -->
+          		  
+              
+             
+		</div>
 	</div>
 </div>
+
 <!-- delta -112px -->
 <div class="oe_nav"> <!-- oe_nav -->
 	<div id="oe_overlay" class="oe_overlay"></div>
