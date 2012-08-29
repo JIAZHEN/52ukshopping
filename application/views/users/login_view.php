@@ -10,7 +10,7 @@
 			  <!-- Text input-->
 			  <label class="control-label" for="email">Email Address</label>
 			  <div class="controls">
-			    <input id="email" name="email" placeholder="" class="input-xlarge" type="text" value="<?php echo set_value('email'); ?>">
+			    <input id="email" name="email" placeholder="Email" class="input-xlarge" type="text" value="<?php echo set_value('email'); ?>">
 			    <p class="help-block"><?php echo form_error('email'); ?></p>
 			  </div>
 			</div>	        
@@ -18,7 +18,7 @@
 			  <!-- Text input-->
 			  <label class="control-label" for="password">Password</label>
 			  <div class="controls">
-			    <input id="password" name="password" placeholder="" class="input-xlarge" type="password" >
+			    <input id="password" name="password" placeholder="Password" class="input-xlarge" type="password" >
 			    <p class="help-block">6~12 charecters<?php echo form_error('password'); ?></p>
 			  </div>
 			</div>

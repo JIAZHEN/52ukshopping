@@ -14,11 +14,11 @@
                		<a class="btn btn-info"><?php echo 'Welcome '.$session_email; ?></a>
                		<a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 				    <ul class="dropdown-menu">
-				    <li><a href="#"><i class="icon-pencil"></i> Edit</a></li>
-				    <li><a href="#"><i class="icon-trash"></i> Delete</a></li>
-				    <li><a href="#"><i class="icon-ban-circle"></i> Ban</a></li>
+				    <li><a href="#"><i class="icon-pencil"></i> Edit Profile</a></li>
+				    <li><a href="#"><i class="icon-user"></i> View Profile</a></li>
+				    <li><a href="#"><i class="icon-th-list"></i> Order History</a></li>
 				    <li class="divider"></li>
-				    <li><a href="#"><i class="i"></i> Make admin</a></li>
+				    <li><a href="#"><i class="icon-wrench"></i> Change password</a></li>
 				    </ul>
                </div>
                 <div class="btn-group">

@@ -4,7 +4,10 @@ class Users extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->helper('url');
+		$this->load->library('cart');
 		$this->load->model('f_users_model');
+		$this->load->model('d_category_model');
 	}
 
 	public function register()
@@ -52,7 +55,30 @@ class Users extends CI_Controller {
 			$this->session->set_userdata('logged_in', $sess_array);
 			$this->load->view('users/success');
 		}
-		
+	}
+	
+	function admin() {
+		if($this->session->userdata('logged_in')) {
+			$session_data = $this->session->userdata('logged_in');
+			$nav_data['session_email'] = $session_data['email'];
+			$nav_data['category'] = $this->d_category_model->conduct_categories();
+			$data['page_title'] = 'Admin';
+			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+									'bootstrap/css/bootstrap-responsive.css',
+									'css/nav.css',
+									'css/footer.css');
+			
+			$footer_data['jses'] = array(
+										 'js/jquery-1.8.0.min.js',
+										 'bootstrap/js/bootstrap.js');
+			$this->load->view('templates/header', $data);
+			$this->load->view('templates/nav', $nav_data);
+			$this->load->view('users/admin_view.php');
+			$this->load->view('templates/footer', $footer_data);
+	    } else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'login');
+	    }
 		
 	}
 	
