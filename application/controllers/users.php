@@ -57,7 +57,7 @@ class Users extends CI_Controller {
 		}
 	}
 	
-	function admin() {
+	function index() {
 		if($this->session->userdata('logged_in')) {
 			$session_data = $this->session->userdata('logged_in');
 			$nav_data['session_email'] = $session_data['email'];

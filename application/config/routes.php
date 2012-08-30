@@ -39,9 +39,7 @@
 */
 $route['main'] = 'main';
 $route['users/register'] = 'users/register';
-$route['users'] = 'users';
-$route['news/(:any)'] = 'news/view/$1';
-$route['news'] = 'news';
+$route['users/(:any)'] = 'users';
 $route['default_controller'] = 'main';
 $route['404_override'] = '';
 
