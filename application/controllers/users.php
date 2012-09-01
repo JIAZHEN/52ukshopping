@@ -60,17 +60,20 @@ class Users extends CI_Controller {
 	function index() {
 		if($this->session->userdata('logged_in')) {
 			$session_data = $this->session->userdata('logged_in');
-			$nav_data['session_email'] = $session_data['email'];
+			$nav_data['session_name'] = $session_data['first_name'];
 			$nav_data['category'] = $this->d_category_model->conduct_categories();
 			$data['page_title'] = 'Admin';
 			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 									'bootstrap/css/bootstrap-responsive.css',
 									'css/nav.css',
+									'css/users/admin.css',
 									'css/footer.css');
 			
 			$footer_data['jses'] = array(
 										 'js/jquery-1.8.0.min.js',
-										 'bootstrap/js/bootstrap.js');
+										 'js/jquery.validate.js',
+										 'bootstrap/js/bootstrap.js',
+										 'js/users/admin.js');
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/nav', $nav_data);
 			$this->load->view('users/admin_view.php');
@@ -141,6 +144,16 @@ class Users extends CI_Controller {
 		{
 		 $this->form_validation->set_message('check_database', 'Invalid username or password');
 		 return false;
+		}
+	}
+	
+	public function check_password() {
+		
+		$id = $this->input->post('id', true);
+		if ($id == 'ok' ) {
+			echo 'true';
+		} else {
+			echo 'false';
 		}
 	}
 }

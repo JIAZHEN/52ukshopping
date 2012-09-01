@@ -47,7 +47,7 @@ class F_users_model extends CI_Model {
 	
 	function login($username, $password)
 	{
-	   $this -> db -> select('id, email, password');
+	   $this -> db -> select('id, email, password, first_name');
 	   $this -> db -> from('f_users');
 	   $this -> db -> where('email = ' . "'" . $username . "'");
 	   $this -> db -> where('password = ' . "'" . md5($password) . "'");

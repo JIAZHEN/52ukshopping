@@ -22,7 +22,7 @@ class Shop extends CI_Controller {
 	{
 		if($this->session->userdata('logged_in')) {
 	     $session_data = $this->session->userdata('logged_in');
-	     $nav_data['session_email'] = $session_data['email'];
+	     $nav_data['session_name'] = $session_data['first_name'];
 	    }
 
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
@@ -67,7 +67,7 @@ class Shop extends CI_Controller {
 	
 		if($this->session->userdata('logged_in')) {
 	     $session_data = $this->session->userdata('logged_in');
-	     $nav_data['session_email'] = $session_data['email'];
+	     $nav_data['session_name'] = $session_data['first_name'];
 	    }
 
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
@@ -101,7 +101,7 @@ class Shop extends CI_Controller {
 		
 		if($this->session->userdata('logged_in')) {
 	     $session_data = $this->session->userdata('logged_in');
-	     $nav_data['session_email'] = $session_data['email'];
+	     $nav_data['session_name'] = $session_data['first_name'];
 	    }
 	    
 	    $per_page = 2;
@@ -142,7 +142,7 @@ class Shop extends CI_Controller {
 	{
 		if($this->session->userdata('logged_in')) {
 	     $session_data = $this->session->userdata('logged_in');
-	     $nav_data['session_email'] = $session_data['email'];
+	     $nav_data['session_name'] = $session_data['first_name'];
 	    }
 	    
 	    if ($id > 0) {

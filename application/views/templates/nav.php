@@ -9,9 +9,9 @@
 	</div>
 	<div class="basket">
 		<div class="btn-toolbar" style="margin: 0;">
-              <?php if(isset($session_email)) : ?> 
+              <?php if(isset($session_name)) : ?> 
                <div class="btn-group">
-               		<a class="btn btn-info"><?php echo 'Welcome '.$session_email; ?></a>
+               		<a class="btn btn-info"><?php echo 'Welcome '.$session_name; ?></a>
                		<a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 				    <ul class="dropdown-menu">
 				    <li><a href="#"><i class="icon-pencil"></i> Edit Profile</a></li>
