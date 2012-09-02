@@ -10,7 +10,9 @@ $(document).ready(function() {
 		        type: "post",
 		        dataType: "json",
 		        data: {
-		        	user_id: 'sdfsdlkfnasldkfna;slkdfb;saldbf;asbf;ajsdfhslhdfl'
+		        	user_id: function() {
+			            return $("#inputoldpsw").val();
+			        }
 		        	
 		        }
 		    }  

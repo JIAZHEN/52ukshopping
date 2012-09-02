@@ -76,7 +76,6 @@ class Users extends CI_Controller {
 										 'js/jquery-1.8.0.min.js',
 										 'js/jquery.validate.js',
 										 'bootstrap/js/bootstrap.js',
-										 'js/users/admin.js',
 										 'js/navigation.js');
 										 
 			$this->load->view('templates/header', $data);
@@ -156,8 +155,8 @@ class Users extends CI_Controller {
 	}
 	
 	public function check_password() {
-		$id = $this->input->post('user_id', true);
-	 	 if ($id == 'ok' ) {
+		$user_id = $this->input->post('user_id', true);
+	 	 if ($user_id == 1 ) {
 	 	 	echo 'true';
 	 	 } else {
 	 	 	echo 'false';
