@@ -61,13 +61,16 @@ class Users extends CI_Controller {
 		if($this->session->userdata('logged_in')) {
 			$session_data = $this->session->userdata('logged_in');
 			$nav_data['session_name'] = $session_data['first_name'];
+			
+			$custom['user_id'] = $session_data['id'];
+			
 			$nav_data['category'] = $this->d_category_model->conduct_categories();
 			$data['page_title'] = 'Admin';
 			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 									'bootstrap/css/bootstrap-responsive.css',
 									'css/nav.css',
-									'css/users/admin.css',
-									'css/footer.css');
+									'css/footer.css',
+									'css/users/admin');
 			
 			$js_data['jses'] = array(
 										 'js/jquery-1.8.0.min.js',
@@ -75,11 +78,13 @@ class Users extends CI_Controller {
 										 'bootstrap/js/bootstrap.js',
 										 'js/users/admin.js',
 										 'js/navigation.js');
+										 
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/nav', $nav_data);
 			$this->load->view('users/admin_view.php');
 			$this->load->view('templates/footer');
 			$this->load->view('templates/load_javascripts', $js_data);
+			$this->load->view('users/admin_custom_js', $custom);
 			$this->load->view('templates/close');
 	    } else {
 		    //Field validation failed.  User redirected to login page
@@ -151,13 +156,12 @@ class Users extends CI_Controller {
 	}
 	
 	public function check_password() {
-		
-		$id = $this->input->post('id', true);
-		if ($id == 'ok' ) {
-			echo 'true';
-		} else {
-			echo 'false';
-		}
+		$id = $this->input->post('user_id', true);
+	 	 if ($id == 'ok' ) {
+	 	 	echo 'true';
+	 	 } else {
+	 	 	echo 'false';
+	 	 }
 	}
 }
 /* End of file users.php */

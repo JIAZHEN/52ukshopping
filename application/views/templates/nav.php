@@ -14,7 +14,7 @@
                		<a class="btn btn-info"><?php echo 'Welcome '.$session_name; ?></a>
                		<a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 				    <ul class="dropdown-menu">
-				    <li><a href="#"><i class="icon-pencil"></i> Edit Profile</a></li>
+				    <li><a href="<?php echo base_url().'users'; ?>"><i class="icon-pencil"></i> Edit Profile</a></li>
 				    <li><a href="#"><i class="icon-user"></i> View Profile</a></li>
 				    <li><a href="#"><i class="icon-th-list"></i> Order History</a></li>
 				    <li class="divider"></li>
