@@ -69,15 +69,18 @@ class Users extends CI_Controller {
 									'css/users/admin.css',
 									'css/footer.css');
 			
-			$footer_data['jses'] = array(
+			$js_data['jses'] = array(
 										 'js/jquery-1.8.0.min.js',
 										 'js/jquery.validate.js',
 										 'bootstrap/js/bootstrap.js',
-										 'js/users/admin.js');
+										 'js/users/admin.js',
+										 'js/navigation.js');
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/nav', $nav_data);
 			$this->load->view('users/admin_view.php');
-			$this->load->view('templates/footer', $footer_data);
+			$this->load->view('templates/footer');
+			$this->load->view('templates/load_javascripts', $js_data);
+			$this->load->view('templates/close');
 	    } else {
 		    //Field validation failed.  User redirected to login page
 		 	redirect(base_url().'login');

@@ -36,13 +36,16 @@ class Shop extends CI_Controller {
 								'css/shop/category.css',
 								'css/footer.css');
 		
-		$footer_data['jses'] = array('js/jquery-1.8.0.min.js',
-									 'bootstrap/js/bootstrap.js');
+		$js_data['jses'] = array(	 'js/jquery-1.8.0.min.js',
+									 'bootstrap/js/bootstrap.js',
+									 'js/navigation.js');
 									 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
 		$this->load->view('shop/category_view', $category_data);
-		$this->load->view('templates/footer', $footer_data);
+		$this->load->view('templates/footer');
+		$this->load->view('templates/load_javascripts', $js_data);
+		$this->load->view('templates/close');
 
 	}
 	
@@ -78,13 +81,16 @@ class Shop extends CI_Controller {
 								'css/shop/category.css',
 								'css/footer.css');
 		
-		$footer_data['jses'] = array('js/jquery-1.8.0.min.js',
-									 'bootstrap/js/bootstrap.js');
+		$js_data['jses'] = array(	'js/jquery-1.8.0.min.js',
+									'bootstrap/js/bootstrap.js',
+									'js/navigation.js');
 									 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
 		$this->load->view('shop/category_view', $category_data);
-		$this->load->view('templates/footer', $footer_data);
+		$this->load->view('templates/footer');
+		$this->load->view('templates/load_javascripts', $js_data);
+		$this->load->view('templates/close');
 
 	}
 	
@@ -115,8 +121,9 @@ class Shop extends CI_Controller {
 	    $browse_data['breadcrumb'] = $this->d_category_model->getBreadcrumb($lv3_cat_id);
 	    
 	    $item_query = $this->f_item_model->getNumOfItems($lv3_cat_id);
-	    $browse_data['total_page_amount'] = intval($item_query['total'] / $per_page) + 1;
-	    $browse_data['max_pagenum'] = $max_pagenum;
+	    
+	    $custom['total_page_amount'] = intval($item_query['total'] / $per_page) + 1;
+	    $custom['max_pagenum'] = $max_pagenum;
 	    
 		$data['page_title'] = $cat_query['category_name'];
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
@@ -126,15 +133,19 @@ class Shop extends CI_Controller {
 								'css/jpaginate/style.css',
 								'css/footer.css',);
 		
-		$footer_data['jses'] = array('js/jquery-1.8.0.min.js',
+		$js_data['jses'] = array(	 'js/jquery-1.8.0.min.js',
 									 'bootstrap/js/bootstrap.js',
 									 'js/jpaginate/jquery.paginate.js',
-									 'js/shop/browse.js');
+									 'js/shop/browse.js',
+									 'js/navigation.js');
 									 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
 		$this->load->view('shop/browse_view', $browse_data);
-		$this->load->view('templates/footer_custom_js_view', $footer_data);
+		$this->load->view('templates/footer');
+		$this->load->view('templates/load_javascripts', $js_data);
+		$this->load->view('shop/browse_custom_js', $custom);
+		$this->load->view('templates/close');
 
 	}
 
@@ -162,14 +173,17 @@ class Shop extends CI_Controller {
 								'css/cloud-zoom.css',
 								'css/footer.css');
 		
-		$footer_data['jses'] = array(	'js/jquery-1.8.0.min.js',
+		$js_data['jses'] = array(		'js/jquery-1.8.0.min.js',
 										'js/shop/detail.js',
 										'js/cloud-zoom.1.0.2.js',
-										'bootstrap/js/bootstrap.js');
+										'bootstrap/js/bootstrap.js',
+										'js/navigation.js');
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
 		$this->load->view('shop/detail_view', $detail_data);
-		$this->load->view('templates/footer', $footer_data);
+		$this->load->view('templates/footer');
+		$this->load->view('templates/load_javascripts', $js_data);
+		$this->load->view('templates/close');
 	}
 	
 	public function pagination() {

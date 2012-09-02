@@ -55,7 +55,7 @@
 	</div> <!-- detailstop -->
 	
 	<div class="row">
-		<div id="demo4" class="pagination pagination-centered">                   
+		<div id="demo4" class="span12 pagination pagination-centered">                   
         </div>
 	</div>
 	

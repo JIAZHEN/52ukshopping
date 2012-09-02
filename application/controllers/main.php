@@ -26,16 +26,19 @@ class Main extends CI_Controller {
 								'css/scroll.css', 
 								'css/footer.css');
 		
-		$footer_data['jses'] = array(
+		$js_data['jses'] = array(
 									 'js/jquery-1.8.0.min.js',
 									 'js/jquery.tools.min.js',
 									 'js/scrollable.js', 
 									 'js/main_view.js',
-									 'bootstrap/js/bootstrap.js');
+									 'bootstrap/js/bootstrap.js',
+									 'js/navigation.js');
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
 		$this->load->view('main_view.php');
-		$this->load->view('templates/footer', $footer_data);
+		$this->load->view('templates/footer');
+		$this->load->view('templates/load_javascripts', $js_data);
+		$this->load->view('templates/close');
 	}
 	
 	function logout() {

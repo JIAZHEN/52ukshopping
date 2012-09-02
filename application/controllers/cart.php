@@ -23,13 +23,16 @@ class Cart extends CI_Controller {
 								'css/nav.css',
 								'css/footer.css');
 		
-		$footer_data['jses'] = array('js/jquery.tools.min.js',
+		$js_data['jses'] = array(	 'js/jquery.tools.min.js',
 									 'bootstrap/js/bootstrap.js',
-									 'js/cart/cart.js');
+									 'js/cart/cart.js',
+									 'js/navigation.js');
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
 		$this->load->view('cart/index');
-		$this->load->view('templates/footer', $footer_data);
+		$this->load->view('templates/footer');
+		$this->load->view('templates/load_javascripts', $js_data);
+		$this->load->view('templates/close');
 	}
 	
 	public function add_cart() 
