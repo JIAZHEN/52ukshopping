@@ -57,17 +57,21 @@ class Users extends CI_Controller {
 		}
 	}
 	
-	function index() {
+	function index($active_tab = 'tab1') {
 		if($this->session->userdata('logged_in')) {
 			$session_data = $this->session->userdata('logged_in');
 			$nav_data['session_name'] = $session_data['first_name'];
 			
 			$admin_data['user_id'] = $session_data['id'];
+			$admin_data['active_tab'] = $active_tab;
+			
+			$admin_data['user_info'] = $this->f_users_model->get_users($session_data['id']);
 			
 			$nav_data['category'] = $this->d_category_model->conduct_categories();
 			$data['page_title'] = 'Admin';
 			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 									'bootstrap/css/bootstrap-responsive.css',
+									'bootstrap/css/datepicker.css',
 									'css/nav.css',
 									'css/footer.css',
 									'css/users/admin');
@@ -76,6 +80,7 @@ class Users extends CI_Controller {
 										 'js/jquery-1.8.0.min.js',
 										 'js/jquery.validate.js',
 										 'bootstrap/js/bootstrap.js',
+										 'bootstrap/js/bootstrap-datepicker.js',
 										 'js/navigation.js');
 										 
 			$this->load->view('templates/header', $data);

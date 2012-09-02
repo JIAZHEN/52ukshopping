@@ -6,14 +6,8 @@ class F_users_model extends CI_Model {
 		$this->load->database();
 	}
 	
-	function get_users($id = FALSE)
+	function get_users($id)
 	{
-		if ($id === FALSE)
-		{
-			$query = $this->db->get('f_users');
-			return $query->result_array();
-		}
-		
 		$query = $this->db->get_where('f_users', array('id' => $id));
 		return $query->row_array();
 	}

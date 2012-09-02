@@ -1,6 +1,7 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
+
   var validator = $('#change_password').validate({
 	    rules: {
 	      inputoldpsw: {
@@ -58,6 +59,8 @@ $(document).ready(function() {
 		$('#change_password').find('.control-group').removeClass('error success');
 		validator.resetForm();
     });
+    
+    $('#birthday').datepicker();
     
 });
 
