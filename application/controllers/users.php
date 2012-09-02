@@ -62,7 +62,7 @@ class Users extends CI_Controller {
 			$session_data = $this->session->userdata('logged_in');
 			$nav_data['session_name'] = $session_data['first_name'];
 			
-			$custom['user_id'] = $session_data['id'];
+			$admin_data['user_id'] = $session_data['id'];
 			
 			$nav_data['category'] = $this->d_category_model->conduct_categories();
 			$data['page_title'] = 'Admin';
@@ -80,10 +80,10 @@ class Users extends CI_Controller {
 										 
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/nav', $nav_data);
-			$this->load->view('users/admin_view.php');
+			$this->load->view('users/admin_view.php', $admin_data);
 			$this->load->view('templates/footer');
 			$this->load->view('templates/load_javascripts', $js_data);
-			$this->load->view('users/admin_custom_js', $custom);
+			$this->load->view('users/admin_custom_js');
 			$this->load->view('templates/close');
 	    } else {
 		    //Field validation failed.  User redirected to login page
@@ -156,11 +156,19 @@ class Users extends CI_Controller {
 	
 	public function check_password() {
 		$user_id = $this->input->post('user_id', true);
-	 	 if ($user_id == 1 ) {
-	 	 	echo 'true';
-	 	 } else {
-	 	 	echo 'false';
-	 	 }
+		$old_psw = $this->input->post('old_psw', true);
+	 	if($this->f_users_model->check_password($user_id, $old_psw)) {
+		 	echo 'true';
+	 	} else {
+		 	echo 'false';
+	 	}
+	}
+	
+	public function update_password() {
+		$user_id = $this->input->post('my_id', true);
+		$new_psw = $this->input->post('inputnewpassword', true);
+		$this->f_users_model->set_password($user_id, $new_psw);
+		redirect(base_url().'users');
 	}
 }
 /* End of file users.php */

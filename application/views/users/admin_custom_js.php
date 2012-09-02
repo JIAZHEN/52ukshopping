@@ -10,8 +10,11 @@ $(document).ready(function() {
 		        type: "post",
 		        dataType: "json",
 		        data: {
-		        	user_id: function() {
+		        	old_psw: function() {
 			            return $("#inputoldpsw").val();
+			        },
+			        user_id: function() {
+			            return $("#my_id").val();
 			        }
 		        	
 		        }

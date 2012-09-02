@@ -173,12 +173,13 @@
 				    
 				    
 				    <div class="tab-pane" id="tab2"> <!-- tab2 -->
-<form class="form-horizontal" id="change_password" method="post">
+<form class="form-horizontal" id="change_password" method="post" action="<?php echo base_url().'users/update_password'; ?>">
 
 <div class="control-group">
 <label class="span4 control-label" for="inputoldpsw" id="test">Old Password</label>
 <div class="span4 controls">
 <input type="password" id="inputoldpsw" name="inputoldpsw" placeholder="Old Password">
+<input type="hidden" id="my_id" name="my_id" value="<?php echo $user_id; ?>">
 </div>
 </div>
 
