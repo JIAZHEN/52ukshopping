@@ -5,7 +5,7 @@ var $oe_overlay     = $('#oe_overlay');
 $oe_menu_items.bind('mouseenter',function(){
     var $this = $(this);
     $this.addClass('slided selected');
-    $this.children('div').css('z-index','9999').stop(true,true).slideDown(200,function(){
+    $this.children('div').css('z-index','9999999').stop(true,true).slideDown(200,function(){
         $oe_menu_items.not('.slided').children('div').hide();
         $this.removeClass('slided');
     });
