@@ -20,7 +20,7 @@
 		</ul>
 		<div class="tab-content">
 				    <div class="tab-pane<?php if($active_tab == 'tab1') echo ' active'; ?>" id="tab1"> <!-- tab1 -->
-				    	    <form class="form-horizontal" method="post" action="<?php echo base_url()."users/register"; ?>" >
+				    	    <form id="change_personal" class="form-horizontal" method="post" action="<?php echo base_url(); ?>" >
 <fieldset>
 <div id="legend" class="">
 <legend class="">Personal detail - 52UKSHOPPING</legend>
@@ -30,11 +30,11 @@
       <label class="control-label">Title</label>
       <div class="controls">
 	      <!-- Inline Radios -->
-	      <label class="radio inline"><input checked="checked" value="Miss" name="title" type="radio" <?php if($user_info['title'] == 'Miss') echo ' checked="true"'; ?>>Miss</label>
-	      <label class="radio inline"><input value="Mrs" name="title" type="radio" <?php if($user_info['title'] == 'Mrs') echo ' checked="true"'; ?>>Mrs</label>
-	      <label class="radio inline"><input value="Mr" name="title" type="radio" <?php if($user_info['title'] == 'Mr') echo ' checked="true"'; ?>>Mr</label>
-	      <label class="radio inline"><input value="Ms" name="title" type="radio" <?php if($user_info['title'] == 'Ms') echo ' checked="true"'; ?>>Ms</label>
-	      <label class="radio inline"><input value="Dr" name="title" type="radio" <?php if($user_info['title'] == 'Dr') echo ' checked="true"'; ?>>Dr</label>
+	      <label class="radio inline"><input checked="checked" value="Miss" name="title" type="radio" <?php if($user_info['title'] == 'Miss') echo ' checked="true"'; ?> disabled="true">Miss</label>
+	      <label class="radio inline"><input value="Mrs" name="title" type="radio" <?php if($user_info['title'] == 'Mrs') echo ' checked="true"'; ?> disabled="true">Mrs</label>
+	      <label class="radio inline"><input value="Mr" name="title" type="radio" <?php if($user_info['title'] == 'Mr') echo ' checked="true"'; ?> disabled="true">Mr</label>
+	      <label class="radio inline"><input value="Ms" name="title" type="radio" <?php if($user_info['title'] == 'Ms') echo ' checked="true"'; ?> disabled="true">Ms</label>
+	      <label class="radio inline"><input value="Dr" name="title" type="radio" <?php if($user_info['title'] == 'Dr') echo ' checked="true"'; ?> disabled="true">Dr</label>
 	  </div>
 </div>
 
@@ -42,7 +42,7 @@
   <!-- Text input-->
   <label class="control-label" for="firstname">First Name</label>
   <div class="controls">
-    <input id="firstname" name="firstname" placeholder="" class="input-medium" type="text" value="<?php echo $user_info['first_name']; ?>">
+    <input id="firstname" name="firstname" placeholder="" class="input-medium" type="text" value="<?php echo $user_info['first_name']; ?>" disabled="true">
     <p class="help-block"></p>
   </div>
 </div>
@@ -51,7 +51,7 @@
   <!-- Text input-->
   <label class="control-label" for="lastname">Last Name</label>
   <div class="controls">
-    <input id="lastname" name="lastname" placeholder="" class="input-medium" type="text" value="<?php echo $user_info['last_name']; ?>">
+    <input id="lastname" name="lastname" placeholder="" class="input-medium" type="text" value="<?php echo $user_info['last_name']; ?>" disabled="true">
     <p class="help-block"></p>
   </div>
 </div>
@@ -72,7 +72,7 @@
   <!-- Text input-->
   <label class="control-label" for="postcode">Postcode</label>
   <div class="controls">
-    <input id="postcode" name="postcode" placeholder="" class="input-small" type="text" value="<?php echo $user_info['postcode']; ?>">
+    <input id="postcode" name="postcode" placeholder="" class="input-small" type="text" value="<?php echo $user_info['postcode']; ?>" disabled="true">
     <p class="help-block"></p>
   </div>
 </div>
@@ -81,7 +81,7 @@
   <!-- Text input-->
   <label class="control-label" for="housename">House Name/Number</label>
   <div class="controls">
-    <input id="housename" name="housename" placeholder="" class="input-small" type="text" value="<?php echo $user_info['house_name']; ?>">
+    <input id="housename" name="housename" placeholder="" class="input-small" type="text" value="<?php echo $user_info['house_name']; ?>" disabled="true">
     <p class="help-block"></p>
   </div>
 </div>
@@ -90,7 +90,7 @@
   <!-- Text input-->
   <label class="control-label" for="address_one">Address line 1</label>
   <div class="controls">
-    <input id="addressone" name="address_one" placeholder="" class="input-xlarge" type="text" value="<?php echo $user_info['address_one']; ?>">
+    <input id="address_one" name="address_one" placeholder="" class="input-xlarge" type="text" value="<?php echo $user_info['address_one']; ?>" disabled="true">
     <p class="help-block"></p>
   </div>
 </div>
@@ -99,7 +99,7 @@
   <!-- Text input-->
   <label class="control-label" for="address_two">Address line 2</label>
   <div class="controls">
-    <input id="addresstwo" name="address_two" placeholder="" class="input-xlarge" type="text" value="<?php echo $user_info['address_two']; ?>">
+    <input id="addresstwo" name="address_two" placeholder="" class="input-xlarge" type="text" value="<?php echo $user_info['address_two']; ?>" disabled="true">
     <p class="help-block"></p>
   </div>
 </div>
@@ -108,7 +108,7 @@
   <!-- Text input-->
   <label class="control-label" for="city">Town/City</label>
   <div class="controls">
-    <input id="city" name="city" placeholder="" class="input-xlarge" type="text" value="<?php echo $user_info['city']; ?>">
+    <input id="city" name="city" placeholder="" class="input-xlarge" type="text" value="<?php echo $user_info['city']; ?>" disabled="true">
     <p class="help-block"></p>
   </div>
 </div>
@@ -117,7 +117,7 @@
   <!-- Select Basic -->
   <label class="control-label" for="country">Country</label>
   <div class="controls">
-    <select id="country" name="country" class="input-xlarge" >
+    <select id="country" name="country" class="input-xlarge" disabled="true">
 		<option value="UK" <?php echo set_select('country', 'UK', TRUE); ?>>UK</option>
 		<option value="CHN" <?php echo set_select('country', 'CHN'); ?>>CHN</option>
 		<option value="US" <?php echo set_select('country', 'US'); ?>>US</option>
@@ -129,7 +129,7 @@
   <!-- Text input-->
   <label class="control-label" for="passport">Passport</label>
   <div class="controls">
-    <input id="passport" name="passport" placeholder="" class="input-xlarge" type="text" value="<?php echo $user_info['passport']; ?>">
+    <input id="passport" name="passport" placeholder="" class="input-xlarge" type="text" value="<?php echo $user_info['passport']; ?>" disabled="true">
     <p class="help-block"></p>
   </div>
 </div>
@@ -138,7 +138,7 @@
   <!-- Text input-->
   <label class="control-label" for="identity_cn">Identity_cn</label>
   <div class="controls">
-    <input id="identity_cn" name="identity_cn" placeholder="" class="input-xlarge" type="text" value="<?php echo $user_info['identity_cn']; ?>">
+    <input id="identity_cn" name="identity_cn" placeholder="" class="input-xlarge" type="text" value="<?php echo $user_info['identity_cn']; ?>" disabled="true">
     <p class="help-block"></p>
   </div>
 </div>
@@ -147,7 +147,7 @@
   <!-- Text input-->
   <label class="control-label" for="mobile">Mobile</label>
   <div class="controls">
-    <input id="mobile" name="mobile" placeholder="" class="input-xlarge" type="text" value="<?php echo $user_info['mobile']; ?>">
+    <input id="mobile" name="mobile" placeholder="" class="input-xlarge" type="text" value="<?php echo $user_info['mobile']; ?>" disabled="true">
     <p class="help-block"></p>
   </div>
 </div>
@@ -156,14 +156,16 @@
   <!-- Text input-->
   <label class="control-label" for="telephone">Telephone</label>
   <div class="controls">
-    <input id="telephone" name="telephone" placeholder="" class="input-xlarge" type="text" value="<?php echo $user_info['telephone']; ?>">
+    <input id="telephone" name="telephone" placeholder="" class="input-xlarge" type="text" value="<?php echo $user_info['telephone']; ?>" disabled="true">
     <p class="help-block"></p>
   </div>
 </div>
 	
 <div class="form-actions">
-	<button type="submit" class="btn btn-primary">Submit</button>
-	<button class="btn">Cancel</button>
+	<button type="button" id="start_update" class="btn btn-primary" data-toggle="button">Start update</button>
+    <a id="personal_reset" class="btn disabled">Cancel</a>
+	<a id="personal_submit" class="btn btn-primary disabled">Submit</a>
+	
 </div>    
 	
 </fieldset>
