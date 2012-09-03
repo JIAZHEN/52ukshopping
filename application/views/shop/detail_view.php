@@ -156,7 +156,7 @@
 			<div id="buttonbox"> <!-- buttonbox -->
 					<div class="span6">
 						<p>Price</p><strong>£ <?php echo number_format($info['price'],2); ?></strong>
-						<input type="hidden" name="price" value="5" />
+						<input type="hidden" name="price" value="<?php echo number_format($info['price'],2); ?>" />
 					</div>
 					<button class="span6 btn btn-success pull-right btn-large" type="submit">Buy now</button>
 					

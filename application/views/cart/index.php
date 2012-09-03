@@ -36,6 +36,7 @@
 		<input type="hidden" name="item_name_<?php echo $item_counter; ?>" value="<?php echo $item['name']; ?>">
 		
 		<td><?php echo $this->cart->format_number($item['price']); ?> </td>
+		<input type="hidden" name="amount_<?php echo $item_counter; ?>" value="<?php echo $this->cart->format_number($item['price']); ?>">
 		
 		<td><input type="text" class="input-mini" size="1" name="qty" value="<?php echo $item['qty']; ?>" /></td>
 		<input type="hidden" name="quantity_<?php echo $item_counter; ?>" value="<?php echo $item['qty']; ?>">
@@ -51,9 +52,8 @@
 			<td><?php echo ''; ?></td>
 		<?php endif; ?>
 		
-		
 		<td><?php echo $this->cart->format_number($item['subtotal']); ?></td>
-		<input type="hidden" name="amount_<?php echo $item_counter; ?>" value="<?php echo $this->cart->format_number($item['subtotal']); ?>">
+		
 		</tr>
 		
 		
@@ -70,7 +70,7 @@
 </div>
 <div class="span2 offset7">
 	<button id="update" class="btn btn-primary btn-small" type="submit">Update</button>
-	<button id="checkout" class="btn btn-success btn-small"><i class="icon-shopping-cart icon-white"></i>Checkout</a>
+	<button id="checkout" class="btn btn-success btn-small"><i class="icon-shopping-cart icon-white"></i>Checkout</button>
 </div>
 
 </div>
