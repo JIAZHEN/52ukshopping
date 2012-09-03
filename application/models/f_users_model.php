@@ -36,7 +36,9 @@ class F_users_model extends CI_Model {
 			'telephone' => $this->input->post('telephone', true)
 		);
 		
-		return $this->db->insert('f_users', $data);
+		$this->db->insert('f_users', $data);
+		
+		return $this->db->insert_id();
 	}
 	
 	function login($username, $password)
