@@ -121,12 +121,12 @@ $(document).ready(function() {
 	  	if ($('#personal_submit').attr('data-event') == undefined) {
 	  		// submit button
 		  	$('#personal_submit').attr('data-event', 'click');
-		  	$("#personal_submit").removeClass("disabled");
+		  	$("#personal_submit").removeAttr("disabled");
 		  	$('#personal_submit').bind("click", function() {
 					$('#change_personal').submit();
 			});
 			// reset button
-			$("#personal_reset").removeClass("disabled");
+			$("#personal_reset").removeAttr("disabled");
 			$('#personal_reset').bind("click", fun_person_reset);
 			// input
 			$('#change_personal').find('input').removeAttr('disabled');
@@ -136,26 +136,16 @@ $(document).ready(function() {
 	  		// submit button
 		  	$('#personal_submit').removeAttr('data-event');
 		  	$("#personal_submit").unbind("click");
-		  	$("#personal_submit").addClass("disabled");
+		  	$("#personal_submit").attr('disabled', 'true');
 		  	// reset button
 		  	$("#personal_reset").unbind("click");
-		  	$("#personal_reset").addClass("disabled");
+		  	$("#personal_reset").attr('disabled', 'true');
 		  	// input
 			$('#change_personal').find('input').attr('disabled', 'true');
 	  		$('#change_personal').find('select').attr('disabled', 'true');
 	  		fun_person_reset();
 	  	}
-	  	
-	   /*
-var $events = $("#personal_submit").data("events");
-		if( $events && $events["click"] ){
-			　　	
-				alert("unblind");
-		} else {
-				
-				alert("blind");
-		}
-*/
+
 	  });
     
 });

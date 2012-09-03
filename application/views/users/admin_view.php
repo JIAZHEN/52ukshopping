@@ -20,7 +20,7 @@
 		</ul>
 		<div class="tab-content">
 				    <div class="tab-pane<?php if($active_tab == 'tab1') echo ' active'; ?>" id="tab1"> <!-- tab1 -->
-				    	    <form id="change_personal" class="form-horizontal" method="post" action="<?php echo base_url(); ?>" >
+				    	    <form id="change_personal" class="form-horizontal" method="post" action="<?php echo base_url().'users/update_info'; ?>" >
 <fieldset>
 <div id="legend" class="">
 <legend class="">Personal detail - 52UKSHOPPING</legend>
@@ -29,6 +29,7 @@
 <div class="control-group">
       <label class="control-label">Title</label>
       <div class="controls">
+      	<input type="hidden" id="id_for_personal" name="id_for_personal" value="<?php echo $user_id; ?>">
 	      <!-- Inline Radios -->
 	      <label class="radio inline"><input checked="checked" value="Miss" name="title" type="radio" <?php if($user_info['title'] == 'Miss') echo ' checked="true"'; ?> disabled="true">Miss</label>
 	      <label class="radio inline"><input value="Mrs" name="title" type="radio" <?php if($user_info['title'] == 'Mrs') echo ' checked="true"'; ?> disabled="true">Mrs</label>
@@ -112,15 +113,16 @@
     <p class="help-block"></p>
   </div>
 </div>
+
 	
 <div class="control-group">
   <!-- Select Basic -->
   <label class="control-label" for="country">Country</label>
   <div class="controls">
     <select id="country" name="country" class="input-xlarge" disabled="true">
-		<option value="UK" <?php echo set_select('country', 'UK', TRUE); ?>>UK</option>
-		<option value="CHN" <?php echo set_select('country', 'CHN'); ?>>CHN</option>
-		<option value="US" <?php echo set_select('country', 'US'); ?>>US</option>
+    	<?php foreach($countries as $country): ?>
+    		<option value="<?php echo $country['code']; ?>" <?php if($user_info['country'] == $country['code']) echo 'selected="selected"'; ?>><?php echo $country['name'].', '.$country['code']; ?></option>
+    	<?php endforeach;?>
 	</select>
   </div>
 </div>
@@ -163,8 +165,8 @@
 	
 <div class="form-actions">
 	<button type="button" id="start_update" class="btn btn-primary" data-toggle="button">Start update</button>
-    <a id="personal_reset" class="btn disabled">Cancel</a>
-	<a id="personal_submit" class="btn btn-primary disabled">Submit</a>
+    <button id="personal_reset" class="btn" disabled="true">Cancel</button>
+	<button id="personal_submit" class="btn btn-primary" disabled="true">Submit</button>
 	
 </div>    
 	

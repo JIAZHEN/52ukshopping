@@ -22,7 +22,7 @@ class F_users_model extends CI_Model {
 			'last_name' => $this->input->post('lastname', true),
 			'birthday' => $this->input->post('birthday', true),
 			'postcode' => $this->input->post('postcode', true),
-			'house_name' => $this->input->post('house_name', true),
+			'house_name' => $this->input->post('housename', true),
 			'address_one' => $this->input->post('address_one', true),
 			'address_two' => $this->input->post('address_two', true),
 			'city' => $this->input->post('city', true),
@@ -35,10 +35,32 @@ class F_users_model extends CI_Model {
 			'mobile' => $this->input->post('mobile', true),
 			'telephone' => $this->input->post('telephone', true)
 		);
-		
+			
 		$this->db->insert('f_users', $data);
-		
 		return $this->db->insert_id();
+	}
+	
+	public function update_users($id) {
+		$data = array(
+			'title' => $this->input->post('title', true),
+			'first_name' => $this->input->post('firstname', true),
+			'last_name' => $this->input->post('lastname', true),
+			'birthday' => $this->input->post('birthday', true),
+			'postcode' => $this->input->post('postcode', true),
+			'house_name' => $this->input->post('housename', true),
+			'address_one' => $this->input->post('address_one', true),
+			'address_two' => $this->input->post('address_two', true),
+			'city' => $this->input->post('city', true),
+			'country' => $this->input->post('country', true),
+			'passport' => $this->input->post('passport', true),
+			'identity_cn' => $this->input->post('identity_cn', true),
+			'mobile' => $this->input->post('mobile', true),
+			'telephone' => $this->input->post('telephone', true)
+		);
+		
+		$this->db->where('id', $id);
+		$this->db->update('f_users', $data);
+		
 	}
 	
 	function login($username, $password)

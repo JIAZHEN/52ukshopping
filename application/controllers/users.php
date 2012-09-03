@@ -8,12 +8,14 @@ class Users extends CI_Controller {
 		$this->load->library('cart');
 		$this->load->model('f_users_model');
 		$this->load->model('d_category_model');
+		$this->load->model('d_country_model');
 	}
 
 	public function register()
 	{
 		$this->load->helper('form');
 		$this->load->library('form_validation');
+		$register_data['countries'] = $this->d_country_model->getAllCountries();
 		
 		$data['page_title'] = 'Register';
 		
@@ -73,6 +75,7 @@ class Users extends CI_Controller {
 			$admin_data['active_tab'] = $active_tab;
 			
 			$admin_data['user_info'] = $this->f_users_model->get_users($session_data['id']);
+			$admin_data['countries'] = $this->d_country_model->getAllCountries();
 			
 			$nav_data['category'] = $this->d_category_model->conduct_categories();
 			$data['page_title'] = 'Admin';
@@ -180,6 +183,13 @@ class Users extends CI_Controller {
 		$user_id = $this->input->post('my_id', true);
 		$new_psw = $this->input->post('inputnewpassword', true);
 		$this->f_users_model->set_password($user_id, $new_psw);
+		redirect(base_url().'users');
+	}
+	
+	public function update_info() {
+		
+		$id = $this->input->post('id_for_personal', true);
+		$this->f_users_model->update_users($id);
 		redirect(base_url().'users');
 	}
 }

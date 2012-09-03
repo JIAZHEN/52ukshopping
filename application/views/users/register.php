@@ -102,9 +102,9 @@
   <label class="control-label" for="country">Country</label>
   <div class="controls">
     <select id="country" name="country" class="input-xlarge" >
-		<option value="UK" <?php echo set_select('country', 'UK', TRUE); ?>>UK</option>
-		<option value="CHN" <?php echo set_select('country', 'CHN'); ?>>CHN</option>
-		<option value="US" <?php echo set_select('country', 'US'); ?>>US</option>
+    	<?php foreach($countries as $country): ?>
+    		<option value="<?php echo $country['code']; ?>" <?php echo set_select('country', $country['code']); ?>><?php echo $country['name'].', '.$country['code']; ?></option>
+    	<?php endforeach;?>
 	</select>
   </div>
 </div>
