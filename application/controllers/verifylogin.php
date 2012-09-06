@@ -22,12 +22,7 @@ class VerifyLogin extends CI_Controller {
      	//Field validation failed.&nbsp; User redirected to login page
      	$data['page_title'] = 'Login';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
-								'bootstrap/css/bootstrap-responsive.css',
-								'css/nav.css', 
-								'css/style.css', 
-								'css/highlight.css', 
-								'css/scroll.css', 
-								'css/footer.css');
+								'bootstrap/css/bootstrap-responsive.css');
 		
 		$this->load->view('templates/header', $data);
 		$this->load->view('users/login_view');

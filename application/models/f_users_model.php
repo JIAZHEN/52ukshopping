@@ -6,6 +6,15 @@ class F_users_model extends CI_Model {
 		$this->load->database();
 	}
 	
+	public function getFields() {
+		return $this->db->list_fields('f_users');
+	}
+	
+	public function getAllUsers() {
+		$query = $this->db->get('f_users');
+		return $query->result_array();
+	}
+	
 	function get_users($id)
 	{
 		$query = $this->db->get_where('f_users', array('id' => $id));

@@ -15,6 +15,7 @@ class Login extends CI_Controller {
 		
 		$this->load->view('templates/header', $data);
 		$this->load->view('users/login_view');
+		$this->load->view('templates/close');
 	}
 }
 /* End of file login.php */

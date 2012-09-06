@@ -33,4 +33,3 @@
 	</p>
 </footer>
 <strong>&copy; 2012</strong>	
-</div> <!-- The main body of the website -->
