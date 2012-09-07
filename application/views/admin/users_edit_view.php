@@ -1,6 +1,6 @@
 <div class="span10">
 
-<form class="form-horizontal" id="change_personal" method="post" action="">
+<form class="form-horizontal" id="change_personal" method="post" action="<?php echo base_url().'admin/update_user'; ?>">
 
 <div class="control-group">
       <label class="control-label">Title</label>
@@ -37,7 +37,7 @@
   <!-- Text input-->
   <label class="control-label" for="birthday">Birthday</label>
   <div class="controls">
-    <div class="input-append date" id="birthday" data-date="1980-01-01" data-date-format="yyyy-mm-dd">
+    <div class="input-append date" id="birthday" data-date="1986-01-01" data-date-format="yyyy-mm-dd">
 		<input class="span8 input-medium" name="birthday" type="text" value="<?php echo $user_info['birthday']; ?>" readonly>
 		<span class="add-on"><i class="icon-th"></i></span>
 	</div>

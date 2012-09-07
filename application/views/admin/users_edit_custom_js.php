@@ -45,7 +45,7 @@ $(document).ready(function() {
 	    },
 	    submitHandler:function(form){
             form.submit();
-            alert("successful change! Please use the new password to login from next time.");
+            alert("修改成功!");
         } 
 	  });
 	

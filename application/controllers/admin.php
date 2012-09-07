@@ -77,6 +77,65 @@ class Admin extends CI_Controller {
 	    }
 	}
 	
+	public function add_user() {
+		if($this->session->userdata('admin')) {
+			
+			$this->load->helper('form');
+			$this->load->library('form_validation');
+			$register_data['countries'] = $this->d_country_model->getAllCountries();
+			
+			$data['page_title'] = 'Register';
+			
+			$this->form_validation->set_error_delimiters('', '');
+			
+			$this->form_validation->set_rules('title', 'Title', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('postcode', 'Postcode', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('housename', 'Hourse Name/Number', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('address_one', 'Address line one', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('city', 'City', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('country', 'Country', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('email', 'Email address', 'trim|required|valid_email|matches[emailconfirm]|is_unique[f_users.email]|xss_clean');
+			$this->form_validation->set_rules('emailconfirm', 'Email Confirmation', 'trim|required|valid_email|xss_clean');
+			$this->form_validation->set_rules('password', 'Password', 'trim|required|matches[passwordconfirm]|md5|xss_clean');
+			$this->form_validation->set_rules('passwordconfirm', 'Password Confirmation', 'trim|required|xss_clean');
+			
+			if ($this->form_validation->run() === FALSE) {
+				$data['page_title'] = 'Users management';
+			
+				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+										'bootstrap/css/bootstrap-responsive.css',
+										'bootstrap/css/datepicker.css');
+										
+				$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+										 'bootstrap/js/bootstrap.js',
+										 'bootstrap/js/bootstrap-datepicker.js');
+										 
+				$session_data = $this->session->userdata('admin');
+				
+				$slide_data['active_option'] = 'users_add';
+				
+				$content_data['countries'] = $this->d_country_model->getAllCountries();
+				$this->load->view('templates/header', $data);
+				$this->load->view('admin/container');
+				$this->load->view('admin/slide_view', $slide_data);
+				$this->load->view('admin/users_add_view', $content_data);
+				$this->load->view('admin/close');
+				$this->load->view('templates/load_javascripts', $js_data);
+				$this->load->view('admin/users_add_custom_js');
+				$this->load->view('templates/close');
+			} else {
+				$this->f_users_model->set_users();
+				redirect(base_url().'admin');
+			}
+			
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
 	public function items() {
 		if($this->session->userdata('admin')) {
 			$data['page_title'] = 'SKUs management';
@@ -152,6 +211,12 @@ class Admin extends CI_Controller {
 	public function delete_user() {
 		$id = $this->input->post('id_delete', true);
 		$this->f_users_model->delete_user($id);
+		redirect(base_url().'admin');
+	}
+	
+	public function update_user() {
+		$id = $this->input->post('id_for_personal', true);
+		$this->f_users_model->update_users($id);
 		redirect(base_url().'admin');
 	}
 }
