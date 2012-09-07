@@ -41,5 +41,5 @@
 		<?php endforeach; ?>
 	</tbody>
 		
-	</table>
+</table>
 </div>

@@ -5,6 +5,10 @@ class F_item_model extends CI_Model {
 		$this->load->database();
 	}
 	
+	public function getFields() {
+		return $this->db->list_fields('f_item');
+	}
+	
 	function getItemById($id) {
 		$query = $this->db->get_where('f_item', array('id' => $id));
 		return $query->row_array();
@@ -27,6 +31,17 @@ class F_item_model extends CI_Model {
 		$query = $this->db->get('f_item', $limit, $offset);
 		
 		return $query->result_array();
+	}
+	
+	public function getAllItems() {
+		
+		$query = $this->db->get('f_item');
+		
+		return $query->result_array();
+	}
+	
+	function delete_item($id) {
+		$this->db->delete('f_item', array('id' => $id));
 	}
 }
 /* End of file f_item_model.php */

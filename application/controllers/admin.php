@@ -6,6 +6,7 @@ class Admin extends CI_Controller {
 		parent::__construct();
 		$this->load->model('f_users_model');
 		$this->load->model('d_country_model');
+		$this->load->model('f_item_model');
 	}
 	
 	public function index() {
@@ -146,10 +147,9 @@ class Admin extends CI_Controller {
 									 
 			$session_data = $this->session->userdata('admin');
 			$content_data['id'] = $session_data['id'];
-			$content_data['fields'] = $this->f_users_model->getFields();
-			$content_data['users_info'] = $this->f_users_model->getAllUsers();
-			$content_data['ignore_fields'] = array('password');
-			$content_data['label_fields'] = array('id');
+			$content_data['fields'] = $this->f_item_model->getFields();
+			$content_data['items_info'] = $this->f_item_model->getAllItems();
+			$content_data['display_fields'] = array('id', 'description', 'item_name', 'price', 'cost', 'stock', 'category_id');
 			
 			$slide_data['active_option'] = 'skus_browse';
 			
@@ -218,6 +218,12 @@ class Admin extends CI_Controller {
 		$id = $this->input->post('id_for_personal', true);
 		$this->f_users_model->update_users($id);
 		redirect(base_url().'admin');
+	}
+	
+	public function delete_item() {
+		$id = $this->input->post('id_delete', true);
+		$this->f_item_model->delete_item($id);
+		redirect(base_url().'admin/items');
 	}
 }
 /* End of file login.php */
