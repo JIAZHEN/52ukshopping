@@ -5,6 +5,7 @@ class Admin extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('f_users_model');
+		$this->load->model('d_country_model');
 	}
 	
 	public function index() {
@@ -29,8 +30,47 @@ class Admin extends CI_Controller {
 			$this->load->view('admin/users_view', $content_data);
 			$this->load->view('admin/close');
 			$this->load->view('templates/load_javascripts', $js_data);
-			$this->load->view('admin/users_customer_js');
+			$this->load->view('admin/users_custom_js');
 			$this->load->view('templates/close');
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
+	public function user_edit($user_id = false) {
+	
+		if($this->session->userdata('admin')) {
+			if($user_id) {
+				$data['page_title'] = 'Users management';
+				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+										'bootstrap/css/bootstrap-responsive.css',
+										'bootstrap/css/datepicker.css',
+										'css/validate.css');
+										
+				$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+										 'bootstrap/js/bootstrap.js',
+										 'bootstrap/js/bootstrap-datepicker.js',
+										 'js/jquery.validate.js');
+										 
+				$session_data = $this->session->userdata('admin');
+				$content_data['id'] = $session_data['id'];
+				$content_data['user_info'] = $this->f_users_model->get_users($user_id);
+				$content_data['countries'] = $this->d_country_model->getAllCountries();
+				
+				$slide_data['active_option'] = 'users_edit';
+				
+				$this->load->view('templates/header', $data);
+				$this->load->view('admin/container');
+				$this->load->view('admin/slide_view', $slide_data);
+				$this->load->view('admin/users_edit_view', $content_data);
+				$this->load->view('admin/close');
+				$this->load->view('templates/load_javascripts', $js_data);
+				$this->load->view('admin/users_edit_custom_js');
+				$this->load->view('templates/close');
+			} else {
+				redirect(base_url().'admin');
+			}
 		} else {
 		    //Field validation failed.  User redirected to login page
 		 	redirect(base_url().'admin/login');

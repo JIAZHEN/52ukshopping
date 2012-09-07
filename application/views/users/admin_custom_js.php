@@ -65,35 +65,35 @@ $(document).ready(function() {
     
     var validator_personal = $('#change_personal').validate({
 	    rules: {
-	      firstname: {
-	        	required: true
-	      },
-	      lastname: {
-	        	required: true
-	      },
-	      birthday: {
-	        	required: true,
-	        	date: true
-	      },
-	      postcode: {
-		      	required: true
-	      },
-	      housename: {
-		      	required: true
-	      },
-	      address_one: {
-		      	required: true
-	      },
-	      city: {
-		      	required: true
-	      },
-	      country: {
-		      	required: true
-	      },
-	      passport: {
-		      	required: true,
-		      	minlength: 5
-	      }
+			firstname: {
+				required: true
+			},
+			lastname: {
+				required: true
+			},
+			birthday: {
+				required: true,
+				date: true
+			},
+			postcode: {
+			  	required: true
+			},
+			housename: {
+			  	required: true
+			},
+			address_one: {
+			  	required: true
+			},
+			city: {
+			  	required: true
+			},
+			country: {
+			  	required: true
+			},
+			passport: {
+			  	required: true,
+			  	minlength: 5
+			}
 	    },
 	    highlight: function(label) {
 	    	$(label).closest('.control-group').addClass('error');
@@ -110,11 +110,7 @@ $(document).ready(function() {
 	  });
 	  
 	  var fun_person_reset = function() {
-					$('#change_personal').each (function(){
-				    	this.reset();
-				    });
-				    $('#change_personal').find('.control-group').removeClass('error success');
-					validator_personal.resetForm();
+				    $('#change_personal').find('.control-group').removeClass('error success valid');
 		  };		
 	  
 	  $('#start_update').click(function() {

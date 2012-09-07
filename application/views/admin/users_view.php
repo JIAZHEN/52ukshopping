@@ -35,7 +35,7 @@
 					 	<td><?php echo $user_info[$field]; ?></td>
 				 	<?php endif; ?>
 				 <?php endforeach;?>
-				 <th><button name="" class="btn btn-small">编辑</button></th>
+				 <th><a href="<?php echo base_url().'admin/user_edit/'.$user_info['id']; ?>" class="btn btn-small">编辑</a></th>
 				 <th><button data-id="<?php echo $user_info['id']; ?>" data-email="<?php echo $user_info['email']; ?>" class="btn btn-small btn-danger delete-btn">删除</button></th>
 			</tr>
 		<?php endforeach; ?>

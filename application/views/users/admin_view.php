@@ -165,7 +165,7 @@
 	
 <div class="form-actions">
 	<button type="button" id="start_update" class="btn btn-primary" data-toggle="button">Start update</button>
-    <button id="personal_reset" class="btn" disabled="true">Cancel</button>
+    <button type="reset" id="personal_reset" class="btn" disabled="true">Cancel</button>
 	<button id="personal_submit" class="btn btn-primary" disabled="true">Submit</button>
 	
 </div>    
