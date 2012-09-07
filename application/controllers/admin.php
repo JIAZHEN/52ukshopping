@@ -29,6 +29,7 @@ class Admin extends CI_Controller {
 			$this->load->view('admin/users_view', $content_data);
 			$this->load->view('admin/close');
 			$this->load->view('templates/load_javascripts', $js_data);
+			$this->load->view('admin/users_customer_js');
 			$this->load->view('templates/close');
 		} else {
 		    //Field validation failed.  User redirected to login page
@@ -59,7 +60,7 @@ class Admin extends CI_Controller {
 			$this->load->view('admin/items_view', $content_data);
 			$this->load->view('admin/close');
 			$this->load->view('templates/load_javascripts', $js_data);
-			$this->load->view('admin/item_custom_js');
+			$this->load->view('admin/items_custom_js');
 			$this->load->view('templates/close');
 		} else {
 		    //Field validation failed.  User redirected to login page
@@ -106,6 +107,12 @@ class Admin extends CI_Controller {
 		} else {
 			return false;
 		}
+	}
+	
+	public function delete_user() {
+		$id = $this->input->post('id_delete', true);
+		$this->f_users_model->delete_user($id);
+		redirect(base_url().'admin');
 	}
 }
 /* End of file login.php */

@@ -21,6 +21,10 @@ class F_users_model extends CI_Model {
 		return $query->row_array();
 	}
 	
+	function delete_user($id) {
+		$this->db->delete('f_users', array('id' => $id));
+	}
+	
 	function set_users()
 	{
 		//$this->load->helper('url');
