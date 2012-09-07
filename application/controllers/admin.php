@@ -9,23 +9,57 @@ class Admin extends CI_Controller {
 	
 	public function index() {
 		if($this->session->userdata('admin')) {
-			$data['page_title'] = 'Welcome administor';
+			$data['page_title'] = 'Users management';
 			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 									'bootstrap/css/bootstrap-responsive.css');
-			$js_data['jses'] = array(
+			$js_data['jses'] = array('js/jquery-1.8.0.min.js',
 									 'bootstrap/js/bootstrap.js');
 									 
 			$session_data = $this->session->userdata('admin');
 			$content_data['id'] = $session_data['id'];
 			$content_data['fields'] = $this->f_users_model->getFields();
 			$content_data['users_info'] = $this->f_users_model->getAllUsers();
+			$content_data['display_fields'] = array('id', 'email', 'first_name', 'last_name');
+			
+			$slide_data['active_option'] = 'users_browse';
 			
 			$this->load->view('templates/header', $data);
 			$this->load->view('admin/container');
-			$this->load->view('admin/slide_view');
+			$this->load->view('admin/slide_view', $slide_data);
 			$this->load->view('admin/users_view', $content_data);
 			$this->load->view('admin/close');
 			$this->load->view('templates/load_javascripts', $js_data);
+			$this->load->view('templates/close');
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
+	public function items() {
+		if($this->session->userdata('admin')) {
+			$data['page_title'] = 'SKUs management';
+			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+									'bootstrap/css/bootstrap-responsive.css');
+			$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+									 'bootstrap/js/bootstrap.js');
+									 
+			$session_data = $this->session->userdata('admin');
+			$content_data['id'] = $session_data['id'];
+			$content_data['fields'] = $this->f_users_model->getFields();
+			$content_data['users_info'] = $this->f_users_model->getAllUsers();
+			$content_data['ignore_fields'] = array('password');
+			$content_data['label_fields'] = array('id');
+			
+			$slide_data['active_option'] = 'skus_browse';
+			
+			$this->load->view('templates/header', $data);
+			$this->load->view('admin/container');
+			$this->load->view('admin/slide_view', $slide_data);
+			$this->load->view('admin/items_view', $content_data);
+			$this->load->view('admin/close');
+			$this->load->view('templates/load_javascripts', $js_data);
+			$this->load->view('admin/item_custom_js');
 			$this->load->view('templates/close');
 		} else {
 		    //Field validation failed.  User redirected to login page
