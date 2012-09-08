@@ -85,8 +85,6 @@ class Admin extends CI_Controller {
 			$this->load->library('form_validation');
 			$register_data['countries'] = $this->d_country_model->getAllCountries();
 			
-			$data['page_title'] = 'Register';
-			
 			$this->form_validation->set_error_delimiters('', '');
 			
 			$this->form_validation->set_rules('title', 'Title', 'trim|required|xss_clean');
@@ -161,6 +159,46 @@ class Admin extends CI_Controller {
 			$this->load->view('templates/load_javascripts', $js_data);
 			$this->load->view('admin/items_custom_js');
 			$this->load->view('templates/close');
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
+	public function add_item() {
+		if($this->session->userdata('admin')) {
+		
+			$this->load->helper('form');
+			$this->load->library('form_validation');
+		
+			if ($this->form_validation->run() === FALSE) {
+				$data['page_title'] = 'SKU management';
+			
+				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+										'bootstrap/css/bootstrap-responsive.css',
+										'bootstrap/css/datepicker.css');
+										
+				$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+										 'bootstrap/js/bootstrap.js',
+										 'bootstrap/js/bootstrap-filestyle.js');
+										 
+				$session_data = $this->session->userdata('admin');
+				
+				$slide_data['active_option'] = 'items_add';
+				
+				$this->load->view('templates/header', $data);
+				$this->load->view('admin/container');
+				$this->load->view('admin/slide_view', $slide_data);
+				$this->load->view('admin/items_add_view');
+				$this->load->view('admin/close');
+				$this->load->view('templates/load_javascripts', $js_data);
+				$this->load->view('admin/items_add_custom_js');
+				$this->load->view('templates/close');
+			} else {
+				$this->f_users_model->set_users();
+				redirect(base_url().'admin');
+			}
+			
 		} else {
 		    //Field validation failed.  User redirected to login page
 		 	redirect(base_url().'admin/login');
