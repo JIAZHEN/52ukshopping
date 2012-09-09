@@ -43,6 +43,22 @@ class F_item_model extends CI_Model {
 	function delete_item($id) {
 		$this->db->delete('f_item', array('id' => $id));
 	}
+	
+	function add_item() {
+		$data = array(
+			'item_name' => $this->input->post('itemname', true),
+			'description' => $this->input->post('descript', true),
+			'category_id' => $this->input->post('category', true),
+			'price' => $this->input->post('price', true),
+			'cost' => $this->input->post('cost', true),
+			'stock' => $this->input->post('stock', true),
+			'thumbnail' => '',
+			'image' => ''
+		);
+			
+		$this->db->insert('f_item', $data);
+		return $this->db->insert_id();
+	}
 }
 /* End of file f_item_model.php */
 /* Location: ./application/models/f_item_model.php */

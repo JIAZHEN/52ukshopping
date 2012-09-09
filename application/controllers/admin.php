@@ -206,8 +206,8 @@ class Admin extends CI_Controller {
 				$this->load->view('admin/items_add_custom_js');
 				$this->load->view('templates/close');
 			} else {
-				$this->f_users_model->set_users();
-				redirect(base_url().'admin');
+				$this->f_item_model->add_item();
+				redirect(base_url().'admin/items');
 			}
 		} else {
 		    //Field validation failed.  User redirected to login page

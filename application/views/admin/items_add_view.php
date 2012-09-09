@@ -26,7 +26,7 @@
   <label class="control-label" for="category">Category</label>
   <div class="controls">
     <select id="category" name="category" class="input-medium" >
-    	<option value="oo">1</option>
+    	<option value="18">18</option>
 	</select>
   </div>
 </div>
