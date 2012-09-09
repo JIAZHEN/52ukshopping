@@ -170,8 +170,19 @@ class Admin extends CI_Controller {
 		
 			$this->load->helper('form');
 			$this->load->library('form_validation');
+			
+			$this->form_validation->set_error_delimiters('', '');
+				
+			$this->form_validation->set_rules('itemname', 'Item Name', 'trim|required|is_unique[f_item.item_name]|xss_clean');
+			$this->form_validation->set_rules('descript', 'Description', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('category', 'Category', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('price', 'Price', 'trim|required|numeric|xss_clean');
+			$this->form_validation->set_rules('cost', 'Cost', 'trim|required|numeric|xss_clean');
+			$this->form_validation->set_rules('stock', 'Stock', 'trim|required|is_natural_no_zero|xss_clean');
 		
 			if ($this->form_validation->run() === FALSE) {
+							
+				
 				$data['page_title'] = 'SKU management';
 			
 				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
@@ -198,7 +209,6 @@ class Admin extends CI_Controller {
 				$this->f_users_model->set_users();
 				redirect(base_url().'admin');
 			}
-			
 		} else {
 		    //Field validation failed.  User redirected to login page
 		 	redirect(base_url().'admin/login');
