@@ -10,6 +10,10 @@ class F_item_img_model extends CI_Model {
 		return $query->result_array();
 	}
 	
+	function delete_img($id) {
+		$this->db->delete('f_item_img', array('id' => $id));
+	}
+	
 }
 /* End of file f_item_img_model.php */
 /* Location: ./application/models/f_item_img_model.php */

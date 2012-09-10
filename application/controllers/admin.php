@@ -221,12 +221,10 @@ class Admin extends CI_Controller {
 			if($item_id) {
 				$data['page_title'] = 'SKU management';
 				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
-										'bootstrap/css/bootstrap-responsive.css',
-										'css/validate.css');
+										'bootstrap/css/bootstrap-responsive.css');
 										
 				$js_data['jses'] = array('js/jquery-1.8.0.min.js',
-										 'bootstrap/js/bootstrap.js',
-										 'js/jquery.validate.js');
+										 'bootstrap/js/bootstrap.js');
 										 
 				$session_data = $this->session->userdata('admin');
 				$content_data['item_info'] = $this->f_item_model->getItemById($item_id);
@@ -240,6 +238,7 @@ class Admin extends CI_Controller {
 				$this->load->view('admin/items_edit_img_view', $content_data);
 				$this->load->view('admin/close');
 				$this->load->view('templates/load_javascripts', $js_data);
+				$this->load->view('admin/items_edit_img_custom_js');
 				$this->load->view('templates/close');
 			} else {
 				redirect(base_url().'admin/items');
@@ -307,6 +306,19 @@ class Admin extends CI_Controller {
 		$id = $this->input->post('id_delete', true);
 		$this->f_item_model->delete_item($id);
 		redirect(base_url().'admin/items');
+	}
+	
+	public function delete_img() {
+		$id = $this->input->post('id_delete', true);
+		$item_id = $this->input->post('return_item_id', true);
+		$this->f_item_img_model->delete_img($id);
+		redirect(base_url().'admin/edit_item_images/'.$item_id);
+	}
+	
+	function logout() {
+	   $this->session->unset_userdata('admin');
+	   session_destroy();
+	   redirect(base_url().'main');
 	}
 }
 /* End of file login.php */
