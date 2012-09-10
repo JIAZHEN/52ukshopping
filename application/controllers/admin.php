@@ -7,6 +7,7 @@ class Admin extends CI_Controller {
 		$this->load->model('f_users_model');
 		$this->load->model('d_country_model');
 		$this->load->model('f_item_model');
+		$this->load->model('f_item_img_model');
 	}
 	
 	public function index() {
@@ -207,6 +208,40 @@ class Admin extends CI_Controller {
 				$this->load->view('templates/close');
 			} else {
 				$this->f_item_model->add_item();
+				redirect(base_url().'admin/items');
+			}
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
+	public function edit_item_images($item_id = false) {
+		if($this->session->userdata('admin')) {
+			if($item_id) {
+				$data['page_title'] = 'SKU management';
+				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+										'bootstrap/css/bootstrap-responsive.css',
+										'css/validate.css');
+										
+				$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+										 'bootstrap/js/bootstrap.js',
+										 'js/jquery.validate.js');
+										 
+				$session_data = $this->session->userdata('admin');
+				$content_data['item_info'] = $this->f_item_model->getItemById($item_id);
+				$content_data['item_imgs'] = $this->f_item_img_model->getImgsById($item_id);
+				
+				$slide_data['active_option'] = 'skus_edit_img';
+				
+				$this->load->view('templates/header', $data);
+				$this->load->view('admin/container');
+				$this->load->view('admin/slide_view', $slide_data);
+				$this->load->view('admin/items_edit_img_view', $content_data);
+				$this->load->view('admin/close');
+				$this->load->view('templates/load_javascripts', $js_data);
+				$this->load->view('templates/close');
+			} else {
 				redirect(base_url().'admin/items');
 			}
 		} else {

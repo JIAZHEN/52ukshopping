@@ -35,7 +35,8 @@
 					 	<td><?php echo $item_info[$field]; ?></td>
 				 	<?php endif; ?>
 				 <?php endforeach;?>
-				 <th><a href="<?php echo base_url().'admin/user_edit/'.$item_info['id']; ?>" class="btn btn-small">编辑</a></th>
+				 <th><a href="<?php echo base_url().''.$item_info['id']; ?>" class="btn btn-small">编辑资料</a></th>
+				 <th><a href="<?php echo base_url().'admin/edit_item_images/'.$item_info['id']; ?>" class="btn btn-small">编辑图片</a></th>
 				 <th><button data-id="<?php echo $item_info['id']; ?>" data-sku="<?php echo $item_info['item_name']; ?>" class="btn btn-small btn-danger delete-btn">删除</button></th>
 			</tr>
 		<?php endforeach; ?>
