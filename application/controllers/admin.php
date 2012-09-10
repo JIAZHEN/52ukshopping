@@ -266,14 +266,33 @@ class Admin extends CI_Controller {
 		}
 		else
 		{
-			$content_data['file_info'] = $this->upload->data();
+			$file_info = $this->upload->data();
+			// str operations to get real width and height
+			$ary = preg_split('/\s+/' , $file_info['image_size_str']);
+			
+			$width_str = str_replace('"',"",$ary[0]);
+			$pos = strpos($width_str, '=');
+			$width_str = substr($width_str, $pos+1, strlen($width_str));
+			
+			$height_str = str_replace('"',"",$ary[1]);
+			$pos = strpos($height_str, '=');
+			$height_str = substr($height_str, $pos+1, strlen($height_str));
+			
+			// remove ./
+			$img_address = substr($config['upload_path'], 2, strlen($config['upload_path'])).$file_info['file_name'];
+			$this->f_item_img_model->add_item_img($item_id, $img_address);
+			$content_data['img_address'] = $img_address;
+			$content_data['image_real_width'] = $width_str;
+			$content_data['image_real_height'] = $height_str;
 		}
 		$data['page_title'] = 'SKU management';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
-								'bootstrap/css/bootstrap-responsive.css');
+								'bootstrap/css/bootstrap-responsive.css',
+								'imgareaselect/css/imgareaselect-default.css');
 								
 		$js_data['jses'] = array('js/jquery-1.8.0.min.js',
-								 'bootstrap/js/bootstrap.js');
+								 'bootstrap/js/bootstrap.js',
+								 'imgareaselect/scripts/jquery.imgareaselect.pack.js');
 		
 		$content_data['item_info'] = $this->f_item_model->getItemById($item_id);
 		$content_data['item_imgs'] = $this->f_item_img_model->getImgsById($item_id);
@@ -289,6 +308,29 @@ class Admin extends CI_Controller {
 		$this->load->view('templates/load_javascripts', $js_data);
 		$this->load->view('admin/items_edit_img_custom_js');
 		$this->load->view('templates/close');
+	}
+	
+	function create_thumbs() {
+		$this->load->library('image_lib');
+		$config['image_library'] = 'gd2';
+		$config['source_image'] = '/path/to/image/mypic.jpg';
+		$config['maintain_ratio'] = TRUE;
+		
+		
+		$config['image_library'] = 'imagemagick';
+		$config['library_path'] = '/usr/X11R6/bin/';
+		$config['source_image'] = '/path/to/image/mypic.jpg';
+		$config['width'] = 75;
+		$config['height'] = 50;
+		$config['x_axis'] = '100';
+		$config['y_axis'] = '60';
+		
+		$this->image_lib->initialize($config); 
+		
+		if ( ! $this->image_lib->crop())
+		{
+		    echo $this->image_lib->display_errors();
+		} 
 	}
 
 	public function login() {

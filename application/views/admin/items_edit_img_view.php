@@ -26,10 +26,11 @@
 	<?php for($row = 0; $row < intval(count($item_imgs) / 4) + 1; $row++) : ?>
 		<ul class="thumbnails">
 		<?php for($column = 0; $column < 4; $column++ ): ?>
-			<?php if( ($row*4 + $column) < count($item_imgs)) : ?>
+			<?php if( ($row*4 + $column) < count($item_imgs) 
+						&& $item_imgs[$row*4 + $column]['thumb_address'] != 'none' ) : ?>
 			  <li class="span3">
-			    <a class="thumbnail img-options" data-id="<?php echo $item_imgs[$row*4 + $column]['id']; ?>" data-src="<?php echo base_url().'images/'.$item_imgs[$row*4 + $column]['img_address']; ?>">
-			      <img src="<?php echo base_url().'images/'.$item_imgs[$row*4 + $column]['thumb_address']; ?>" alt="">
+			    <a class="thumbnail img-options" data-id="<?php echo $item_imgs[$row*4 + $column]['id']; ?>" data-src="<?php echo base_url().$item_imgs[$row*4 + $column]['img_address']; ?>">
+			      <img src="<?php echo base_url().$item_imgs[$row*4 + $column]['thumb_address']; ?>" alt="">
 			    </a>
 			  </li>
 		  	<?php endif; ?>
@@ -48,13 +49,20 @@
 </form>
 <hr />
 
-<?php if(isset($file_info)): ?>
+<?php if(isset($img_address)): ?>
 	<h5>预览</h5>
-	<ul>
-		<?php foreach ($file_info as $item => $value):?>
-			<li><?php echo $item;?>: <?php echo $value;?></li>
-		<?php endforeach; ?>
-	</ul>
+	<img id="big_img" src="<?php echo base_url().$img_address; ?>">
+	<hr />
+	<form action="<?php echo base_url().'admin/create_thumbs'; ?>" method="post">
+	  <input type="hidden" name="x1" value="" />
+	  <input type="hidden" name="y1" value="" />
+	  <input type="hidden" name="real-width" value="<?php echo $image_real_width; ?>" />
+	  <input type="hidden" name="real-width" value="<?php echo $image_real_height; ?>" />
+	  <input type="hidden" name="selection-width" value="" />
+	  <input type="hidden" name="selection-height" value="" />
+	  <input type="hidden" name="img_path" value="<?php echo $img_address; ?>" />
+	  <input id="thums-btn" type="submit" class="btn btn-info" name="submit" value="创建缩略图" disabled="true" />
+	</form>
 <?php endif; ?>  
 
 

@@ -16,6 +16,6 @@
 		    <li<?php if($active_option == 'uis_edit') echo ' class="active"'; ?>><a href="#"><i class="icon-pencil"></i>编辑用户</a></li>
 		    <li<?php if($active_option == 'uis_add') echo ' class="active"'; ?>><a href="#"><i class="icon-plus"></i>添加用户</a></li>
 		<li class="divider"></li>
-		<li><a href="<?php echo base_url().'admin/logout'; ?>" class="btn btn-danger btn-mini">退出</a></li>
     </ul>
+    <a href="<?php echo base_url().'admin/logout'; ?>" class="btn btn-danger btn-small">退出</a>
 </div>

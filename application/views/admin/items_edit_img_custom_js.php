@@ -17,6 +17,21 @@ $(document).ready(function() {
 		    // Showing twice
 		    $modal.modal('show');
 	    });
+	    $('#big_img').imgAreaSelect({ maxWidth: 250, maxHeight: 330, handles: true, 
+	    
+	    	onSelectEnd: function (img, selection) {
+	            $('input[name="x1"]').val(selection.x1);
+	            $('input[name="y1"]').val(selection.y1);
+	            $('input[name="selection-width"]').val(selection.width);
+	            $('input[name="selection-height"]').val(selection.height);
+	            if(selection.x1 == 0 && selection.x2 == 0 && selection.width == 0 && selection.height == 0) {
+		            $('#thums-btn').attr('disabled', 'true');
+	            } else {
+		            $('#thums-btn').removeAttr('disabled');
+	            }
+	        }
+	    
+	    });
 			
 });
 </script>
