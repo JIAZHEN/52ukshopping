@@ -39,12 +39,23 @@
 </div>
 <hr />
 <h5>上传新图片</h5>
-<form action="http://192.168.1.4/transaction/upload/do_upload" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+<form action="<?php echo base_url().'admin/do_upload'; ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+<input id="return_item_id" type="hidden" name="return_item_id" value="<?php echo $item_info['id']; ?>" />
+
 <input type="file" name="userfile" />
 <input type="submit" value="upload" class="btn btn-success" />
-
+<p class="help-block"><?php if(isset($error)) echo $error['error'];?></p>
 </form>
-<hr />   
+<hr />
+
+<?php if(isset($file_info)): ?>
+	<h5>预览</h5>
+	<ul>
+		<?php foreach ($file_info as $item => $value):?>
+			<li><?php echo $item;?>: <?php echo $value;?></li>
+		<?php endforeach; ?>
+	</ul>
+<?php endif; ?>  
 
 
 </div>

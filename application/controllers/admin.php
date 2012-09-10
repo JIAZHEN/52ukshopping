@@ -8,6 +8,7 @@ class Admin extends CI_Controller {
 		$this->load->model('d_country_model');
 		$this->load->model('f_item_model');
 		$this->load->model('f_item_img_model');
+		$this->load->helper(array('form', 'url'));
 	}
 	
 	public function index() {
@@ -40,7 +41,7 @@ class Admin extends CI_Controller {
 	    }
 	}
 	
-	public function user_edit($user_id = false) {
+	function user_edit($user_id = false) {
 	
 		if($this->session->userdata('admin')) {
 			if($user_id) {
@@ -79,7 +80,7 @@ class Admin extends CI_Controller {
 	    }
 	}
 	
-	public function add_user() {
+	function add_user() {
 		if($this->session->userdata('admin')) {
 			
 			$this->load->helper('form');
@@ -136,7 +137,7 @@ class Admin extends CI_Controller {
 	    }
 	}
 	
-	public function items() {
+	function items() {
 		if($this->session->userdata('admin')) {
 			$data['page_title'] = 'SKUs management';
 			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
@@ -166,7 +167,7 @@ class Admin extends CI_Controller {
 	    }
 	}
 	
-	public function add_item() {
+	function add_item() {
 		if($this->session->userdata('admin')) {
 		
 			$this->load->helper('form');
@@ -216,7 +217,7 @@ class Admin extends CI_Controller {
 	    }
 	}
 	
-	public function edit_item_images($item_id = false) {
+	function edit_item_images($item_id = false) {
 		if($this->session->userdata('admin')) {
 			if($item_id) {
 				$data['page_title'] = 'SKU management';
@@ -225,8 +226,7 @@ class Admin extends CI_Controller {
 										
 				$js_data['jses'] = array('js/jquery-1.8.0.min.js',
 										 'bootstrap/js/bootstrap.js');
-										 
-				$session_data = $this->session->userdata('admin');
+				
 				$content_data['item_info'] = $this->f_item_model->getItemById($item_id);
 				$content_data['item_imgs'] = $this->f_item_img_model->getImgsById($item_id);
 				
@@ -247,6 +247,48 @@ class Admin extends CI_Controller {
 		    //Field validation failed.  User redirected to login page
 		 	redirect(base_url().'admin/login');
 	    }
+	}
+	
+	function do_upload()
+	{
+		$item_id = $this->input->post('return_item_id', true);
+		$config['upload_path'] = './images/full/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '2048';
+		$config['max_width']  = '4000';
+		$config['max_height']  = '3000';
+
+		$this->upload->initialize($config);
+
+		if ( ! $this->upload->do_upload())
+		{
+			$content_data['error'] = array('error' => $this->upload->display_errors('', ''));
+		}
+		else
+		{
+			$content_data['file_info'] = $this->upload->data();
+		}
+		$data['page_title'] = 'SKU management';
+		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+								'bootstrap/css/bootstrap-responsive.css');
+								
+		$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+								 'bootstrap/js/bootstrap.js');
+		
+		$content_data['item_info'] = $this->f_item_model->getItemById($item_id);
+		$content_data['item_imgs'] = $this->f_item_img_model->getImgsById($item_id);
+		
+		
+		$slide_data['active_option'] = 'skus_edit_img';
+		
+		$this->load->view('templates/header', $data);
+		$this->load->view('admin/container');
+		$this->load->view('admin/slide_view', $slide_data);
+		$this->load->view('admin/items_edit_img_view', $content_data);
+		$this->load->view('admin/close');
+		$this->load->view('templates/load_javascripts', $js_data);
+		$this->load->view('admin/items_edit_img_custom_js');
+		$this->load->view('templates/close');
 	}
 
 	public function login() {
@@ -280,7 +322,7 @@ class Admin extends CI_Controller {
 		}
 	}
 	
-	public function check_database() {
+	function check_database() {
 		$username = $this->input->post('username', true);
 		$password = $this->input->post('password', true);
 		if ($username == 'admin' && md5($password) == md5('admin')) {
@@ -290,25 +332,25 @@ class Admin extends CI_Controller {
 		}
 	}
 	
-	public function delete_user() {
+	function delete_user() {
 		$id = $this->input->post('id_delete', true);
 		$this->f_users_model->delete_user($id);
 		redirect(base_url().'admin');
 	}
 	
-	public function update_user() {
+	function update_user() {
 		$id = $this->input->post('id_for_personal', true);
 		$this->f_users_model->update_users($id);
 		redirect(base_url().'admin');
 	}
 	
-	public function delete_item() {
+	function delete_item() {
 		$id = $this->input->post('id_delete', true);
 		$this->f_item_model->delete_item($id);
 		redirect(base_url().'admin/items');
 	}
 	
-	public function delete_img() {
+	function delete_img() {
 		$id = $this->input->post('id_delete', true);
 		$item_id = $this->input->post('return_item_id', true);
 		$this->f_item_img_model->delete_img($id);
