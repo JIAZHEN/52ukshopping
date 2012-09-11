@@ -25,6 +25,15 @@ class F_item_img_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 	
+	public function update_thumbs($id, $thumb_address) {
+		$data = array(
+			'thumb_address' => $thumb_address
+		);
+		
+		$this->db->where('id', $id);
+		$this->db->update('f_item_img', $data);
+	}
+	
 }
 /* End of file f_item_img_model.php */
 /* Location: ./application/models/f_item_img_model.php */

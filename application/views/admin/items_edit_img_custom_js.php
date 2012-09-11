@@ -24,6 +24,8 @@ $(document).ready(function() {
 	            $('input[name="y1"]').val(selection.y1);
 	            $('input[name="selection-width"]').val(selection.width);
 	            $('input[name="selection-height"]').val(selection.height);
+	            $('input[name="img-width"]').val($('#big_img').width());
+	            $('input[name="img-height"]').val($('#big_img').height());
 	            if(selection.x1 == 0 && selection.x2 == 0 && selection.width == 0 && selection.height == 0) {
 		            $('#thums-btn').attr('disabled', 'true');
 	            } else {

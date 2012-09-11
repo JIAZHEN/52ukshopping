@@ -54,10 +54,14 @@
 	<img id="big_img" src="<?php echo base_url().$img_address; ?>">
 	<hr />
 	<form action="<?php echo base_url().'admin/create_thumbs'; ?>" method="post">
+	  <input id="img_id" type="hidden" name="img_id" value="<?php echo $img_id; ?>" />
+	  <input id="return_item_id" type="hidden" name="return_item_id" value="<?php echo $item_info['id']; ?>" />
 	  <input type="hidden" name="x1" value="" />
 	  <input type="hidden" name="y1" value="" />
 	  <input type="hidden" name="real-width" value="<?php echo $image_real_width; ?>" />
-	  <input type="hidden" name="real-width" value="<?php echo $image_real_height; ?>" />
+	  <input type="hidden" name="real-height" value="<?php echo $image_real_height; ?>" />
+	  <input type="hidden" name="img-width" value="" />
+	  <input type="hidden" name="img-height" value="" />
 	  <input type="hidden" name="selection-width" value="" />
 	  <input type="hidden" name="selection-height" value="" />
 	  <input type="hidden" name="img_path" value="<?php echo $img_address; ?>" />

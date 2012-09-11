@@ -280,7 +280,7 @@ class Admin extends CI_Controller {
 			
 			// remove ./
 			$img_address = substr($config['upload_path'], 2, strlen($config['upload_path'])).$file_info['file_name'];
-			$this->f_item_img_model->add_item_img($item_id, $img_address);
+			$content_data['img_id'] = $this->f_item_img_model->add_item_img($item_id, $img_address);
 			$content_data['img_address'] = $img_address;
 			$content_data['image_real_width'] = $width_str;
 			$content_data['image_real_height'] = $height_str;
@@ -311,26 +311,43 @@ class Admin extends CI_Controller {
 	}
 	
 	function create_thumbs() {
-		$this->load->library('image_lib');
+		$img_id = $this->input->post('img_id', true);
+		$return_item_id = $this->input->post('return_item_id', true);
+		$x_axis = $this->input->post('x1', true);
+		$y_axis = $this->input->post('y1', true);
+		$real_width = $this->input->post('real-width', true);
+		$real_height = $this->input->post('real-height', true);
+		$img_width = $this->input->post('img-width', true);
+		$img_height = $this->input->post('img-height', true);
+		$selection_width = $this->input->post('selection-width', true);
+		$selection_height = $this->input->post('selection-height', true);
+		$img_path = $this->input->post('img_path', true);
+		
+		$scale = ($img_width / $img_height) * ($real_height / $real_width);
+		$real_width = $real_width * $scale;
+		$real_height = $real_height * $scale;
+		
+		$pos = strpos($img_path, '.');
+		$extend = substr($img_path, $pos, strlen($img_path));
+		$new_img_path = substr($img_path, 0, $pos).'_thumb'.$extend;
+		
 		$config['image_library'] = 'gd2';
-		$config['source_image'] = '/path/to/image/mypic.jpg';
-		$config['maintain_ratio'] = TRUE;
-		
-		
-		$config['image_library'] = 'imagemagick';
-		$config['library_path'] = '/usr/X11R6/bin/';
-		$config['source_image'] = '/path/to/image/mypic.jpg';
-		$config['width'] = 75;
-		$config['height'] = 50;
-		$config['x_axis'] = '100';
-		$config['y_axis'] = '60';
+		$config['source_image'] = $img_path;
+		$config['new_image'] = $new_img_path;
+		$config['width'] = $selection_width / $img_width * $real_width;
+		$config['height'] = $selection_height / $img_height * $real_height;
+		$config['x_axis'] = $x_axis / $img_width * $real_width;
+		$config['y_axis'] = $y_axis / $img_height * $real_height;
 		
 		$this->image_lib->initialize($config); 
 		
 		if ( ! $this->image_lib->crop())
 		{
 		    echo $this->image_lib->display_errors();
-		} 
+		} else {
+			$this->f_item_img_model->update_thumbs($img_id, $new_img_path);
+			redirect(base_url().'admin/edit_item_images/'.$return_item_id);
+		}
 	}
 
 	public function login() {
