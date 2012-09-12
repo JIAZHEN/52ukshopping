@@ -252,7 +252,7 @@ class Admin extends CI_Controller {
 	function do_upload()
 	{
 		$item_id = $this->input->post('return_item_id', true);
-		$config['upload_path'] = './images/full/';
+		$config['upload_path'] = './images/product/';
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size']	= '2048';
 		$config['max_width']  = '4000';
