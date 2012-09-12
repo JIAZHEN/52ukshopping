@@ -10,6 +10,11 @@ class F_item_img_model extends CI_Model {
 		return $query->result_array();
 	}
 	
+	function getRowById($id) {
+		$query = $this->db->get_where('f_item_img', array('id' => $id));
+		return $query->row_array();
+	}
+	
 	function delete_img($id) {
 		$this->db->delete('f_item_img', array('id' => $id));
 	}

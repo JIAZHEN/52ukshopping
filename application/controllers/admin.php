@@ -412,6 +412,23 @@ class Admin extends CI_Controller {
 	function delete_img() {
 		$id = $this->input->post('id_delete', true);
 		$item_id = $this->input->post('return_item_id', true);
+		
+		$info = $this->f_item_img_model->getRowById($id);
+		/*
+if(file_exists($info['img_address'])) {
+			echo $info['img_address'].'文件存在'.'<br />';
+		} else {
+			echo $info['img_address'].'文件不存在'.'<br />';
+		}
+		if(is_readable($info['img_address'])){  
+			echo $info['img_address'].'文件有权限'.'<br />';
+		}else{
+			echo $info['img_address'].'无权限'.'<br />';
+		}
+*/
+		unlink($info['img_address']);
+		unlink($info['thumb_address']);
+		
 		$this->f_item_img_model->delete_img($id);
 		redirect(base_url().'admin/edit_item_images/'.$item_id);
 	}
