@@ -6,6 +6,22 @@ class D_category_model extends CI_Model {
 		$this->load->database();
 	}
 	
+	function getFields() {
+		return $this->db->list_fields('d_category');
+	}
+	
+	function getAllLevels() {
+		$this->db->distinct();
+		$this->db->select('cat_level');
+		$query = $this->db->get('d_category');
+		return $query->result_array();
+	}
+	
+	function getAllCategories() {
+		$query = $this->db->get('d_category');
+		return $query->result_array();
+	}
+	
 	public function getCategoryByLevel($cat_level) {
 		$query = $this->db->get_where('d_category', array('cat_level' => $cat_level));
 		return $query->result_array();
@@ -107,6 +123,20 @@ class D_category_model extends CI_Model {
 								'5' => $item_name			 );
 		return $category_data;
 	    			
+	}
+	
+	function update_category($id, $name, $level, $parent_id) {
+		$data = array(
+			'category_name' => $name,
+			'cat_level' => $level,
+			'parent_id' => $parent_id
+		);
+		$this->db->where('id', $id);
+		$this->db->update('d_category', $data);
+	}
+	
+	function delete_category($id) {
+		$this->db->delete('d_category', array('id' => $id));
 	}
 }
 /* End of file d_category_model.php */

@@ -8,6 +8,7 @@ class Admin extends CI_Controller {
 		$this->load->model('d_country_model');
 		$this->load->model('f_item_model');
 		$this->load->model('f_item_img_model');
+		$this->load->model('d_category_model');
 		$this->load->helper(array('form', 'url'));
 	}
 	
@@ -217,7 +218,7 @@ class Admin extends CI_Controller {
 	    }
 	}
 	
-	function edit_item_images($item_id = false) {
+	public function edit_item_images($item_id = false) {
 		if($this->session->userdata('admin')) {
 			if($item_id) {
 				$data['page_title'] = 'SKU management';
@@ -349,6 +350,75 @@ class Admin extends CI_Controller {
 			redirect(base_url().'admin/edit_item_images/'.$return_item_id);
 		}
 	}
+	
+	public function categories() {
+		if($this->session->userdata('admin')) {
+			$data['page_title'] = 'Categories management';
+			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+									'bootstrap/css/bootstrap-responsive.css');
+			$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+									 'bootstrap/js/bootstrap.js');
+									 
+			$session_data = $this->session->userdata('admin');
+			$content_data['id'] = $session_data['id'];
+			$content_data['fields'] = $this->d_category_model->getFields();
+			$content_data['categories_info'] = $this->d_category_model->getAllCategories();
+			
+			$slide_data['active_option'] = 'categories_browse';
+			
+			$this->load->view('templates/header', $data);
+			$this->load->view('admin/container');
+			$this->load->view('admin/slide_view', $slide_data);
+			$this->load->view('admin/categories_view', $content_data);
+			$this->load->view('admin/close');
+			$this->load->view('templates/load_javascripts', $js_data);
+			$this->load->view('admin/categories_custom_js');
+			$this->load->view('templates/close');
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
+	public function edit_categories($cat_id = false) {
+		if($this->session->userdata('admin')) {
+			if($cat_id) {
+				$data['page_title'] = 'Categories management';
+				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+										'bootstrap/css/bootstrap-responsive.css');
+										
+				$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+										 'bootstrap/js/bootstrap.js');
+				
+				$content_data['cat_info'] = $this->d_category_model->getCategoryById($cat_id);
+				$content_data['cat_levels'] = $this->d_category_model->getAllLevels();
+				
+				$content_data['lv_categories'] = $this->d_category_model->getCategoryByLevel($content_data['cat_info']['cat_level'] - 1);
+				
+				$slide_data['active_option'] = 'categories_edit';
+				
+				$this->load->view('templates/header', $data);
+				$this->load->view('admin/container');
+				$this->load->view('admin/slide_view', $slide_data);
+				$this->load->view('admin/categories_edit_view', $content_data);
+				$this->load->view('admin/close');
+				$this->load->view('templates/load_javascripts', $js_data);
+				$this->load->view('admin/categories_edit_custom_js');
+				$this->load->view('templates/close');
+			} else {
+				redirect(base_url().'admin/items');
+			}
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
+	public function edit_categories_change_level() {
+		$cat_level = $this->input->post('cat_level', true);
+		$cat_query = $this->d_category_model->getCategoryByLevel($cat_level);
+		echo json_encode($cat_query);
+	}
 
 	public function login() {
 	
@@ -414,23 +484,29 @@ class Admin extends CI_Controller {
 		$item_id = $this->input->post('return_item_id', true);
 		
 		$info = $this->f_item_img_model->getRowById($id);
-		/*
-if(file_exists($info['img_address'])) {
-			echo $info['img_address'].'文件存在'.'<br />';
-		} else {
-			echo $info['img_address'].'文件不存在'.'<br />';
-		}
-		if(is_readable($info['img_address'])){  
-			echo $info['img_address'].'文件有权限'.'<br />';
-		}else{
-			echo $info['img_address'].'无权限'.'<br />';
-		}
-*/
 		unlink($info['img_address']);
 		unlink($info['thumb_address']);
 		
 		$this->f_item_img_model->delete_img($id);
 		redirect(base_url().'admin/edit_item_images/'.$item_id);
+	}
+	
+	function update_category() {
+		$id = $this->input->post('category_id', true);
+		$name = $this->input->post('category_name', true);
+		$cat_level = $this->input->post('category_level', true);
+		$parent_id = $this->input->post('parent_cat', true);
+		if($parent_id == '') {
+			$parent_id = 0;
+		}
+		$this->d_category_model->update_category($id, $name, $cat_level, $parent_id);
+		redirect(base_url().'admin/categories');
+	}
+	
+	function delete_category() {
+		$id = $this->input->post('id_delete', true);
+		$this->d_category_model->delete_category($id);
+		redirect(base_url().'admin/categories');
 	}
 	
 	function logout() {

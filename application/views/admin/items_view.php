@@ -17,7 +17,8 @@
 	</form>
 </div>
 
-<table class="table table-striped table-condensed">
+<h3><a>商品信息</a></h3>
+<table class="table table-striped table-condensed table-hover table-bordered">
     <thead class="table">
 		<tr>
 			<?php foreach($fields as $field): ?>

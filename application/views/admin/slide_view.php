@@ -6,7 +6,7 @@
 		    <li<?php if($active_option == 'users_add') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/add_user'; ?>"><i class="icon-plus"></i> 添加用户</a></li>
 		<li class="divider"></li>
 		<li class="nav-header">目录管理</li>
-	    	<li<?php if($active_option == 'categories_browse') echo ' class="active"'; ?>><a href=""><i class="icon-book"></i> 浏览</a></li>
+	    	<li<?php if($active_option == 'categories_browse') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/categories'; ?>"><i class="icon-book"></i> 浏览</a></li>
 		    <li<?php if($active_option == 'categories_edit') echo ' class="active"'; ?>><a href="#"><i class="icon-pencil"></i> 编辑目录</a></li>
 		    <li<?php if($active_option == 'categories_add') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/add_item'; ?>"><i class="icon-plus"></i> 添加目录</a></li>
 		<li class="divider"></li>
