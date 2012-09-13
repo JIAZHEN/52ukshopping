@@ -44,6 +44,10 @@ class F_item_model extends CI_Model {
 		$this->db->delete('f_item', array('id' => $id));
 	}
 	
+	function deleteItemByCatId($cat_id) {
+		$this->db->delete('f_item', array('category_id' => $cat_id));
+	}
+	
 	function add_item() {
 		$data = array(
 			'item_name' => $this->input->post('itemname', true),

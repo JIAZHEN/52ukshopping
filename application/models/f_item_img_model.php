@@ -5,7 +5,7 @@ class F_item_img_model extends CI_Model {
 		$this->load->database();
 	}
 	
-	public function getImgsById($item_id) {
+	public function getImgsByItemId($item_id) {
 		$query = $this->db->get_where('f_item_img', array('item_id' => $item_id));
 		return $query->result_array();
 	}
@@ -17,6 +17,10 @@ class F_item_img_model extends CI_Model {
 	
 	function delete_img($id) {
 		$this->db->delete('f_item_img', array('id' => $id));
+	}
+	
+	function deleteImgByItemId($item_id) {
+		$this->db->delete('f_item_img', array('item_id' => $item_id));
 	}
 	
 	function add_item_img($item_id, $img_address) {

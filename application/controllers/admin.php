@@ -229,7 +229,7 @@ class Admin extends CI_Controller {
 										 'bootstrap/js/bootstrap.js');
 				
 				$content_data['item_info'] = $this->f_item_model->getItemById($item_id);
-				$content_data['item_imgs'] = $this->f_item_img_model->getImgsById($item_id);
+				$content_data['item_imgs'] = $this->f_item_img_model->getImgsByItemId($item_id);
 				
 				$slide_data['active_option'] = 'skus_edit_img';
 				
@@ -296,7 +296,7 @@ class Admin extends CI_Controller {
 								 'imgareaselect/scripts/jquery.imgareaselect.pack.js');
 		
 		$content_data['item_info'] = $this->f_item_model->getItemById($item_id);
-		$content_data['item_imgs'] = $this->f_item_img_model->getImgsById($item_id);
+		$content_data['item_imgs'] = $this->f_item_img_model->getImgsByItemId($item_id);
 		
 		
 		$slide_data['active_option'] = 'skus_edit_img';
@@ -419,6 +419,53 @@ class Admin extends CI_Controller {
 		$cat_query = $this->d_category_model->getCategoryByLevel($cat_level);
 		echo json_encode($cat_query);
 	}
+	
+	function upload_cat_img()
+	{
+		$return_cat_id = $this->input->post('return_cat_id', true);
+		$config['upload_path'] = './images/category/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '2048';
+		$config['max_width']  = '4000';
+		$config['max_height']  = '3000';
+
+		$this->upload->initialize($config);
+
+		if ( ! $this->upload->do_upload())
+		{
+			$content_data['error'] = array('error' => $this->upload->display_errors('', ''));
+		}
+		else
+		{
+			$file_info = $this->upload->data();
+			
+			// remove ./
+			$img_address = substr($config['upload_path'], 2, strlen($config['upload_path'])).$file_info['file_name'];
+			$this->d_category_model->update_category_img($return_cat_id, $img_address);
+		}
+		$data['page_title'] = 'Categories management';
+		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+								'bootstrap/css/bootstrap-responsive.css');
+								
+		$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+								 'bootstrap/js/bootstrap.js');
+		
+		$content_data['cat_info'] = $this->d_category_model->getCategoryById($return_cat_id);
+		$content_data['cat_levels'] = $this->d_category_model->getAllLevels();
+		
+		$content_data['lv_categories'] = $this->d_category_model->getCategoryByLevel($content_data['cat_info']['cat_level'] - 1);
+		
+		$slide_data['active_option'] = 'categories_edit';
+		
+		$this->load->view('templates/header', $data);
+		$this->load->view('admin/container');
+		$this->load->view('admin/slide_view', $slide_data);
+		$this->load->view('admin/categories_edit_view', $content_data);
+		$this->load->view('admin/close');
+		$this->load->view('templates/load_javascripts', $js_data);
+		$this->load->view('admin/categories_edit_custom_js');
+		$this->load->view('templates/close');
+	}
 
 	public function login() {
 	
@@ -505,6 +552,21 @@ class Admin extends CI_Controller {
 	
 	function delete_category() {
 		$id = $this->input->post('id_delete', true);
+		$cat_info = $this->d_category_model->getCategoryById($id);
+		// delete category image
+		unlink($cat_info['img_address']);
+		// delete items image
+		$items_info = $this->f_item_model->getItemByCatId($id);
+		foreach ($items_info as $item_info) { // every item
+			$imgs_info = $this->f_item_img_model->getImgsByItemId($item_info['id']);
+			foreach ($imgs_info as $img_info) { // every img
+				unlink($img_info['img_address']);
+				unlink($img_info['thumb_address']);
+			}
+			$this->f_item_img_model->deleteImgByItemId($item_info['id']);
+		}
+		$this->f_item_model->deleteItemByCatId($id);
+		// delete category
 		$this->d_category_model->delete_category($id);
 		redirect(base_url().'admin/categories');
 	}

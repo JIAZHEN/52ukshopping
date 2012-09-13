@@ -135,6 +135,14 @@ class D_category_model extends CI_Model {
 		$this->db->update('d_category', $data);
 	}
 	
+	function update_category_img($id, $img_address) {
+		$data = array(
+			'img_address' => $img_address
+		);
+		$this->db->where('id', $id);
+		$this->db->update('d_category', $data);
+	}
+	
 	function delete_category($id) {
 		$this->db->delete('d_category', array('id' => $id));
 	}
