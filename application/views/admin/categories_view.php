@@ -30,7 +30,12 @@
 		<?php foreach($categories_info as $category_info): ?>
 			<tr>
 				<?php foreach($fields as $field): ?>
-					 <td><?php echo $category_info[$field]; ?></td>
+					<?php if($field == 'img_address'): ?>
+						<td><img src="<?php echo base_url().$category_info[$field]; ?>" width="100px" height="10px"/></td>
+					<?php else: ?>
+						<td><?php echo $category_info[$field]; ?></td>
+					<?php endif; ?>
+					 
 				 <?php endforeach;?>
 				 <th><a href="<?php echo base_url().'admin/edit_categories/'.$category_info['id']; ?>" class="btn btn-small">编辑</a></th>
 				 <th><button data-id="<?php echo $category_info['id']; ?>" data-name="<?php echo $category_info['category_name']; ?>" data-level="<?php echo $category_info['cat_level']; ?>" class="btn btn-small btn-danger delete-btn">删除</button></th>

@@ -380,7 +380,7 @@ class Admin extends CI_Controller {
 	    }
 	}
 	
-	public function edit_categories($cat_id = false) {
+	function edit_categories($cat_id = false) {
 		if($this->session->userdata('admin')) {
 			if($cat_id) {
 				$data['page_title'] = 'Categories management';
@@ -414,10 +414,50 @@ class Admin extends CI_Controller {
 	    }
 	}
 	
-	public function edit_categories_change_level() {
+	function edit_categories_change_level() {
 		$cat_level = $this->input->post('cat_level', true);
 		$cat_query = $this->d_category_model->getCategoryByLevel($cat_level);
 		echo json_encode($cat_query);
+	}
+	
+	function add_category() {
+		if($this->session->userdata('admin')) {
+		
+		$this->load->helper('form');
+			$this->load->library('form_validation');
+			
+			$this->form_validation->set_error_delimiters('', '');
+				
+			$this->form_validation->set_rules('categroy_name', 'Categroy Name', 'trim|required|is_unique[d_category.category_name]|xss_clean');
+			$this->form_validation->set_rules('category_level', 'Category Level', 'trim|required|xss_clean');
+		
+			if ($this->form_validation->run() === FALSE) {
+				$data['page_title'] = 'Categories management';
+				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+										'bootstrap/css/bootstrap-responsive.css');
+										
+				$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+										 'bootstrap/js/bootstrap.js');
+						
+				$slide_data['active_option'] = 'categories_add';
+				
+				$content_data['cat_levels'] = $this->d_category_model->getAllLevels();
+				
+				$this->load->view('templates/header', $data);
+				$this->load->view('admin/container');
+				$this->load->view('admin/slide_view', $slide_data);
+				$this->load->view('admin/categories_add_view', $content_data);
+				$this->load->view('admin/close');
+				$this->load->view('templates/load_javascripts', $js_data);
+				$this->load->view('admin/categories_add_custom_js');
+				$this->load->view('templates/close');
+			} else {
+				$this->d_category_model->addCategory();
+				redirect(base_url().'admin/categories');
+			}
+		} else {
+			redirect(base_url().'admin/login');
+		}
 	}
 	
 	function upload_cat_img()

@@ -135,6 +135,22 @@ class D_category_model extends CI_Model {
 		$this->db->update('d_category', $data);
 	}
 	
+	function addCategory() {
+		$name = $this->input->post('categroy_name', true);
+		$cat_level = $this->input->post('category_level', true);
+		$parent_id = $this->input->post('parent_cat', true);
+		if ($parent_id == '') {
+			$parent_id = 0;
+		}
+		$data = array(
+			'category_name' => $name,
+			'cat_level' => $cat_level,
+			'parent_id' => $parent_id
+		);
+		$this->db->insert('d_category', $data);
+		return $this->db->insert_id();
+	}
+	
 	function update_category_img($id, $img_address) {
 		$data = array(
 			'img_address' => $img_address
