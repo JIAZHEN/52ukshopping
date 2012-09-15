@@ -176,7 +176,7 @@ class Admin extends CI_Controller {
 			
 			$this->form_validation->set_error_delimiters('', '');
 				
-			$this->form_validation->set_rules('itemname', 'Item Name', 'trim|required|is_unique[f_item.item_name]|xss_clean');
+			$this->form_validation->set_rules('itemname', 'Item Name', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('descript', 'Description', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('category', 'Category', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('price', 'Price', 'trim|required|numeric|xss_clean');
@@ -189,27 +189,75 @@ class Admin extends CI_Controller {
 				$data['page_title'] = 'SKU management';
 			
 				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
-										'bootstrap/css/bootstrap-responsive.css',
-										'bootstrap/css/datepicker.css');
+										'bootstrap/css/bootstrap-responsive.css');
 										
 				$js_data['jses'] = array('js/jquery-1.8.0.min.js',
-										 'bootstrap/js/bootstrap.js',
-										 'bootstrap/js/bootstrap-filestyle.js');
+										 'bootstrap/js/bootstrap.js');
 										 
 				$session_data = $this->session->userdata('admin');
+				$content_data['categories'] = $this->d_category_model->getCategoryByLevel(3);
 				
-				$slide_data['active_option'] = 'items_add';
+				$slide_data['active_option'] = 'skus_add';
 				
 				$this->load->view('templates/header', $data);
 				$this->load->view('admin/container');
 				$this->load->view('admin/slide_view', $slide_data);
-				$this->load->view('admin/items_add_view');
+				$this->load->view('admin/items_add_view', $content_data);
 				$this->load->view('admin/close');
 				$this->load->view('templates/load_javascripts', $js_data);
-				$this->load->view('admin/items_add_custom_js');
 				$this->load->view('templates/close');
 			} else {
 				$this->f_item_model->add_item();
+				redirect(base_url().'admin/items');
+			}
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
+	function edit_item_info($item_id = false) {
+		if($this->session->userdata('admin')) {
+			if($item_id) {
+			
+				$this->load->helper('form');
+				$this->load->library('form_validation');
+				
+				$this->form_validation->set_error_delimiters('', '');
+					
+				$this->form_validation->set_rules('itemname', 'Item Name', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('descript', 'Description', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('category', 'Category', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('price', 'Price', 'trim|required|numeric|xss_clean');
+				$this->form_validation->set_rules('cost', 'Cost', 'trim|required|numeric|xss_clean');
+				$this->form_validation->set_rules('stock', 'Stock', 'trim|required|is_natural_no_zero|xss_clean');
+				
+				if ($this->form_validation->run() === FALSE) {
+					$data['page_title'] = 'SKU management';
+				
+					$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+											'bootstrap/css/bootstrap-responsive.css');
+											
+					$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+											 'bootstrap/js/bootstrap.js');
+					
+					$content_data['item_info'] = $this->f_item_model->getItemById($item_id);
+					$content_data['categories'] = $this->d_category_model->getCategoryByLevel(3);
+					
+					$slide_data['active_option'] = 'skus_edit';
+					
+					$this->load->view('templates/header', $data);
+					$this->load->view('admin/container');
+					$this->load->view('admin/slide_view', $slide_data);
+					$this->load->view('admin/items_edit_view', $content_data);
+					$this->load->view('admin/close');
+					$this->load->view('templates/load_javascripts', $js_data);
+					$this->load->view('templates/close');
+				} else {
+					$this->f_item_model->add_item();
+					redirect(base_url().'admin/items');
+				}
+			} else {
 				redirect(base_url().'admin/items');
 			}
 		} else {

@@ -63,6 +63,20 @@ class F_item_model extends CI_Model {
 		$this->db->insert('f_item', $data);
 		return $this->db->insert_id();
 	}
+	
+	function update_item() {
+		$data = array(
+			'item_name' => $this->input->post('itemname', true),
+			'description' => $this->input->post('descript', true),
+			'category_id' => $this->input->post('category', true),
+			'price' => $this->input->post('price', true),
+			'cost' => $this->input->post('cost', true),
+			'stock' => $this->input->post('stock', true)
+		);
+			
+		$this->db->where('id', $this->input->post('id', true));
+		$this->db->update('f_item', $data);
+	}
 }
 /* End of file f_item_model.php */
 /* Location: ./application/models/f_item_model.php */
