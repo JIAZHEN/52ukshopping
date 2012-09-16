@@ -18,6 +18,16 @@
 </div>
 
 <h3><a>用户信息</a></h3>
+<div class="pagination pagination-left">
+  <ul>
+    <li><a href="<?php echo base_url().'admin'; ?>">&laquo;</a></li>
+    <?php for($i = 1; $i <= $total_page_num; $i++): ?>
+    	<li<?php if($i==($pageNum+1)) echo ' class="disabled"'; ?>><a href="#"><?php echo $i; ?></a></li>
+    <?php endfor; ?>
+    <li><a href="<?php echo base_url().'admin/'.$total_page_num; ?>">&raquo;</a></li>
+ </ul>
+</div>
+
 <table class="table table-striped table-condensed table-hover table-bordered">
     <thead class="table">
 		<tr>

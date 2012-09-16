@@ -15,6 +15,17 @@ class F_users_model extends CI_Model {
 		return $query->result_array();
 	}
 	
+	function getNumOfUsers() {
+		$this->db->select('count(*) as total');
+		$query = $this->db->get('f_users');
+		return $query->row_array();
+	}
+	
+	function getUsersForPagination($limit, $offset) {
+		$query = $this->db->get('f_users', $limit, $offset);
+		return $query->result_array();
+	}
+	
 	function get_users($id)
 	{
 		$query = $this->db->get_where('f_users', array('id' => $id));

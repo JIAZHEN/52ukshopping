@@ -1,6 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Admin extends CI_Controller {
 
+	private $num_per_page;
+	private $max_pagenum;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -10,9 +13,16 @@ class Admin extends CI_Controller {
 		$this->load->model('f_item_img_model');
 		$this->load->model('d_category_model');
 		$this->load->helper(array('form', 'url'));
+		
+		$this->num_per_page = 5;
+		$this->max_pagenum = 5;
 	}
 	
-	public function index() {
+	public function test() {
+		echo $this->num_per_page;
+	}
+	
+	public function index($pageNum = false) {
 		if($this->session->userdata('admin')) {
 			$data['page_title'] = 'Users management';
 			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
@@ -20,11 +30,25 @@ class Admin extends CI_Controller {
 			$js_data['jses'] = array('js/jquery-1.8.0.min.js',
 									 'bootstrap/js/bootstrap.js');
 									 
-			$session_data = $this->session->userdata('admin');
-			$content_data['id'] = $session_data['id'];
+			$num_query = $this->f_users_model->getNumOfUsers();
+			if ($num_query['total'] % $this->num_per_page == 0) {
+				$content_data['total_page_num'] = intval($num_query['total'] * 1.0 / $this->num_per_page);
+			} else {
+				$content_data['total_page_num'] = intval($num_query['total'] * 1.0 / $this->num_per_page) + 1;
+			}
+			
+			
+			if($pageNum) {
+				$pageNum = $pageNum - 1;
+			} else {
+				$pageNum = 0;
+			}
+			
 			$content_data['fields'] = $this->f_users_model->getFields();
-			$content_data['users_info'] = $this->f_users_model->getAllUsers();
+			$content_data['users_info'] = $this->f_users_model->getUsersForPagination($this->num_per_page, $pageNum * $this->num_per_page);
 			$content_data['display_fields'] = array('id', 'email', 'first_name', 'last_name');
+			$content_data['max_pagenum'] = $this->max_pagenum;
+			$content_data['pageNum'] = $pageNum;
 			
 			$slide_data['active_option'] = 'users_browse';
 			
