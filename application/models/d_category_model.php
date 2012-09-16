@@ -17,6 +17,17 @@ class D_category_model extends CI_Model {
 		return $query->result_array();
 	}
 	
+	function getNumOfAllCategories() {
+		$this->db->select('count(*) as total');
+		$query = $this->db->get('d_category');
+		return $query->row_array();
+	}
+	
+	function getCategorieForPagination($limit, $offset) {
+		$query = $this->db->get('d_category', $limit, $offset);
+		return $query->result_array();
+	}
+	
 	function getAllCategories() {
 		$query = $this->db->get('d_category');
 		return $query->result_array();

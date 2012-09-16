@@ -18,6 +18,23 @@
 </div>
 
 <h3><a>商品信息</a></h3>
+
+<div class="pagination pagination-left">
+  <ul>
+    <li><a href="<?php echo base_url().'admin/items'; ?>">&laquo;</a></li>
+   <?php if($pageOffset != 0): ?>
+    	<li><a href="<?php echo base_url().'admin/items/'.($display_paginations[0] - 1); ?>">...</a></li>
+    <?php endif; ?>
+    <?php foreach($display_paginations as $display_pagination): ?>
+    	<li<?php if($display_pagination==($pageNum+1)) echo ' class="disabled"'; ?>><a href="<?php echo base_url().'admin/items/'.$display_pagination; ?>"><?php echo $display_pagination; ?></a></li>
+    <?php endforeach; ?>
+    <?php if($pageOffset != ($amount_pagination - 1)): ?>
+    	<li><a href="<?php echo base_url().'admin/items/'.($display_paginations[count($display_paginations) - 1] + 1); ?>">...</a></li>
+    <?php endif; ?>
+    <li><a href="<?php echo base_url().'admin/items/'.$total_page_num; ?>">&raquo;</a></li>
+ </ul>
+</div>
+
 <table class="table table-striped table-condensed table-hover table-bordered">
     <thead class="table">
 		<tr>

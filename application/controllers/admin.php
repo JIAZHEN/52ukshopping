@@ -18,10 +18,6 @@ class Admin extends CI_Controller {
 		$this->max_pagenum = 2;
 	}
 	
-	public function test() {
-		echo $this->num_per_page;
-	}
-	
 	public function index($pageNum = false) {
 		if($this->session->userdata('admin')) {
 			$data['page_title'] = 'Users management';
@@ -177,18 +173,47 @@ class Admin extends CI_Controller {
 	    }
 	}
 	
-	function items() {
+	function items($pageNum = false) {
 		if($this->session->userdata('admin')) {
 			$data['page_title'] = 'SKUs management';
 			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 									'bootstrap/css/bootstrap-responsive.css');
 			$js_data['jses'] = array('js/jquery-1.8.0.min.js',
 									 'bootstrap/js/bootstrap.js');
-									 
-			$session_data = $this->session->userdata('admin');
-			$content_data['id'] = $session_data['id'];
+			// get amount of item pages
+			$num_query = $this->f_item_model->getNumOfAllItems();
+			if ($num_query['total'] % $this->num_per_page == 0) {
+				$content_data['total_page_num'] = intval($num_query['total'] * 1.0 / $this->num_per_page);
+			} else {
+				$content_data['total_page_num'] = intval($num_query['total'] * 1.0 / $this->num_per_page) + 1;
+			}
+			// get active page num
+			if($pageNum) {
+				$pageNum = $pageNum - 1;
+			} else {
+				$pageNum = 0;
+			}
+			// get display pagination
+			$pageOffset = intval(($pageNum) / $this->max_pagenum);
+			if ($content_data['total_page_num'] % $this->max_pagenum == 0) {
+				$amount_pagination = intval($content_data['total_page_num'] * 1.0 / $this->max_pagenum);
+			} else {
+				$amount_pagination = intval($content_data['total_page_num'] * 1.0 / $this->max_pagenum) + 1;
+			}
+			$content_data['display_paginations'] = array();
+			for($i = 1; $i <= $this->max_pagenum; $i++) {
+				if(($pageOffset * $this->max_pagenum + $i) <= $content_data['total_page_num']) {
+					$content_data['display_paginations'][] = $pageOffset * $this->max_pagenum + $i;
+				}
+			}
+			// set page offset to show ...
+			$content_data['pageOffset'] = $pageOffset;
+			$content_data['amount_pagination'] = $amount_pagination;
+			$content_data['max_pagenum'] = $this->max_pagenum;
+			$content_data['pageNum'] = $pageNum;
+			
 			$content_data['fields'] = $this->f_item_model->getFields();
-			$content_data['items_info'] = $this->f_item_model->getAllItems();
+			$content_data['items_info'] = $this->f_item_model->getItemsForAdminPagination($this->num_per_page, $pageNum * $this->num_per_page);
 			$content_data['display_fields'] = array('id', 'description', 'item_name', 'price', 'cost', 'stock', 'category_id');
 			
 			$slide_data['active_option'] = 'skus_browse';
@@ -438,7 +463,7 @@ class Admin extends CI_Controller {
 		}
 	}
 	
-	public function categories() {
+	public function categories($pageNum = false) {
 		if($this->session->userdata('admin')) {
 			$data['page_title'] = 'Categories management';
 			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
@@ -446,10 +471,41 @@ class Admin extends CI_Controller {
 			$js_data['jses'] = array('js/jquery-1.8.0.min.js',
 									 'bootstrap/js/bootstrap.js');
 									 
-			$session_data = $this->session->userdata('admin');
-			$content_data['id'] = $session_data['id'];
+			// get amount of item pages
+			$num_query = $this->d_category_model->getNumOfAllCategories();
+			if ($num_query['total'] % $this->num_per_page == 0) {
+				$content_data['total_page_num'] = intval($num_query['total'] * 1.0 / $this->num_per_page);
+			} else {
+				$content_data['total_page_num'] = intval($num_query['total'] * 1.0 / $this->num_per_page) + 1;
+			}
+			// get active page num
+			if($pageNum) {
+				$pageNum = $pageNum - 1;
+			} else {
+				$pageNum = 0;
+			}
+			// get display pagination
+			$pageOffset = intval(($pageNum) / $this->max_pagenum);
+			if ($content_data['total_page_num'] % $this->max_pagenum == 0) {
+				$amount_pagination = intval($content_data['total_page_num'] * 1.0 / $this->max_pagenum);
+			} else {
+				$amount_pagination = intval($content_data['total_page_num'] * 1.0 / $this->max_pagenum) + 1;
+			}
+			$content_data['display_paginations'] = array();
+			for($i = 1; $i <= $this->max_pagenum; $i++) {
+				if(($pageOffset * $this->max_pagenum + $i) <= $content_data['total_page_num']) {
+					$content_data['display_paginations'][] = $pageOffset * $this->max_pagenum + $i;
+				}
+			}
+			// set page offset to show ...
+			$content_data['pageOffset'] = $pageOffset;
+			$content_data['amount_pagination'] = $amount_pagination;
+			$content_data['max_pagenum'] = $this->max_pagenum;
+			$content_data['pageNum'] = $pageNum;						 
+									 
+									 
 			$content_data['fields'] = $this->d_category_model->getFields();
-			$content_data['categories_info'] = $this->d_category_model->getAllCategories();
+			$content_data['categories_info'] = $this->d_category_model->getCategorieForPagination($this->num_per_page, $pageNum * $this->num_per_page);
 			
 			$slide_data['active_option'] = 'categories_browse';
 			
