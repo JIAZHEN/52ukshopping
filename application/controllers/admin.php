@@ -14,8 +14,8 @@ class Admin extends CI_Controller {
 		$this->load->model('d_category_model');
 		$this->load->helper(array('form', 'url'));
 		
-		$this->num_per_page = 5;
-		$this->max_pagenum = 5;
+		$this->num_per_page = 2;
+		$this->max_pagenum = 2;
 	}
 	
 	public function test() {
@@ -29,20 +29,35 @@ class Admin extends CI_Controller {
 									'bootstrap/css/bootstrap-responsive.css');
 			$js_data['jses'] = array('js/jquery-1.8.0.min.js',
 									 'bootstrap/js/bootstrap.js');
-									 
+			// get amount of item pages
 			$num_query = $this->f_users_model->getNumOfUsers();
 			if ($num_query['total'] % $this->num_per_page == 0) {
 				$content_data['total_page_num'] = intval($num_query['total'] * 1.0 / $this->num_per_page);
 			} else {
 				$content_data['total_page_num'] = intval($num_query['total'] * 1.0 / $this->num_per_page) + 1;
 			}
-			
-			
+			// get active page num
 			if($pageNum) {
 				$pageNum = $pageNum - 1;
 			} else {
 				$pageNum = 0;
 			}
+			// get display pagination
+			$pageOffset = intval(($pageNum) / $this->max_pagenum);
+			if ($content_data['total_page_num'] % $this->max_pagenum == 0) {
+				$amount_pagination = intval($content_data['total_page_num'] * 1.0 / $this->max_pagenum);
+			} else {
+				$amount_pagination = intval($content_data['total_page_num'] * 1.0 / $this->max_pagenum) + 1;
+			}
+			$content_data['display_paginations'] = array();
+			for($i = 1; $i <= $this->max_pagenum; $i++) {
+				if(($pageOffset * $this->max_pagenum + $i) <= $content_data['total_page_num']) {
+					$content_data['display_paginations'][] = $pageOffset * $this->max_pagenum + $i;
+				}
+			}
+			// set page offset to show ...
+			$content_data['pageOffset'] = $pageOffset;
+			$content_data['amount_pagination'] = $amount_pagination;
 			
 			$content_data['fields'] = $this->f_users_model->getFields();
 			$content_data['users_info'] = $this->f_users_model->getUsersForPagination($this->num_per_page, $pageNum * $this->num_per_page);
