@@ -8,6 +8,7 @@ class Shop extends CI_Controller {
 		$this->load->library('cart');
 		$this->load->model('d_category_model');
 		$this->load->model('f_item_model');
+		$this->load->model('f_item_img_model');
 	}
 	
 	public function test() {
@@ -110,13 +111,17 @@ class Shop extends CI_Controller {
 	     $nav_data['session_name'] = $session_data['first_name'];
 	    }
 	    
-	    $per_page = 2;
+	    $per_page = 5;
 		$max_pagenum = 3;
 
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
 	    
 	    $browse_data['cat_id'] = $lv3_cat_id;
 	    $browse_data['items'] = $this->f_item_model->getItemsForPagination($lv3_cat_id, $per_page, 0);
+	    $browse_data['items_img'] = array();
+	    foreach($browse_data['items'] as $key => $value) {
+		    $browse_data['items_img'][$key] = $this->f_item_img_model->getImgsByItemIdForBrowse($value['id']);
+	    }
 	    
 	    $browse_data['breadcrumb'] = $this->d_category_model->getBreadcrumb($lv3_cat_id);
 	    
