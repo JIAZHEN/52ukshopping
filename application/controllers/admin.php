@@ -12,6 +12,7 @@ class Admin extends CI_Controller {
 		$this->load->model('f_item_model');
 		$this->load->model('f_item_img_model');
 		$this->load->model('d_category_model');
+		$this->load->model('f_carousel_model');
 		$this->load->helper(array('form', 'url'));
 		
 		$this->num_per_page = 2;
@@ -648,6 +649,33 @@ class Admin extends CI_Controller {
 		$this->load->view('templates/load_javascripts', $js_data);
 		$this->load->view('admin/categories_edit_custom_js');
 		$this->load->view('templates/close');
+	}
+	
+	function carousels() {
+		if($this->session->userdata('admin')) {
+			$data['page_title'] = 'UI management';
+			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+									'bootstrap/css/bootstrap-responsive.css');
+			$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+									 'bootstrap/js/bootstrap.js');					 				 
+									 
+			$content_data['fields'] = $this->f_carousel_model->getFields();
+			$content_data['carousels_info'] = $this->f_carousel_model->getAllCarousels();
+			
+			$slide_data['active_option'] = '';
+			
+			$this->load->view('templates/header', $data);
+			$this->load->view('admin/container');
+			$this->load->view('admin/slide_view', $slide_data);
+			$this->load->view('admin/carousel_view', $content_data);
+			$this->load->view('admin/close');
+			$this->load->view('templates/load_javascripts', $js_data);
+			//$this->load->view('admin/categories_custom_js');
+			$this->load->view('templates/close');
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
 	}
 
 	public function login() {

@@ -17,7 +17,16 @@
 		    <li<?php if($active_option == 'skus_add') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/add_item'; ?>"><i class="icon-plus"></i> 添加商品</a></li>
 		<li class="divider"></li>
 		<li class="nav-header">界面管理</li>
-		    <li<?php if($active_option == 'uis_browse') echo ' class="active"'; ?>><a href="#"><i class="icon-book"></i> 浏览</a></li>
+	    <li>
+			<div class="dropdown">
+			    <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href=""><i class="icon-th-large"></i> 走马灯<b class="caret"></b>
+			    </a>
+			    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+			    	<li><a href="<?php echo base_url().'admin/carousels'; ?>"><i class="icon-book"></i> 浏览</a></li>
+			    	<li><a href=""><i class="icon-plus"></i> 添加</a></li>
+			    </ul>
+		    </div>
+	    </li>
 		    <li<?php if($active_option == 'uis_edit') echo ' class="active"'; ?>><a href="#"><i class="icon-pencil"></i> 编辑用户</a></li>
 		    <li<?php if($active_option == 'uis_add') echo ' class="active"'; ?>><a href="#"><i class="icon-plus"></i> 添加用户</a></li>
 		<li class="divider"></li>
