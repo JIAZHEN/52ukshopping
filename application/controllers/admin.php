@@ -667,10 +667,10 @@ class Admin extends CI_Controller {
 			$this->load->view('templates/header', $data);
 			$this->load->view('admin/container');
 			$this->load->view('admin/slide_view', $slide_data);
-			$this->load->view('admin/carousel_view', $content_data);
+			$this->load->view('admin/carousels_view', $content_data);
 			$this->load->view('admin/close');
 			$this->load->view('templates/load_javascripts', $js_data);
-			//$this->load->view('admin/categories_custom_js');
+			$this->load->view('admin/carousels_custom_js');
 			$this->load->view('templates/close');
 		} else {
 		    //Field validation failed.  User redirected to login page
@@ -780,6 +780,65 @@ class Admin extends CI_Controller {
 		// delete category
 		$this->d_category_model->delete_category($id);
 		redirect(base_url().'admin/categories');
+	}
+	
+	function delete_carousel() {
+		$id = $this->input->post('id_delete', true);
+		$carousel_info = $this->f_carousel_model->getCarouselById($id);
+		// delete image
+		unlink($carousel_info['img_address']);
+		// delete in DB
+		$this->f_carousel_model->deleteCarousel($id);
+		redirect(base_url().'admin/carousels');
+	}
+	
+	function add_carousel() {
+		if($this->session->userdata('admin')) {
+		
+		$this->load->helper('form');
+			$this->load->library('form_validation');
+			
+			$this->form_validation->set_error_delimiters('', '');
+				
+			$this->form_validation->set_rules('carousel_name', 'Carousel Name', 'trim|required|is_unique[f_carousel.name]|xss_clean');
+			$this->form_validation->set_rules('description', 'Description', 'trim|required|xss_clean');
+			
+			$config['upload_path'] = './images/carousel/';
+			$config['allowed_types'] = 'gif|jpg|png';
+			$config['max_size']	= '2048';
+			$config['max_width']  = '4000';
+			$config['max_height']  = '3000';
+	
+			$this->upload->initialize($config);
+		
+			if ($this->form_validation->run() === FALSE || !$this->upload->do_upload()) {
+				$data['page_title'] = 'Categories management';
+				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+										'bootstrap/css/bootstrap-responsive.css');
+										
+				$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+										 'bootstrap/js/bootstrap.js');
+						
+				$slide_data['active_option'] = '';
+				$content_data['error'] = array('error' => $this->upload->display_errors('', ''));
+				
+				$this->load->view('templates/header', $data);
+				$this->load->view('admin/container');
+				$this->load->view('admin/slide_view', $slide_data);
+				$this->load->view('admin/carousels_add_view', $content_data);
+				$this->load->view('admin/close');
+				$this->load->view('templates/load_javascripts', $js_data);
+				$this->load->view('templates/close');
+			} else {
+				$file_info = $this->upload->data();
+				// remove ./
+				$img_address = substr($config['upload_path'], 2, strlen($config['upload_path'])).$file_info['file_name'];
+				$this->f_carousel_model->addCarousel($img_address);
+				redirect(base_url().'admin/carousels');
+			}
+		} else {
+			redirect(base_url().'admin/login');
+		}
 	}
 	
 	function logout() {

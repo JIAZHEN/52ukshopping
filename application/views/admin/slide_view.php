@@ -23,7 +23,7 @@
 			    </a>
 			    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 			    	<li><a href="<?php echo base_url().'admin/carousels'; ?>"><i class="icon-book"></i> 浏览</a></li>
-			    	<li><a href=""><i class="icon-plus"></i> 添加</a></li>
+			    	<li><a href="<?php echo base_url().'admin/add_carousel'; ?>"><i class="icon-plus"></i> 添加</a></li>
 			    </ul>
 		    </div>
 	    </li>

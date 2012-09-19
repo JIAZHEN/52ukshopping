@@ -5,7 +5,7 @@
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3>提示</h3>
 	</div>
-	<form action="<?php echo base_url().'admin/delete_category'; ?>" method="post" accept-charset="utf-8">
+	<form action="<?php echo base_url().'admin/delete_carousel'; ?>" method="post" accept-charset="utf-8">
 		<input id="id_delete" type="hidden" name="id_delete" value="" />
 	<div class="modal-body">
 		<p>确定要删除ID为 <a href="#" id="id_tooltip" title=""></a>的目录吗？</p>
@@ -39,7 +39,7 @@
 					 
 				 <?php endforeach;?>
 				 <th><a href="<?php echo base_url().'admin/edit_categories/'.$carousel_info['id']; ?>" class="btn btn-small">编辑</a></th>
-				 <th><button data-id="<?php echo $carousel_info['id']; ?>" data-name="<?php echo $category_info['category_name']; ?>" class="btn btn-small btn-danger delete-btn">删除</button></th>
+				 <th><button data-id="<?php echo $carousel_info['id']; ?>" data-name="<?php echo $carousel_info['name']; ?>" class="btn btn-small btn-danger delete-btn">删除</button></th>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>
