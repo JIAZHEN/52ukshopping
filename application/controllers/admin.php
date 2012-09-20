@@ -19,6 +19,21 @@ class Admin extends CI_Controller {
 		$this->max_pagenum = 2;
 	}
 	
+	function resizeImg($img_address, $width, $height) {
+		$config['image_library'] = 'gd2';
+		$config['source_image'] = $img_address;
+		$config['width'] = $width;
+		$config['height'] = $height;
+		
+		$this->image_lib->initialize($config); 
+		
+		if (!$this->image_lib->resize()) {
+		    echo $this->image_lib->display_errors();
+		} else {
+			echo 'OK';
+		}
+	}
+	
 	public function index($pageNum = false) {
 		if($this->session->userdata('admin')) {
 			$data['page_title'] = 'Users management';
@@ -729,6 +744,7 @@ class Admin extends CI_Controller {
 				$file_info = $this->upload->data();
 				// remove ./
 				$img_address = substr($config['upload_path'], 2, strlen($config['upload_path'])).$file_info['file_name'];
+				$this->resizeImg($img_address, 800, 480);
 				$this->f_carousel_model->addCarousel($img_address);
 				redirect(base_url().'admin/carousels');
 			}
@@ -778,9 +794,11 @@ class Admin extends CI_Controller {
 				$file_info = $this->upload->data();
 				// remove ./
 				$img_address = substr($config['upload_path'], 2, strlen($config['upload_path'])).$file_info['file_name'];
+				// resize
+				$this->resizeImg($img_address, 800, 480);
 				// delete image
 				unlink($content_data['carousel_info']['img_address']);
-				// delete in DB
+				// update in DB
 				$this->f_carousel_model->editCarousel($casel_id, $img_address);
 				redirect(base_url().'admin/carousels');
 			}

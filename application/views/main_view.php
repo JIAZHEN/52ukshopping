@@ -2,30 +2,16 @@
 <div class="span10">
 <div id="myCarousel" class="carousel slide">
             <div class="carousel-inner">
-              <div class="item active">
-                <img src="http://wrongwaycn.github.com/assets/img/bootstrap-mdo-sfmoma-01.jpg" width="1024px" alt="">
-                <div class="carousel-caption">
-                  <h4>I am title</h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </p>
-                </div>
-              </div>
-              <div class="item">
-                <img src="http://wrongwaycn.github.com/assets/img/bootstrap-mdo-sfmoma-02.jpg" width="1024px alt="">
-                <div class="carousel-caption">
-                  <h4>Title</h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                  </p>
-                </div>
-              </div>
-              <div class="item">
-                <img src="http://wrongwaycn.github.com/assets/img/bootstrap-mdo-sfmoma-03.jpg" width="1024px alt="">
-                <div class="carousel-caption">
-                  <h4>Title</h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
-                  </p>
-                </div>
-              </div>
+            	<?php foreach($carousels as $key => $carousel): ?>
+            		<div class="item<?php if($key == 0) echo ' active'; ?>">
+		                <img src="<?php echo base_url().$carousel['img_address']; ?>" width="1024px alt="">
+		                <div class="carousel-caption">
+		                  <h4><?php echo $carousel['name']; ?></h4>
+		                  <p><?php echo $carousel['description']; ?>
+		                  </p>
+		                </div>
+		            </div>
+            	<?php endforeach; ?>
             </div>
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
             <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>

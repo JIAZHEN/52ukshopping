@@ -8,6 +8,7 @@ class Main extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->library('cart');
 		$this->load->model('d_category_model');
+		$this->load->model('f_carousel_model');
 	}
 
 	public function index()
@@ -18,6 +19,8 @@ class Main extends CI_Controller {
 	    }
 	    
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
+	    $content_data['carousels'] = $this->f_carousel_model->getAllCarousels();
+	    
 		$data['page_title'] = 'Welcome';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 								'bootstrap/css/bootstrap-responsive.css',
@@ -35,7 +38,7 @@ class Main extends CI_Controller {
 									 'js/navigation.js');
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
-		$this->load->view('main_view.php');
+		$this->load->view('main_view.php', $content_data);
 		$this->load->view('templates/footer');
 		$this->load->view('templates/load_javascripts', $js_data);
 		$this->load->view('templates/close');
