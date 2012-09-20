@@ -38,7 +38,7 @@
 					<?php endif; ?>
 					 
 				 <?php endforeach;?>
-				 <th><a href="<?php echo base_url().'admin/edit_categories/'.$carousel_info['id']; ?>" class="btn btn-small">编辑</a></th>
+				 <th><a href="<?php echo base_url().'admin/edit_carousel/'.$carousel_info['id']; ?>" class="btn btn-small">编辑</a></th>
 				 <th><button data-id="<?php echo $carousel_info['id']; ?>" data-name="<?php echo $carousel_info['name']; ?>" class="btn btn-small btn-danger delete-btn">删除</button></th>
 			</tr>
 		<?php endforeach; ?>
