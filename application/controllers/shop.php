@@ -11,14 +11,6 @@ class Shop extends CI_Controller {
 		$this->load->model('f_item_img_model');
 	}
 	
-	public function test() {
-		$item_query = $this->f_item_model->getItemsForPagination(18, 3, (1 - 1) * 3);
-		foreach	($item_query as $item_key => $item_value) {
-			print_r($item_value);
-			echo '<br>';
-		}
-	}
-	
 	public function index() 
 	{
 		if($this->session->userdata('logged_in')) {
@@ -170,6 +162,8 @@ class Shop extends CI_Controller {
 	    $detail_data['ini'] = '';
 	    
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
+	    
+	    $detail_data['item_imgs'] = $this->f_item_img_model->getImgsByItemId($id);
 		$data['page_title'] = 'Detail';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 								'bootstrap/css/bootstrap-responsive.css',

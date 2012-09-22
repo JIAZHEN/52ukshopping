@@ -84,8 +84,8 @@
         
 		<ul class="span12" id="zoomthumbs">
 			    <li>
-			    	 <a href='http://www.professorcloud.com/images/zoomengine/bigimage00.jpg' class='cloud-zoom-gallery' title='Thumbnail 1'
-        	rel="useZoom: 'zoom1', smallImage: 'http://www.professorcloud.com/images/zoomengine/smallimage.jpg' ">
+			    	 <a href="<?php echo base_url().'images/product/IMAG0518.jpg'; ?>" class='cloud-zoom-gallery' title='Thumbnail 1'
+        	rel="useZoom: 'zoom1', smallImage: '<?php echo base_url().'images/product/IMAG0518_thumb.jpg'; ?>' ">
         <img src="http://www.professorcloud.com/images/zoomengine/tinyimage.jpg" class="img-polaroid" alt = "Thumbnail 1"/></a>
 			    </li>
 			    <li>

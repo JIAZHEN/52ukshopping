@@ -19,7 +19,19 @@ class Admin extends CI_Controller {
 		$this->max_pagenum = 2;
 	}
 	
-	function resizeImg($img_address, $width, $height) {
+	public function testLess() {
+		require "js/lessc.inc.php";
+
+		$less = new lessc;
+		$less->setVariables(array(
+		  "border-color" => "red",
+		  "base" => "960px"
+		));
+		$less->checkedCompile("less/test.less", "css/output.css");
+	}
+	
+	
+	private function resizeImg($img_address, $width, $height) {
 		$config['image_library'] = 'gd2';
 		$config['source_image'] = $img_address;
 		$config['width'] = $width;
