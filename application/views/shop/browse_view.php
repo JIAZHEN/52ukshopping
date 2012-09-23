@@ -36,7 +36,7 @@
 				<li class="span3">
 		          <div class="thumbnail">
 		            <a class="visual" href="#" title="<?php echo $items[$row*4 + $column]['item_name']; ?>">
-					<img class="product" src="<?php if(count($items_img[$row*4 + $column]) != 0 && !is_null($items_img[$row*4 + $column]['thumb_address'])) echo base_url().$items_img[$row*4 + $column]['thumb_address']; else echo 'http://placehold.it/300x200'; ?>" /></a>
+					<img class="span12 product" src="<?php if(count($items_img[$row*4 + $column]) != 0 && !is_null($items_img[$row*4 + $column]['thumb_address'])) echo base_url().$items_img[$row*4 + $column]['thumb_address']; else echo 'http://placehold.it/300x200'; ?>" /></a>
 		            <div class="caption">
 		              <h4 class="name"><a href="#"><?php echo $items[$row*4 + $column]['item_name']; ?></a></h4>
 		              <p><strong>£<?php echo $items[$row*4 + $column]['price']; ?></strong></p>

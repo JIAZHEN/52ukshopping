@@ -31,7 +31,6 @@ class F_item_img_model extends CI_Model {
 	function add_item_img($item_id, $img_address) {
 		$data = array(
 			'item_id' => $item_id,
-			'thumb_address' => 'none',
 			'img_address' => $img_address
 		);
 			
@@ -39,11 +38,18 @@ class F_item_img_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 	
-	public function update_thumbs($id, $thumb_address) {
+	function update_thumbs($id, $thumb_address) {
 		$data = array(
 			'thumb_address' => $thumb_address
 		);
-		
+		$this->db->where('id', $id);
+		$this->db->update('f_item_img', $data);
+	}
+	
+	function update_tiny($id, $tiny_address) {
+		$data = array(
+			'tiny_address' => $tiny_address
+		);
 		$this->db->where('id', $id);
 		$this->db->update('f_item_img', $data);
 	}

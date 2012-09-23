@@ -50,11 +50,14 @@ class Admin extends CI_Controller {
 		}
 	}
 	
-	private function resizeImg($img_address, $width, $height, $newImage = false) {
+	private function resizeImg(	$img_address, 
+								$width, $height, 
+								$newImage = false, 
+								$resizeName = false) {
 		if($newImage) {
 			$pos = strpos($img_address, '.');
 			$extend = substr($img_address, $pos, strlen($img_address));
-			$new_img_path = substr($img_address, 0, $pos).'_thumb'.$extend;
+			$new_img_path = substr($img_address, 0, $pos).$resizeName.$extend;
 			$config['new_image'] = $new_img_path;
 		}
 		$config['image_library'] = 'gd2';
@@ -423,11 +426,13 @@ class Admin extends CI_Controller {
 		$upload_info = $this->uploadImg('product/');
 		if ($upload_info['result'] == 'false') {
 			$content_data['error'] = $upload_info['info'];
-		}
-		else {
+		} else {
 			$content_data['img_id'] = $this->f_item_img_model->add_item_img($item_id, $upload_info['info']);
-			$resize_info = $this->resizeImg($upload_info['info'], 300, 100, true);
-			$this->f_item_img_model->update_thumbs($content_data['img_id'], $resize_info['info']);
+			$thumb_info = $this->resizeImg($upload_info['info'], 255, 255, true, '_thumb');
+			$this->f_item_img_model->update_thumbs($content_data['img_id'], $thumb_info['info']);
+			
+			$tiny_info = $this->resizeImg($upload_info['info'], 48, 48, true, '_tiny');
+			$this->f_item_img_model->update_tiny($content_data['img_id'], $tiny_info['info']);
 		}
 		$data['page_title'] = 'SKU management';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 

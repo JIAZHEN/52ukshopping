@@ -70,9 +70,9 @@
         but without the braces.
         -->
     	
-        <a href='http://www.professorcloud.com/images/zoomengine/bigimage00.jpg' class = 'cloud-zoom' id='zoom1'
+        <a href="<?php if(sizeof($item_imgs) > 0) { echo base_url().$item_imgs[0]['img_address']; } else { echo 'http://placehold.it/300x200'; } ?>" class = 'cloud-zoom' id='zoom1'
             rel="adjustX: 10, adjustY:-4, softFocus:true">
-            <img src="http://www.professorcloud.com/images/zoomengine/smallimage.jpg" class="img-polaroid" alt='' align="left" title="Optional title display" />
+            <img src="<?php if(sizeof($item_imgs) > 0) { echo base_url().$item_imgs[0]['thumb_address']; } else { echo 'http://placehold.it/300x200'; } ?>" class="img-polaroid" alt='' align="left" title="Optional title display" />
         </a>
         
     <!--	
@@ -83,36 +83,14 @@
         -->
         
 		<ul class="span12" id="zoomthumbs">
-			    <li>
-			    	 <a href="<?php echo base_url().'images/product/IMAG0518.jpg'; ?>" class='cloud-zoom-gallery' title='Thumbnail 1'
-        	rel="useZoom: 'zoom1', smallImage: '<?php echo base_url().'images/product/IMAG0518_thumb.jpg'; ?>' ">
-        <img src="http://www.professorcloud.com/images/zoomengine/tinyimage.jpg" class="img-polaroid" alt = "Thumbnail 1"/></a>
+				<?php foreach($item_imgs as $item_img): ?>
+					<li>
+			    	 <a href="<?php echo base_url().$item_img['img_address']; ?>" class='cloud-zoom-gallery' title='Thumbnail 1'
+        	rel="useZoom: 'zoom1', smallImage: '<?php echo base_url().$item_img['thumb_address']; ?>' ">
+        <img src="<?php echo base_url().$item_img['tiny_address']; ?>" class="img-polaroid" alt = "Thumbnail 1"/></a>
 			    </li>
-			    <li>
-			    	<a href='http://www.professorcloud.com/images/zoomengine/bigimage01.jpg' class='cloud-zoom-gallery' title='Thumbnail 2'
-        	rel="useZoom: 'zoom1', smallImage: ' http://www.professorcloud.com/images/zoomengine/smallimage-1.jpg'">
-        <img src="http://www.professorcloud.com/images/zoomengine/tinyimage-1.jpg" class="img-polaroid" alt = "Thumbnail 2"/></a>
-			    </li>
-			    <li>
-			    	<a href='http://www.professorcloud.com/images/zoomengine/bigimage02.jpg' class='cloud-zoom-gallery' title='Thumbnail 3'
-        	rel="useZoom: 'zoom1', smallImage: 'http://www.professorcloud.com/images/zoomengine/smallimage-2.jpg' ">
-        <img src="http://www.professorcloud.com/images/zoomengine/tinyimage-2.jpg" class="img-polaroid" alt = "Thumbnail 3"/></a>
-			    </li>
-			    <li>
-			    	 <a href='http://www.professorcloud.com/images/zoomengine/bigimage00.jpg' class='cloud-zoom-gallery' title='Thumbnail 1'
-        	rel="useZoom: 'zoom1', smallImage: 'http://www.professorcloud.com/images/zoomengine/smallimage.jpg' ">
-        <img src="http://www.professorcloud.com/images/zoomengine/tinyimage.jpg" class="img-polaroid" alt = "Thumbnail 1"/></a>
-			    </li>
-			    <li>
-			    	<a href='http://www.professorcloud.com/images/zoomengine/bigimage01.jpg' class='cloud-zoom-gallery' title='Thumbnail 2'
-        	rel="useZoom: 'zoom1', smallImage: ' http://www.professorcloud.com/images/zoomengine/smallimage-1.jpg'">
-        <img src="http://www.professorcloud.com/images/zoomengine/tinyimage-1.jpg" class="img-polaroid" alt = "Thumbnail 2"/></a>
-			    </li>
-			    <li>
-			    	<a href='http://www.professorcloud.com/images/zoomengine/bigimage02.jpg' class='cloud-zoom-gallery' title='Thumbnail 3'
-        	rel="useZoom: 'zoom1', smallImage: 'http://www.professorcloud.com/images/zoomengine/smallimage-2.jpg' ">
-        <img src="http://www.professorcloud.com/images/zoomengine/tinyimage-2.jpg" class="img-polaroid" alt = "Thumbnail 3"/></a>
-			    </li>
+				<?php endforeach; ?>
+			    
 		    </ul>
 	
 	<!-- ZOOM -->

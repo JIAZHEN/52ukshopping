@@ -4,7 +4,7 @@
             <div class="carousel-inner">
             	<?php foreach($carousels as $key => $carousel): ?>
             		<div class="item<?php if($key == 0) echo ' active'; ?>">
-		                <img src="<?php echo base_url().$carousel['img_address']; ?>" width="1024px alt="">
+		                <img src="<?php echo base_url().$carousel['img_address']; ?>" width="1024px" alt="">
 		                <div class="carousel-caption">
 		                  <h4><?php echo $carousel['name']; ?></h4>
 		                  <p><?php echo $carousel['description']; ?>
