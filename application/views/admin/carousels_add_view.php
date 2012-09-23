@@ -26,7 +26,7 @@
   <label class="control-label" for="img_address">Image</label>
   <div class="controls">
     <input type="file" name="userfile" />
-    <p class="help-block"><?php if(isset($error)) echo $error['error'];?></p>
+    <p class="help-block"><?php if(isset($error)) echo $error;?></p>
   </div>
 </div>
 	

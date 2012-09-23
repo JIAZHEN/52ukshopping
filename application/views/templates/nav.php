@@ -51,16 +51,16 @@
 		<?php $startValue = -111;
 			  $counter = 0;
 			  $interval = -112; 
-			foreach($category as $key => $value): ?> <!-- first category -->
-				<li><a href="<?php if($key == 8) { echo base_url().'shop'; } else {echo base_url().'shop/category/'.$key;} ?>"><?php echo $value['name']; ?></a>
+			foreach($category as $value): ?> <!-- first category -->
+				<li><a href="<?php echo base_url().'shop/category/'.$value['id']; ?>"><?php echo $value['name']; ?></a>
 				<?php if(sizeof($value['children']) > 0) : ?>
 					<div style="left:<?php echo ($startValue + $interval * $counter); ?>px;">
-					<?php foreach($value['children'] as $sub_key => $sub_value): ?> <!-- second category -->
+					<?php foreach($value['children'] as $sub_value): ?> <!-- second category -->
 						<ul>
 							<li class="oe_heading"><?php echo $sub_value['name']; ?></li>
 							<?php if(sizeof($sub_value['children']) > 0) : ?>
-								<?php foreach($sub_value['children'] as $third_cat_key => $third_cat_value): ?>
-									<li><a href="<?php echo base_url().'shop/category/'.$third_cat_key; ?>"><?php echo $third_cat_value; ?></a></li>
+								<?php foreach($sub_value['children'] as $third_cat_value): ?>
+									<li><a href="<?php echo base_url().'shop/category/'.$third_cat_value['id']; ?>"><?php echo $third_cat_value['name']; ?></a></li>
 								<?php endforeach; ?>
 							<?php endif; ?>
 						</ul>
@@ -69,5 +69,6 @@
 				<?php endif; $counter++; ?>
 			</li>
 		<?php endforeach;?>
+		<li><a href="<?php echo base_url().'shop'; ?>">Shop</a></li>
 	</ul><!-- oe_menue -->
 </div><!-- oe_nav -->

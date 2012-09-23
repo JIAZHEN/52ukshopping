@@ -30,7 +30,7 @@
 						&& $item_imgs[$row*4 + $column]['thumb_address'] != 'none' ) : ?>
 			  <li class="span3">
 			    <a class="thumbnail img-options" data-id="<?php echo $item_imgs[$row*4 + $column]['id']; ?>" data-src="<?php echo base_url().$item_imgs[$row*4 + $column]['img_address']; ?>">
-			      <img src="<?php echo base_url().$item_imgs[$row*4 + $column]['thumb_address']; ?>" alt="">
+			      <img src="<?php echo base_url().$item_imgs[$row*4 + $column]['thumb_address']; ?>" alt="" width="300px" height="20px">
 			    </a>
 			  </li>
 		  	<?php endif; ?>

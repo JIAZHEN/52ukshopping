@@ -72,7 +72,7 @@
 
 <input type="file" name="userfile" />
 <input type="submit" value="upload" class="btn btn-success" />
-<p class="help-block"><?php if(isset($error)) echo $error['error'];?></p>
+<p class="help-block"><?php if(isset($error)) echo $error;?></p>
 </form>
 
 </div>

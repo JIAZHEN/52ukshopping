@@ -29,10 +29,6 @@ $(document).ready(function() {
 			},
 			country: {
 			  	required: true
-			},
-			passport: {
-			  	required: true,
-			  	minlength: 5
 			}
 	    },
 	    highlight: function(label) {

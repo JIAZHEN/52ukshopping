@@ -17,7 +17,7 @@ class Main extends CI_Controller {
 	     $session_data = $this->session->userdata('logged_in');
 	     $nav_data['session_name'] = $session_data['first_name'];
 	    }
-	    
+	 	    
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
 	    $content_data['carousels'] = $this->f_carousel_model->getAllCarousels();
 	    

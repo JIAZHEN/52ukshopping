@@ -15,7 +15,7 @@ class Admin extends CI_Controller {
 		$this->load->model('f_carousel_model');
 		$this->load->helper(array('form', 'url'));
 		
-		$this->num_per_page = 2;
+		$this->num_per_page = 5;
 		$this->max_pagenum = 2;
 	}
 	
@@ -30,6 +30,25 @@ class Admin extends CI_Controller {
 		$less->checkedCompile("less/test.less", "css/output.css");
 	}
 	
+	private function uploadImg($folder) {
+		$config['upload_path'] = './images/'.$folder;
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['overwrite'] = true;
+		$config['max_size']	= '3072';
+		$config['max_width']  = '4000';
+		$config['max_height']  = '3000';
+
+		$this->upload->initialize($config);
+
+		if (!$this->upload->do_upload()) {
+			return array('result' => 'false', 'info' => $this->upload->display_errors('', ''));
+		} else {
+			$file_info = $this->upload->data();
+			// remove ./
+			$img_address = substr($config['upload_path'], 2, strlen($config['upload_path'])).$file_info['file_name'];
+			return array('result' => 'true', 'info' => $img_address);
+		}
+	}
 	
 	private function resizeImg($img_address, $width, $height, $newImage = false) {
 		if($newImage) {
@@ -40,6 +59,7 @@ class Admin extends CI_Controller {
 		}
 		$config['image_library'] = 'gd2';
 		$config['source_image'] = $img_address;
+		$config['master_dim'] = 'height';
 		$config['width'] = $width;
 		$config['height'] = $height;
 		
@@ -398,25 +418,6 @@ class Admin extends CI_Controller {
 	    }
 	}
 	
-	public function uploadImg($folder) {
-		$config['upload_path'] = './images/'.$folder;
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '2024';
-		$config['max_width']  = '4000';
-		$config['max_height']  = '3000';
-
-		$this->upload->initialize($config);
-
-		if (!$this->upload->do_upload()) {
-			return array('result' => 'false', 'info' => $this->upload->display_errors('', ''));
-		} else {
-			$file_info = $this->upload->data();
-			// remove ./
-			$img_address = substr($config['upload_path'], 2, strlen($config['upload_path'])).$file_info['file_name'];
-			return array('result' => 'true', 'info' => $img_address);
-		}
-	}
-	
 	function upload_item_img() {
 		$item_id = $this->input->post('return_item_id', true);
 		$upload_info = $this->uploadImg('product/');
@@ -425,7 +426,7 @@ class Admin extends CI_Controller {
 		}
 		else {
 			$content_data['img_id'] = $this->f_item_img_model->add_item_img($item_id, $upload_info['info']);
-			$resize_info = $this->resizeImg($upload_info['info'], 300, 200, true);
+			$resize_info = $this->resizeImg($upload_info['info'], 300, 100, true);
 			$this->f_item_img_model->update_thumbs($content_data['img_id'], $resize_info['info']);
 		}
 		$data['page_title'] = 'SKU management';
@@ -594,25 +595,17 @@ class Admin extends CI_Controller {
 	function upload_cat_img()
 	{
 		$return_cat_id = $this->input->post('return_cat_id', true);
-		$config['upload_path'] = './images/category/';
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '2048';
-		$config['max_width']  = '4000';
-		$config['max_height']  = '3000';
-
-		$this->upload->initialize($config);
-
-		if ( ! $this->upload->do_upload())
-		{
-			$content_data['error'] = array('error' => $this->upload->display_errors('', ''));
+		$upload_info = $this->uploadImg('category/');
+		if ($upload_info['result'] == 'false') {
+			$content_data['error'] = $upload_info['info'];
 		}
-		else
-		{
-			$file_info = $this->upload->data();
-			
-			// remove ./
-			$img_address = substr($config['upload_path'], 2, strlen($config['upload_path'])).$file_info['file_name'];
-			$this->d_category_model->update_category_img($return_cat_id, $img_address);
+		else {
+			// delete the old img
+			$cat_info = $this->d_category_model->getCategoryById($return_cat_id);
+			if(!is_null($cat_info['img_address'])) {
+				unlink($cat_info['img_address']);
+			}
+			$this->d_category_model->update_category_img($return_cat_id, $upload_info['info']);
 		}
 		$data['page_title'] = 'Categories management';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
@@ -679,22 +672,14 @@ class Admin extends CI_Controller {
 		if($this->session->userdata('admin')) {
 		
 		$this->load->helper('form');
-			$this->load->library('form_validation');
-			
-			$this->form_validation->set_error_delimiters('', '');
-				
-			$this->form_validation->set_rules('carousel_name', 'Carousel Name', 'trim|required|is_unique[f_carousel.name]|xss_clean');
-			$this->form_validation->set_rules('description', 'Description', 'trim|required|xss_clean');
-			
-			$config['upload_path'] = './images/carousel/';
-			$config['allowed_types'] = 'gif|jpg|png';
-			$config['max_size']	= '2048';
-			$config['max_width']  = '4000';
-			$config['max_height']  = '3000';
-	
-			$this->upload->initialize($config);
+		$this->load->library('form_validation');
 		
-			if ($this->form_validation->run() === FALSE || !$this->upload->do_upload()) {
+		$this->form_validation->set_error_delimiters('', '');
+			
+		$this->form_validation->set_rules('carousel_name', 'Carousel Name', 'trim|required|is_unique[f_carousel.name]|xss_clean');
+		$this->form_validation->set_rules('description', 'Description', 'trim|required|xss_clean');
+		$upload_info = $this->uploadImg('carousel/');
+		if ($this->form_validation->run() === FALSE || $upload_info['result'] == 'false') {
 				$data['page_title'] = 'Categories management';
 				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 										'bootstrap/css/bootstrap-responsive.css');
@@ -703,7 +688,7 @@ class Admin extends CI_Controller {
 										 'bootstrap/js/bootstrap.js');
 						
 				$slide_data['active_option'] = '';
-				$content_data['error'] = array('error' => $this->upload->display_errors('', ''));
+				$content_data['error'] = $upload_info['info'];
 				
 				$this->load->view('templates/header', $data);
 				$this->load->view('admin/container');
@@ -713,38 +698,29 @@ class Admin extends CI_Controller {
 				$this->load->view('templates/load_javascripts', $js_data);
 				$this->load->view('templates/close');
 			} else {
-				$file_info = $this->upload->data();
-				// remove ./
-				$img_address = substr($config['upload_path'], 2, strlen($config['upload_path'])).$file_info['file_name'];
-				$this->resizeImg($img_address, 800, 480);
-				$this->f_carousel_model->addCarousel($img_address);
+				$this->resizeImg($upload_info['info'], 800, 480);
+				$this->f_carousel_model->addCarousel($upload_info['info']);
 				redirect(base_url().'admin/carousels');
 			}
+						
 		} else {
 			redirect(base_url().'admin/login');
 		}
 	}
 	
-	function edit_carousel($casel_id) {
+	function edit_carousel_info($casel_id) {
 		if($this->session->userdata('admin')) {
 			$this->load->helper('form');
 			$this->load->library('form_validation');
 			
 			$this->form_validation->set_error_delimiters('', '');
-				
 			$this->form_validation->set_rules('carousel_name', 'Carousel Name', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('description', 'Description', 'trim|required|xss_clean');
 			
-			$config['upload_path'] = './images/carousel/';
-			$config['allowed_types'] = 'gif|jpg|png';
-			$config['max_size']	= '2048';
-			$config['max_width']  = '4000';
-			$config['max_height']  = '3000';
-	
-			$this->upload->initialize($config);
+			
 			$content_data['carousel_info'] = $this->f_carousel_model->getCarouselById($casel_id);
-		
-			if ($this->form_validation->run() === FALSE || !$this->upload->do_upload()) {
+			
+			if ($this->form_validation->run() === FALSE) {
 				$data['page_title'] = 'Categories management';
 				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 										'bootstrap/css/bootstrap-responsive.css');
@@ -753,7 +729,6 @@ class Admin extends CI_Controller {
 										 'bootstrap/js/bootstrap.js');
 						
 				$slide_data['active_option'] = '';
-				$content_data['error'] = array('error' => $this->upload->display_errors('', ''));
 				
 				$this->load->view('templates/header', $data);
 				$this->load->view('admin/container');
@@ -763,15 +738,46 @@ class Admin extends CI_Controller {
 				$this->load->view('templates/load_javascripts', $js_data);
 				$this->load->view('templates/close');
 			} else {
-				$file_info = $this->upload->data();
-				// remove ./
-				$img_address = substr($config['upload_path'], 2, strlen($config['upload_path'])).$file_info['file_name'];
+				$this->f_carousel_model->updateCarouselInfo($casel_id);
+				redirect(base_url().'admin/carousels');
+			}
+		} else {
+			redirect(base_url().'admin/login');
+		}
+	}
+	
+	function update_carousel_img() {
+		if($this->session->userdata('admin')) {
+			$casel_id = $this->input->post('return_carousel_id', true);
+			$upload_info = $this->uploadImg('carousel/');
+			$content_data['carousel_info'] = $this->f_carousel_model->getCarouselById($casel_id);
+			if($upload_info['result'] == 'false') {
+				$data['page_title'] = 'Categories management';
+				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+										'bootstrap/css/bootstrap-responsive.css');
+										
+				$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+										 'bootstrap/js/bootstrap.js');
+						
+				$slide_data['active_option'] = '';
+				$content_data['error'] = $upload_info['info'];
+				
+				$this->load->view('templates/header', $data);
+				$this->load->view('admin/container');
+				$this->load->view('admin/slide_view', $slide_data);
+				$this->load->view('admin/carousels_edit_view', $content_data);
+				$this->load->view('admin/close');
+				$this->load->view('templates/load_javascripts', $js_data);
+				$this->load->view('templates/close');
+			} else {
 				// resize
-				$this->resizeImg($img_address, 800, 480);
+				$this->resizeImg($upload_info['info'], 800, 480);
 				// delete image
-				unlink($content_data['carousel_info']['img_address']);
+				if(!is_null($content_data['carousel_info']['img_address'])) {
+					unlink($content_data['carousel_info']['img_address']);
+				}
 				// update in DB
-				$this->f_carousel_model->editCarousel($casel_id, $img_address);
+				$this->f_carousel_model->updateCarouselImg($casel_id, $upload_info['info']);
 				redirect(base_url().'admin/carousels');
 			}
 		} else {
@@ -865,22 +871,59 @@ class Admin extends CI_Controller {
 	function delete_category() {
 		$id = $this->input->post('id_delete', true);
 		$cat_info = $this->d_category_model->getCategoryById($id);
-		// delete category image
-		unlink($cat_info['img_address']);
+		
+		if ($cat_info['cat_level'] == 2) {
+			$thirdCats = $this->d_category_model->getCategoryByLevelAndParent(3, $id); 
+			foreach($thirdCats as $values) { // delete all level 3 categories
+				$this->deleteItemForCat($values['id']); // delete items
+				$this->deleteCatById($values['id']); // delete category
+			}
+		} else {
+			$secondCats = $this->d_category_model->getCategoryByLevelAndParent(2, $id); // delete all level 2 categories
+			foreach($secondCats as $secondCatValues) {
+				// delete all level 3 categories
+				$thirdCats = $this->d_category_model->getCategoryByLevelAndParent(3, $secondCatValues['id']); 
+				foreach($thirdCats as $values) {
+					$this->deleteItemForCat($values['id']); // delete items belong to level 3
+					$this->deleteCatById($values['id']); // delete level 3 category
+				}
+				// delete level 2 category
+				$this->deleteItemForCat($secondCatValues['id']);
+				$this->deleteCatById($secondCatValues['id']);
+			}
+		}
+		
+		$this->deleteItemForCat($id);
+		$this->deleteCatById($id);
+		
+		redirect(base_url().'admin/categories');
+	}
+	
+	private function deleteCatById($catId) {
+		$cat_info = $this->d_category_model->getCategoryById($catId);
+		// delete own category image
+		if (!is_null($cat_info['img_address']) && file_exists($cat_info['img_address'])) {
+			unlink($cat_info['img_address']);
+		}
+		$this->d_category_model->delete_category($catId);
+	}
+	
+	private function deleteItemForCat($catId) {
 		// delete items image
 		$items_info = $this->f_item_model->getItemByCatId($id);
 		foreach ($items_info as $item_info) { // every item
 			$imgs_info = $this->f_item_img_model->getImgsByItemId($item_info['id']);
 			foreach ($imgs_info as $img_info) { // every img
-				unlink($img_info['img_address']);
-				unlink($img_info['thumb_address']);
+				if(!is_null($img_info['img_address']) && file_exists($img_info['img_address'])) {
+					unlink($img_info['img_address']);
+				}
+				if(!is_null($img_info['thumb_address']) && file_exists($img_info['thumb_address'])) {
+					unlink($img_info['thumb_address']);
+				}
 			}
 			$this->f_item_img_model->deleteImgByItemId($item_info['id']);
 		}
 		$this->f_item_model->deleteItemByCatId($id);
-		// delete category
-		$this->d_category_model->delete_category($id);
-		redirect(base_url().'admin/categories');
 	}
 	
 	function logout() {

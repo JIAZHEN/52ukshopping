@@ -36,13 +36,19 @@ class F_carousel_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 	
-	function editCarousel($id, $img_address) {
+	function updateCarouselInfo($id) {
 		$name = $this->input->post('carousel_name', true);
 		$description = $this->input->post('description', true);
-	
 		$data = array(
 			'name' => $name,
-			'description' => $description,
+			'description' => $description
+		);
+		$this->db->where('id', $id);
+		$this->db->update('f_carousel', $data);
+	}
+	
+	function updateCarouselImg($id, $img_address) {
+		$data = array(
 			'img_address' => $img_address
 		);
 		$this->db->where('id', $id);

@@ -33,7 +33,7 @@ class D_category_model extends CI_Model {
 		return $query->result_array();
 	}
 	
-	public function getCategoryByLevel($cat_level) {
+	function getCategoryByLevel($cat_level) {
 		$query = $this->db->get_where('d_category', array('cat_level' => $cat_level));
 		return $query->result_array();
 	}
@@ -43,7 +43,7 @@ class D_category_model extends CI_Model {
 		return $query->row_array();
 	}
 	
-	public function getCategoryByLevelAndParent($cat_level, $parent_id) {
+	function getCategoryByLevelAndParent($cat_level, $parent_id) {
 		$query = $this->db->get_where('d_category', array('cat_level' => $cat_level, 'parent_id' => $parent_id));
 		return $query->result_array();
 	}
@@ -61,26 +61,37 @@ class D_category_model extends CI_Model {
 		// first level
 		$query = $this->db->get_where('d_category', array('cat_level' => 1));
 		foreach ($query->result_array() as $query_item) {
-			$first_array[$query_item['id']] = array('name' => $query_item['category_name'], 'children' => array());
+			$first_array[] = array(	'id' 		=> $query_item['id'], 
+									'name' 		=> $query_item['category_name'], 
+									'children' 	=> array()
+									);
 		}
 		// second level
 		$second_query = $this->db->get_where('d_category', array('cat_level' => 2));
 		foreach ($second_query->result_array() as $query_item) {
-			$first_array[$query_item['parent_id']]['children'][$query_item['id']] 
-											= array('name' => $query_item['category_name'], 'children' => array());
+			foreach ($first_array as $key => $value) { // find parent
+				if($value['id'] == $query_item['parent_id']) {
+					$first_array[$key]['children'][] = array(	'id' 		=> $query_item['id'], 
+																'name' 		=> $query_item['category_name'], 
+																'children' 	=> array());
+					break;
+				}
+			}
 		}
 		// third level
 		$third_query = $this->db->get_where('d_category', array('cat_level' => 3));
 		foreach ($third_query->result_array() as $query_item) { // every third level category
-			for ($i = 1;$i <= count($first_array); $i++) { 
-				if (array_key_exists($query_item['parent_id'], $first_array[$i]['children'])) {
-					$first_array[$i]['children'][$query_item['parent_id']]['children'][$query_item['id']] 
-											= $query_item['category_name'];
-					break;
+			foreach ($first_array as $firstKey => $firstValue) { // find parent
+				foreach($firstValue['children'] as $secondKey => $secondValue) { // second level
+					if ($secondValue['id'] == $query_item['parent_id']) {
+						$first_array[$firstKey]['children'][$secondKey]['children'][] = 
+											array(	'id' 		=> $query_item['id'], 
+													'name' 		=> $query_item['category_name']
+												 );
+						break;
+					}
 				}
-				
 			}
-
 		}
 		return $first_array;
 	}
