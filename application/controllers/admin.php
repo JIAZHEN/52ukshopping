@@ -31,7 +31,13 @@ class Admin extends CI_Controller {
 	}
 	
 	
-	private function resizeImg($img_address, $width, $height) {
+	private function resizeImg($img_address, $width, $height, $newImage = false) {
+		if($newImage) {
+			$pos = strpos($img_address, '.');
+			$extend = substr($img_address, $pos, strlen($img_address));
+			$new_img_path = substr($img_address, 0, $pos).'_thumb'.$extend;
+			$config['new_image'] = $new_img_path;
+		}
 		$config['image_library'] = 'gd2';
 		$config['source_image'] = $img_address;
 		$config['width'] = $width;
@@ -40,9 +46,11 @@ class Admin extends CI_Controller {
 		$this->image_lib->initialize($config); 
 		
 		if (!$this->image_lib->resize()) {
-		    echo $this->image_lib->display_errors();
+		    return array('result' => 'false', 'info' => $this->image_lib->display_errors());
+		} else if($newImage) {
+			return array('result' => 'true', 'info' => $config['new_image']);
 		} else {
-			echo 'OK';
+			return array('result' => 'true');
 		}
 	}
 	
@@ -390,50 +398,42 @@ class Admin extends CI_Controller {
 	    }
 	}
 	
-	function do_upload()
-	{
-		$item_id = $this->input->post('return_item_id', true);
-		$config['upload_path'] = './images/product/';
+	public function uploadImg($folder) {
+		$config['upload_path'] = './images/'.$folder;
 		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '2048';
+		$config['max_size']	= '2024';
 		$config['max_width']  = '4000';
 		$config['max_height']  = '3000';
 
 		$this->upload->initialize($config);
 
-		if ( ! $this->upload->do_upload())
-		{
-			$content_data['error'] = array('error' => $this->upload->display_errors('', ''));
-		}
-		else
-		{
+		if (!$this->upload->do_upload()) {
+			return array('result' => 'false', 'info' => $this->upload->display_errors('', ''));
+		} else {
 			$file_info = $this->upload->data();
-			// str operations to get real width and height
-			$ary = preg_split('/\s+/' , $file_info['image_size_str']);
-			
-			$width_str = str_replace('"',"",$ary[0]);
-			$pos = strpos($width_str, '=');
-			$width_str = substr($width_str, $pos+1, strlen($width_str));
-			
-			$height_str = str_replace('"',"",$ary[1]);
-			$pos = strpos($height_str, '=');
-			$height_str = substr($height_str, $pos+1, strlen($height_str));
-			
 			// remove ./
 			$img_address = substr($config['upload_path'], 2, strlen($config['upload_path'])).$file_info['file_name'];
-			$content_data['img_id'] = $this->f_item_img_model->add_item_img($item_id, $img_address);
-			$content_data['img_address'] = $img_address;
-			$content_data['image_real_width'] = $width_str;
-			$content_data['image_real_height'] = $height_str;
+			return array('result' => 'true', 'info' => $img_address);
+		}
+	}
+	
+	function upload_item_img() {
+		$item_id = $this->input->post('return_item_id', true);
+		$upload_info = $this->uploadImg('product/');
+		if ($upload_info['result'] == 'false') {
+			$content_data['error'] = $upload_info['info'];
+		}
+		else {
+			$content_data['img_id'] = $this->f_item_img_model->add_item_img($item_id, $upload_info['info']);
+			$resize_info = $this->resizeImg($upload_info['info'], 300, 200, true);
+			$this->f_item_img_model->update_thumbs($content_data['img_id'], $resize_info['info']);
 		}
 		$data['page_title'] = 'SKU management';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
-								'bootstrap/css/bootstrap-responsive.css',
-								'imgareaselect/css/imgareaselect-default.css');
+								'bootstrap/css/bootstrap-responsive.css');
 								
 		$js_data['jses'] = array('js/jquery-1.8.0.min.js',
-								 'bootstrap/js/bootstrap.js',
-								 'imgareaselect/scripts/jquery.imgareaselect.pack.js');
+								 'bootstrap/js/bootstrap.js');
 		
 		$content_data['item_info'] = $this->f_item_model->getItemById($item_id);
 		$content_data['item_imgs'] = $this->f_item_img_model->getImgsByItemId($item_id);
@@ -449,46 +449,6 @@ class Admin extends CI_Controller {
 		$this->load->view('templates/load_javascripts', $js_data);
 		$this->load->view('admin/items_edit_img_custom_js');
 		$this->load->view('templates/close');
-	}
-	
-	function create_thumbs() {
-		$img_id = $this->input->post('img_id', true);
-		$return_item_id = $this->input->post('return_item_id', true);
-		$x_axis = $this->input->post('x1', true);
-		$y_axis = $this->input->post('y1', true);
-		$real_width = $this->input->post('real-width', true);
-		$real_height = $this->input->post('real-height', true);
-		$img_width = $this->input->post('img-width', true);
-		$img_height = $this->input->post('img-height', true);
-		$selection_width = $this->input->post('selection-width', true);
-		$selection_height = $this->input->post('selection-height', true);
-		$img_path = $this->input->post('img_path', true);
-		
-		$scale = ($img_width / $img_height) * ($real_height / $real_width);
-		$real_width = $real_width * $scale;
-		$real_height = $real_height * $scale;
-		
-		$pos = strpos($img_path, '.');
-		$extend = substr($img_path, $pos, strlen($img_path));
-		$new_img_path = substr($img_path, 0, $pos).'_thumb'.$extend;
-		
-		$config['image_library'] = 'gd2';
-		$config['source_image'] = $img_path;
-		$config['new_image'] = $new_img_path;
-		$config['width'] = $selection_width / $img_width * $real_width;
-		$config['height'] = $selection_height / $img_height * $real_height;
-		$config['x_axis'] = $x_axis / $img_width * $real_width;
-		$config['y_axis'] = $y_axis / $img_height * $real_height;
-		
-		$this->image_lib->initialize($config); 
-		
-		if ( ! $this->image_lib->crop())
-		{
-		    echo $this->image_lib->display_errors();
-		} else {
-			$this->f_item_img_model->update_thumbs($img_id, $new_img_path);
-			redirect(base_url().'admin/edit_item_images/'.$return_item_id);
-		}
 	}
 	
 	public function categories($pageNum = false) {
