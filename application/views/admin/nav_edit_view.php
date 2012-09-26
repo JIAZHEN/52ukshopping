@@ -7,7 +7,8 @@
   <!-- Text input-->
   <label class="control-label" for="nav_colour">Navigation Colour</label>
   <div class="controls">
-    <input id="nav_colour" name="nav_colour" placeholder="" class="input-medium" type="text" value="<?php echo set_value('nav_colour'); ?>">
+    <input id="nav_colour" name="nav_colour" placeholder="" class="input-medium" type="text" value="#123456" readonly>
+    <div id="colourpicker"></div>
     <p class="help-block"><?php echo form_error('nav_colour'); ?></p>
   </div>
 </div>

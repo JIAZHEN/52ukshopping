@@ -41,20 +41,20 @@ class Admin extends CI_Controller {
 			
 				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 										'bootstrap/css/bootstrap-responsive.css',
-										'bootstrap/css/datepicker.css');
+										'colourpicker/farbtastic.css');
 										
 				$js_data['jses'] = array('js/jquery-1.8.0.min.js',
 										 'bootstrap/js/bootstrap.js',
-										 'bootstrap/js/bootstrap-datepicker.js');
-				$content_data['empty'] = '';
+										 'colourpicker/farbtastic.js');
 				$slide_data['active_option'] = 'nav_edit';
 				
 				$this->load->view('templates/header', $data);
 				$this->load->view('admin/container');
 				$this->load->view('admin/slide_view', $slide_data);
-				$this->load->view('admin/nav_edit_view', $content_data);
+				$this->load->view('admin/nav_edit_view');
 				$this->load->view('admin/close');
 				$this->load->view('templates/load_javascripts', $js_data);
+				$this->load->view('admin/nav_edit_custom_js', $js_data);
 				$this->load->view('templates/close');
 			} else {
 				//f1d2c2
