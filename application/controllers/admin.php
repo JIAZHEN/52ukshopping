@@ -19,12 +19,13 @@ class Admin extends CI_Controller {
 		$this->max_pagenum = 2;
 	}
 	
-	public function compileLess($lessFile, $cssFile, $variable) {
-		//$str = file_get_contents('less/nav.less');
+	public function compileLess($variable) {
+		$lessFile = $this->input->post('lessFile', true);
+		$cssFile = $this->input->post('cssFile', true);
 		require "js/lessc.inc.php";
 		$less = new lessc;
 		$less->setVariables($variable);
-		$less->compileFile('less/'.$lessFile, 'css/'.$cssFile);
+		$less->compileFile($lessFile, $cssFile);
 	}
 	
 	public function editNav() {
@@ -61,7 +62,7 @@ class Admin extends CI_Controller {
 				$variables = array(
 					'colour' => $colour
 				);
-				$this->compileLess('nav.less', 'nav.css', $variables);
+				$this->compileLess($variables);
 				redirect(base_url().'admin');
 			}
 		} else {

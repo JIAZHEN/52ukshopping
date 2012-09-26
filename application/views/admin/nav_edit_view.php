@@ -11,6 +11,9 @@
     <p class="help-block"><?php echo form_error('nav_colour'); ?></p>
   </div>
 </div>
+
+<input id="lessFile" type="hidden" name="lessFile" value="less/nav.less">
+<input id="cssFile" type="hidden" name="cssFile" value="css/nav.css">
 	
 <div class="form-actions">
 	<button type="submit" class="btn btn-primary">Submit</button>

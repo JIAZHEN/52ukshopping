@@ -57,7 +57,7 @@ ul.oe_menu > li {
 }
 ul.oe_menu > li > a {
   display: block;
-  background-color: blue;
+  background-color: green;
   color: #aaa;
   text-decoration: none;
   font-weight: bold;
