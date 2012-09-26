@@ -19,15 +19,55 @@ class Admin extends CI_Controller {
 		$this->max_pagenum = 2;
 	}
 	
-	public function testLess() {
+	public function compileLess($lessFile, $cssFile, $variable) {
+		//$str = file_get_contents('less/nav.less');
 		require "js/lessc.inc.php";
-
 		$less = new lessc;
-		$less->setVariables(array(
-		  "border-color" => "red",
-		  "base" => "960px"
-		));
-		$less->checkedCompile("less/test.less", "css/output.css");
+		$less->setVariables($variable);
+		$less->compileFile('less/'.$lessFile, 'css/'.$cssFile);
+	}
+	
+	public function editNav() {
+		if($this->session->userdata('admin')) {
+			$this->load->helper('form');
+			$this->load->library('form_validation');
+			
+			$this->form_validation->set_error_delimiters('', '');
+			
+			$this->form_validation->set_rules('nav_colour', 'Navigation Colour', 'trim|required|xss_clean');
+			if ($this->form_validation->run() === FALSE) {
+				$data['page_title'] = 'Navigation management';
+			
+				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+										'bootstrap/css/bootstrap-responsive.css',
+										'bootstrap/css/datepicker.css');
+										
+				$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+										 'bootstrap/js/bootstrap.js',
+										 'bootstrap/js/bootstrap-datepicker.js');
+				$content_data['empty'] = '';
+				$slide_data['active_option'] = 'nav_edit';
+				
+				$this->load->view('templates/header', $data);
+				$this->load->view('admin/container');
+				$this->load->view('admin/slide_view', $slide_data);
+				$this->load->view('admin/nav_edit_view', $content_data);
+				$this->load->view('admin/close');
+				$this->load->view('templates/load_javascripts', $js_data);
+				$this->load->view('templates/close');
+			} else {
+				//f1d2c2
+				$colour = $this->input->post('nav_colour', true);
+				$variables = array(
+					'colour' => $colour
+				);
+				$this->compileLess('nav.less', 'nav.css', $variables);
+				redirect(base_url().'admin');
+			}
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
 	}
 	
 	private function uploadImg($folder) {

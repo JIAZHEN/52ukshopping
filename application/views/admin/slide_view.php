@@ -27,7 +27,7 @@
 			    </ul>
 		    </div>
 	    </li>
-		    <li<?php if($active_option == 'uis_edit') echo ' class="active"'; ?>><a href="#"><i class="icon-pencil"></i> 编辑用户</a></li>
+		    <li<?php if($active_option == 'nav_edit') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/editNav'; ?>"><i class="icon-th-large"></i> 导航栏</a></li>
 		    <li<?php if($active_option == 'uis_add') echo ' class="active"'; ?>><a href="#"><i class="icon-plus"></i> 添加用户</a></li>
 		<li class="divider"></li>
     </ul>
