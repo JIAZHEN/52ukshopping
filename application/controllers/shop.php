@@ -182,6 +182,7 @@ class Shop extends CI_Controller {
 		$this->load->view('shop/detail_view', $detail_data);
 		$this->load->view('templates/footer');
 		$this->load->view('templates/load_javascripts', $js_data);
+		$this->load->view('shop/detail_custom_js');
 		$this->load->view('templates/close');
 	}
 	
@@ -194,6 +195,28 @@ class Shop extends CI_Controller {
 		$item_query = $this->f_item_model->getItemsForPagination($cat_id, $per_page, ($pagenum - 1) * $per_page);
 		
 		echo json_encode($item_query);
+	}
+	
+	public function testMethod() {
+		$result = $this->f_item_model->getStockById(1);
+		echo $result['stock'];
+	}
+	
+	public function isInStock() {
+		$item_id = $this->input->post('item_id', true);
+		$qty = $this->input->post('qty', true);
+		$result = $this->f_item_model->getStockById($item_id);
+		$stock = $result['stock'];
+		$flag = '';
+		if($stock >= $qty) {
+			$flag = 'true';
+		} else {
+			$flag = 'false';
+		}
+		$output = array(
+			'flag' => $flag
+		);
+		echo json_encode($output);		
 	}
 }
 /* End of file shop.php */

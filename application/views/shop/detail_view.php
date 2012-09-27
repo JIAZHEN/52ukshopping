@@ -98,7 +98,7 @@
 			
 		</div> <!-- imgarea -->
 		<div class="span7"> <!-- info area -->
-			<form action="<?php echo base_url().'cart/add_cart'; ?>" method="post">
+			<form id="add_to_cart_form" action="<?php echo base_url().'cart/add_cart'; ?>" method="post">
 			<h2><?php echo $info['item_name']; ?></h2>
 			<input type="hidden" name="id" value="<?php echo $info['id']; ?>" />
 			<input type="hidden" name="name" value="<?php echo $info['item_name']; ?>" />
@@ -127,7 +127,7 @@
 				</ul>
 				<ul class="ul-select">
 					<li>Quantity</li>
-					<li><input type="text" class="input-mini" size="1" name="quantity" value="1" />
+					<li><input id="required_qty" type="text" class="input-mini" size="1" name="quantity" value="1" />
 				    </li>
 				</ul>
 			</div> <!-- selectarea -->
@@ -136,7 +136,7 @@
 						<p>Price</p><strong>£ <?php echo number_format($info['price'],2); ?></strong>
 						<input type="hidden" name="price" value="<?php echo number_format($info['price'],2); ?>" />
 					</div>
-					<button class="span6 btn btn-success pull-right btn-large" type="submit">Buy now</button>
+					<a id="buy_btn" class="span6 btn btn-success pull-right btn-large">Buy now</a>
 					
 				
 			</div> <!-- buttonbox -->

@@ -88,6 +88,11 @@ class F_item_model extends CI_Model {
 		$this->db->where('id', $this->input->post('id', true));
 		$this->db->update('f_item', $data);
 	}
+	
+	function getStockById($id) {
+		$query = $this->db->get_where('f_item', array('id' => $id));
+		return $query->row_array();
+	}
 }
 /* End of file f_item_model.php */
 /* Location: ./application/models/f_item_model.php */
