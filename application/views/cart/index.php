@@ -69,6 +69,7 @@
 	<a href="<?php echo base_url().'cart/destroy_cart'; ?>" class="btn btn-danger btn-small">Clean</a>
 </div>
 <div class="span2 offset7">
+	<a class="btn btn-primary btn-small" href="<?php echo base_url().'cart/paid_cart'; ?>">Test paid</a>
 	<button id="update" class="btn btn-primary btn-small" type="submit">Update</button>
 	<button id="checkout" class="btn btn-success btn-small"><i class="icon-shopping-cart icon-white"></i>Checkout</button>
 </div>

@@ -7,6 +7,9 @@ class Cart extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->library('cart');
 		$this->load->model('d_category_model');
+		$this->load->model('f_order_model');
+		$this->load->model('h_order_item_model');
+		$this->load->model('f_item_model');
 	}
 
 	public function index()
@@ -69,6 +72,25 @@ class Cart extends CI_Controller {
 		$this->cart->update($data);
 		
 		redirect(base_url().'cart');
+	}
+	
+	function paid_cart() {
+		if(sizeof($this->cart->contents()) == 0) {
+			redirect(base_url());
+		}
+		$totalCost = 0;
+		foreach($this->cart->contents() as $item) {
+			$item_info = $this->f_item_model->getItemById($item['id']);
+			$totalCost += $item_info['cost'];
+		}
+		// record order
+		$orderId = $this->f_order_model->addOrder(1, $this->cart->total(), $totalCost);
+		// record line items
+		foreach($this->cart->contents() as $item) {
+			$item_info = $this->f_item_model->getItemById($item['id']);
+			$this->h_order_item_model->addLineItems($orderId, $item['id'], $item['price'], $item_info['cost'], $item['qty']);
+		}
+		$this->destroy_cart();
 	}
 	
 	function destroy_cart() {
