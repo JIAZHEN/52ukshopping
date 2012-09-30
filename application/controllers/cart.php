@@ -78,13 +78,19 @@ class Cart extends CI_Controller {
 		if(sizeof($this->cart->contents()) == 0) {
 			redirect(base_url());
 		}
+		$user_id = '5217'.time();
+		if($this->session->userdata('logged_in')) {
+	     $session_data = $this->session->userdata('logged_in');
+	     $user_id = $session_data['id'];
+	    }
+	    
 		$totalCost = 0;
 		foreach($this->cart->contents() as $item) {
 			$item_info = $this->f_item_model->getItemById($item['id']);
 			$totalCost += $item_info['cost'];
 		}
 		// record order
-		$orderId = $this->f_order_model->addOrder(1, $this->cart->total(), $totalCost);
+		$orderId = $this->f_order_model->addOrder($user_id, $this->cart->total(), $totalCost);
 		// record line items
 		foreach($this->cart->contents() as $item) {
 			$item_info = $this->f_item_model->getItemById($item['id']);

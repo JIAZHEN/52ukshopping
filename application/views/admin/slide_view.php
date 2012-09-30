@@ -12,6 +12,7 @@
 		<li class="divider"></li>
 	    <li class="nav-header">商品管理</li>
 	    	<li<?php if($active_option == 'skus_browse') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/items'; ?>"><i class="icon-book"></i> 浏览</a></li>
+	    	<li<?php if($active_option == 'skus_option') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/options'; ?>"><i class="icon-book"></i> 商品选项</a></li>
 		    <li<?php if($active_option == 'skus_edit') echo ' class="active"'; ?>><a href="#"><i class="icon-pencil"></i> 编辑商品资料</a></li>
 		    <li<?php if($active_option == 'skus_edit_img') echo ' class="active"'; ?>><a href="#"><i class="icon-pencil"></i> 编辑商品图片</a></li>
 		    <li<?php if($active_option == 'skus_add') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/add_item'; ?>"><i class="icon-plus"></i> 添加商品</a></li>

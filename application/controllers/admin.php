@@ -13,6 +13,7 @@ class Admin extends CI_Controller {
 		$this->load->model('f_item_img_model');
 		$this->load->model('d_category_model');
 		$this->load->model('f_carousel_model');
+		$this->load->model('d_item_option_model');
 		$this->load->helper(array('form', 'url'));
 		
 		$this->num_per_page = 5;
@@ -976,6 +977,54 @@ class Admin extends CI_Controller {
 	   $this->session->unset_userdata('admin');
 	   session_destroy();
 	   redirect(base_url().'main');
+	}
+	
+	function options() {
+		if($this->session->userdata('admin')) {
+		
+			$this->load->helper('form');
+			$this->load->library('form_validation');
+			
+			$this->form_validation->set_error_delimiters('', '');
+				
+			$this->form_validation->set_rules('option_name_cn', 'Option Name Chinese', 'trim|required|is_unique[d_item_option.name_cn]|xss_clean');
+			$this->form_validation->set_rules('option_name_en', 'Option Name English', 'trim|required|is_unique[d_item_option.name_en]|xss_clean');
+			if ($this->form_validation->run()) {
+				$nameCn = $this->input->post('option_name_cn', true);
+				$nameEn = $this->input->post('option_name_en', true);
+				$this->d_item_option_model->addOption($nameCn, $nameEn);
+				redirect(base_url().'admin/options');
+			}
+			$data['page_title'] = 'UI management';
+			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+									'bootstrap/css/bootstrap-responsive.css');
+			$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+									 'bootstrap/js/bootstrap.js');					 				 
+									 
+			$content_data['fields'] = $this->d_item_option_model->getFields();
+			$content_data['options_info'] = $this->d_item_option_model->getAllOptions();
+			
+			$slide_data['active_option'] = 'skus_option';
+			
+			$this->load->view('templates/header', $data);
+			$this->load->view('admin/container');
+			$this->load->view('admin/slide_view', $slide_data);
+			$this->load->view('admin/options_view', $content_data);
+			$this->load->view('admin/close');
+			$this->load->view('templates/load_javascripts', $js_data);
+			$this->load->view('admin/options_custom_js');
+			$this->load->view('templates/close');
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
+	function deleteOption() {
+		$option_id = $this->input->post('id_delete', true);
+		$this->d_item_option_model->deleteOption($option_id);
+		
+		redirect(base_url().'admin/options');
 	}
 }
 /* End of file login.php */
