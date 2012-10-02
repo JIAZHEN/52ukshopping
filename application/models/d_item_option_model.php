@@ -23,6 +23,15 @@ class D_item_option_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 	
+	function editOption($nameCn, $nameEn, $id) {
+		$data = array(
+			'name_cn' => $nameCn,
+			'name_en' => $nameEn
+		);
+		$this->db->where('id', $id);
+		$this->db->update('d_item_option', $data);
+	}
+	
 	function getAllOptions() {
 		$query = $this->db->get('d_item_option');
 		return $query->result_array();

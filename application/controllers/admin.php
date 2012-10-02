@@ -14,6 +14,8 @@ class Admin extends CI_Controller {
 		$this->load->model('d_category_model');
 		$this->load->model('f_carousel_model');
 		$this->load->model('d_item_option_model');
+		$this->load->model('h_item_option_model');
+		$this->load->model('h_option_value_model');
 		$this->load->helper(array('form', 'url'));
 		
 		$this->num_per_page = 5;
@@ -429,6 +431,82 @@ class Admin extends CI_Controller {
 		    //Field validation failed.  User redirected to login page
 		 	redirect(base_url().'admin/login');
 	    }
+	}
+	
+	function edit_item_option($item_id = false) {
+		if($this->session->userdata('admin')) {
+			if($item_id) {
+			
+				$this->load->helper('form');
+				$this->load->library('form_validation');
+				
+				$this->form_validation->set_error_delimiters('', '');
+					
+				$this->form_validation->set_rules('val_en', 'Values in English', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('val_cn', 'Values in Chinese', 'trim|required|xss_clean|callback_checkCorrelation');
+				
+				if ($this->form_validation->run() === FALSE) {
+					$data['page_title'] = 'SKU management';
+				
+					$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+											'bootstrap/css/bootstrap-responsive.css');
+											
+					$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+											 'bootstrap/js/bootstrap.js');
+					
+					$content_data['fields'] = $this->h_item_option_model->getItemExistingFields($item_id);
+					$content_data['options_info'] = $this->h_item_option_model->getItemAllOptions($item_id);
+					$content_data['item_id'] = $item_id;
+					$content_data['options'] = $this->d_item_option_model->getAllOptions();;
+					
+					$slide_data['active_option'] = 'skus_edit';
+					
+					$this->load->view('templates/header', $data);
+					$this->load->view('admin/container');
+					$this->load->view('admin/slide_view', $slide_data);
+					$this->load->view('admin/items_options_edit_view', $content_data);
+					$this->load->view('admin/close');
+					$this->load->view('templates/load_javascripts', $js_data);
+					$this->load->view('templates/close');
+				} else {
+					$optionId = $this->input->post('option', true);
+					$valEnArray = explode(',', $this->input->post('val_en', true));
+					$valCnArray = explode(',', $this->input->post('val_cn', true));
+					for($i = 0; $i < count($valCnArray); $i++) {
+						$valEn = $valEnArray[$i];
+						$valCn = $valCnArray[$i];
+						$valId = $this->h_option_value_model->getValueId($optionId, $valCn, $valEn);
+						
+						$this->h_item_option_model->addItemOption($item_id, $valId);
+					}
+					redirect(base_url().'admin/edit_item_option/'.$item_id);
+				}
+			} else {
+				redirect(base_url().'admin/items');
+			}
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
+	function checkCorrelation() {
+		$valEnArray = explode(',', $this->input->post('val_en', true));
+		$valCnArray = explode(',', $this->input->post('val_cn', true));
+		if (sizeof($valEnArray) != sizeof($valCnArray)) {
+			$this->form_validation->set_message('checkCorrelation', 'Chinese values and English values are not correlate.');
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	
+	public function deleteItemOption() {
+		$item_id = $this->input->get('item_id', true);
+		$option_id = $this->input->get('option_id', true);
+		$this->h_item_option_model->deleteItemOption($item_id, $option_id);
+		redirect(base_url().'admin/edit_item_option/'.$item_id);
 	}
 	
 	public function edit_item_images($item_id = false) {
@@ -1014,6 +1092,50 @@ class Admin extends CI_Controller {
 			$this->load->view('templates/load_javascripts', $js_data);
 			$this->load->view('admin/options_custom_js');
 			$this->load->view('templates/close');
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
+	function editOption($optionId) {
+		if($this->session->userdata('admin')) {
+		
+			$this->load->helper('form');
+			$this->load->library('form_validation');
+			
+			$this->form_validation->set_error_delimiters('', '');
+				
+			$this->form_validation->set_rules('name_cn', 'Option Name Chinese', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('name_en', 'Option Name English', 'trim|required|xss_clean');
+			if ($this->form_validation->run() === false) {
+			
+				$data['page_title'] = 'UI management';
+				$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+										'bootstrap/css/bootstrap-responsive.css');
+				$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+										 'bootstrap/js/bootstrap.js');					 				 
+										 
+				$content_data['fields'] = $this->d_item_option_model->getFields();
+				$content_data['option_info'] = $this->d_item_option_model->getInfoByOrderId($optionId);
+				
+				$slide_data['active_option'] = 'skus_option';
+				
+				$this->load->view('templates/header', $data);
+				$this->load->view('admin/container');
+				$this->load->view('admin/slide_view', $slide_data);
+				$this->load->view('admin/options_edit_view', $content_data);
+				$this->load->view('admin/close');
+				$this->load->view('templates/load_javascripts', $js_data);
+				$this->load->view('templates/close');
+				
+			} else {
+				$id = $this->input->post('id_edit', true);
+				$nameCn = $this->input->post('name_cn', true);
+				$nameEn = $this->input->post('name_en', true);
+				$this->d_item_option_model->editOption($nameCn, $nameEn, $id);
+				redirect(base_url().'admin/options');
+			}
 		} else {
 		    //Field validation failed.  User redirected to login page
 		 	redirect(base_url().'admin/login');
