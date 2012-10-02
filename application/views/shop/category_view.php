@@ -34,7 +34,7 @@
 				<li class="span4">
 		          <div class="thumbnail">
 		            <a class="visual" href="#" title="<?php echo $lv_cat[$row*3 + $column]['category_name']; ?>"></a>
-					<img class="product" src="<?php if(is_null($lv_cat[$row*3 + $column]['img_address'])) echo 'http://placehold.it/300x200'; else echo base_url().$lv_cat[$row*3 + $column]['img_address']; ?>>" /></a>
+					<img class="product" src="<?php if(is_null($lv_cat[$row*3 + $column]['img_address'])) echo 'http://placehold.it/300x200'; else echo base_url().$lv_cat[$row*3 + $column]['img_address']; ?>"></a>
 		            <div class="caption">
 		              <h4 class="name"><a href="#"><?php echo $lv_cat[$row*3 + $column]['category_name']; ?></a></h4>
 		              <span class="ratings-imgs" title="4.9/5" data-ratings="4.9"></span>
