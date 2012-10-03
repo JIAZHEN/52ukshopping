@@ -52,6 +52,35 @@ class H_item_option_model extends CI_Model {
 	function addItemOption($item_id, $value_id) {
 		$this->db->query('	replace into h_item_option values('.$item_id.', '.$value_id.');');
 	}
+	
+	function getItemOptionStockFields($item_id) {
+		$this->db->select('value_id, name_cn, name_en, value_cn, value_en, stock');
+		$this->db->from('h_item_option');
+		$this->db->join('h_option_value', 'h_item_option.value_id = h_option_value.id');
+		$this->db->join('d_item_option', 'd_item_option.id = h_option_value.option_id');
+		$this->db->where('h_item_option.item_id', $item_id);
+		$query = $this->db->get();
+		return $query->list_fields();
+	}
+	
+	function getItemOptionStock($item_id) {
+		$this->db->select('value_id, name_cn, name_en, value_cn, value_en, stock');
+		$this->db->from('h_item_option');
+		$this->db->join('h_option_value', 'h_item_option.value_id = h_option_value.id');
+		$this->db->join('d_item_option', 'd_item_option.id = h_option_value.option_id');
+		$this->db->where('h_item_option.item_id', $item_id);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+	
+	function updateStock($item_id, $value_id, $stock) {
+		$data = array(
+			'stock' => $stock
+		);
+		$this->db->where('item_id', $item_id);
+		$this->db->where('value_id', $value_id);
+		$this->db->update('h_item_option', $data);
+	}
 }
 /* End of file D_item_option.php */
 /* Location: ./application/models/D_item_option.php */

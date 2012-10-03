@@ -68,4 +68,36 @@
 </fieldset>
 </form>
 
+<hr />
+
+<h3><a>修改库存</a></h3>
+<h4>总库存:<code><?php echo $total_stock; ?></code></h4>
+<table class="table table-striped table-condensed table-hover table-bordered">
+    <thead class="table">
+		<tr>
+			<?php foreach($stocks_info_fields as $field): ?>
+				<th><?php echo $field; ?></th>
+			<?php endforeach;?>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach($stocks_info as $info): ?>
+		<form method="post" action="<?php echo base_url().'admin/edit_item_stock/'.$item_id; ?>" >
+			<input type="hidden" name="value_id" value="<?php echo $info['value_id']; ?>">
+			<tr>
+				<?php foreach($stocks_info_fields as $field): ?>
+						<?php if($field == 'stock'): ?>
+							<td><input type="text" class="input-small" name="stock" value="<?php echo $info[$field]; ?>"></td>
+						<?php else: ?>
+							<td><?php echo $info[$field]; ?></td>
+						<?php endif; ?>
+				 <?php endforeach;?>
+				 <th><button type="submit" class="btn btn-small">更新</button></th>
+			</tr>
+		</form>
+		<?php endforeach; ?>
+	</tbody>
+		
+</table>
+
 </div>

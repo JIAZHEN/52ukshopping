@@ -453,11 +453,15 @@ class Admin extends CI_Controller {
 											
 					$js_data['jses'] = array('js/jquery-1.8.0.min.js',
 											 'bootstrap/js/bootstrap.js');
+					$item_info = $this->f_item_model->getItemById($item_id);
 					
 					$content_data['fields'] = $this->h_item_option_model->getItemExistingFields($item_id);
 					$content_data['options_info'] = $this->h_item_option_model->getItemAllOptions($item_id);
 					$content_data['item_id'] = $item_id;
-					$content_data['options'] = $this->d_item_option_model->getAllOptions();;
+					$content_data['options'] = $this->d_item_option_model->getAllOptions();
+					$content_data['stocks_info'] = $this->h_item_option_model->getItemOptionStock($item_id);
+					$content_data['stocks_info_fields'] = $this->h_item_option_model->getItemOptionStockFields($item_id);
+					$content_data['total_stock'] = $item_info['stock'];
 					
 					$slide_data['active_option'] = 'skus_edit';
 					
@@ -479,6 +483,34 @@ class Admin extends CI_Controller {
 						
 						$this->h_item_option_model->addItemOption($item_id, $valId);
 					}
+					redirect(base_url().'admin/edit_item_option/'.$item_id);
+				}
+			} else {
+				redirect(base_url().'admin/items');
+			}
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
+	function edit_item_stock($item_id) {
+		if($this->session->userdata('admin')) {
+			if($item_id) {
+			
+				$this->load->helper('form');
+				$this->load->library('form_validation');
+				
+				$this->form_validation->set_error_delimiters('', '');
+					
+				$this->form_validation->set_rules('stock', 'Stock', 'trim|required|xss_clean');
+				
+				if ($this->form_validation->run() === FALSE) {
+					redirect(base_url().'admin/edit_item_option/'.$item_id);
+				} else {
+					$stock = $this->input->post('stock', true);
+					$valueId = $this->input->post('value_id');
+					$this->h_item_option_model->updateStock($item_id, $valueId, $stock);
 					redirect(base_url().'admin/edit_item_option/'.$item_id);
 				}
 			} else {
