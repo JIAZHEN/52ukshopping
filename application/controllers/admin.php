@@ -503,10 +503,13 @@ class Admin extends CI_Controller {
 				
 				$this->form_validation->set_error_delimiters('', '');
 					
-				$this->form_validation->set_rules('stock', 'Stock', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('stock', 'Stock', 'trim|required|callback_checkCorrectStock|xss_clean');
 				
 				if ($this->form_validation->run() === FALSE) {
-					redirect(base_url().'admin/edit_item_option/'.$item_id);
+					echo validation_errors();
+					echo '<br />';
+					echo 'The page will be redirected in 3 seconds...';
+					header("refresh:3;url=".base_url().'admin/edit_item_option/'.$item_id);
 				} else {
 					$stock = $this->input->post('stock', true);
 					$valueId = $this->input->post('value_id');
@@ -527,6 +530,21 @@ class Admin extends CI_Controller {
 		$valCnArray = explode(',', $this->input->post('val_cn', true));
 		if (sizeof($valEnArray) != sizeof($valCnArray)) {
 			$this->form_validation->set_message('checkCorrelation', 'Chinese values and English values are not correlate.');
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	function checkCorrectStock($stock) {
+		$item_id = $this->input->post('hidden_item_id', true);
+		$valueId = $this->input->post('value_id');
+		$total_stock = $this->input->post('total_stock', true);
+		$option_id = $this->input->post('option_id', true);
+		$result = $this->h_item_option_model->getStockByItemAndOption($item_id, $option_id, $valueId);
+		
+		if(($result['total'] + $stock) > $total_stock) {
+			$this->form_validation->set_message('checkCorrectStock', 'The stock is out of bound.');
 			return false;
 		} else {
 			return true;

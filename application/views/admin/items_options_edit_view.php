@@ -84,6 +84,9 @@
 		<?php foreach($stocks_info as $info): ?>
 		<form method="post" action="<?php echo base_url().'admin/edit_item_stock/'.$item_id; ?>" >
 			<input type="hidden" name="value_id" value="<?php echo $info['value_id']; ?>">
+			<input type="hidden" name="option_id" value="<?php echo $info['option_id']; ?>">
+			<input type="hidden" name="total_stock" value="<?php echo $total_stock; ?>">
+			<input type="hidden" name="hidden_item_id" value="<?php echo $item_id; ?>">
 			<tr>
 				<?php foreach($stocks_info_fields as $field): ?>
 						<?php if($field == 'stock'): ?>

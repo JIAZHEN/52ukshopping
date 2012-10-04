@@ -54,7 +54,7 @@ class H_item_option_model extends CI_Model {
 	}
 	
 	function getItemOptionStockFields($item_id) {
-		$this->db->select('value_id, name_cn, name_en, value_cn, value_en, stock');
+		$this->db->select('value_id, option_id, name_cn, name_en, value_cn, value_en, stock');
 		$this->db->from('h_item_option');
 		$this->db->join('h_option_value', 'h_item_option.value_id = h_option_value.id');
 		$this->db->join('d_item_option', 'd_item_option.id = h_option_value.option_id');
@@ -64,13 +64,24 @@ class H_item_option_model extends CI_Model {
 	}
 	
 	function getItemOptionStock($item_id) {
-		$this->db->select('value_id, name_cn, name_en, value_cn, value_en, stock');
+		$this->db->select('value_id, option_id, name_cn, name_en, value_cn, value_en, stock');
 		$this->db->from('h_item_option');
 		$this->db->join('h_option_value', 'h_item_option.value_id = h_option_value.id');
 		$this->db->join('d_item_option', 'd_item_option.id = h_option_value.option_id');
 		$this->db->where('h_item_option.item_id', $item_id);
 		$query = $this->db->get();
 		return $query->result_array();
+	}
+	
+	function getStockByItemAndOption($item_id, $option_id, $value_id) {
+		$this->db->select('sum(stock) as total');
+		$this->db->from('h_item_option');
+		$this->db->join('h_option_value', 'h_item_option.value_id = h_option_value.id');
+		$this->db->where('h_item_option.item_id', $item_id);
+		$this->db->where('h_option_value.option_id', $option_id);
+		$this->db->where_not_in('h_item_option.value_id', $value_id);
+		$query = $this->db->get();
+		return $query->row_array();
 	}
 	
 	function updateStock($item_id, $value_id, $stock) {
