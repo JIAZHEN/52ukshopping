@@ -75,6 +75,10 @@ class F_item_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 	
+	function getItemOptions($itemId) {
+		
+	}
+	
 	function update_item() {
 		$data = array(
 			'item_name' => $this->input->post('itemname', true),

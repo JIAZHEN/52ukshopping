@@ -27,7 +27,8 @@ class H_item_option_model extends CI_Model {
 							d_item_option.name_cn as `Option Name Chinese`, 
 							d_item_option.name_en as `Option Name English`, 
 							GROUP_CONCAT(h_option_value.value_cn) as `Values In Chinese`, 
-							GROUP_CONCAT(h_option_value.value_en) as `Values In English`');
+							GROUP_CONCAT(h_option_value.value_en) as `Values In English`,
+							GROUP_CONCAT(value_id) as `ValuesID`');
 		$this->db->from('h_item_option');
 		$this->db->join('h_option_value', 'h_item_option.value_id = h_option_value.id');
 		$this->db->join('d_item_option', 'h_option_value.option_id = d_item_option.id');

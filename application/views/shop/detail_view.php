@@ -110,27 +110,19 @@
 				<li><a href="#">Read Review</a></li>
 			</ul>
 			<hr />
-			<p>Select a size</p>
-			<label class="radio inline"><input checked="checked" value="small" name="size" type="radio" />S</label>
-			<label class="radio inline"><input value="medium" name="size" type="radio" />M</label>
-			<label class="radio inline"><input value="large" name="size" type="radio" />L</label>
-			<div class="selectarea"> <!-- selectarea -->
-				<ul class="ul-select">
-					<li>Colour</li>
-					<li>
-						<select name="colour">  
-					        <option value="yellow">yellow</option>  
-					        <option value="blue">blue</option>  
-					        <option value="red">red</option> 
-				        </select>
-				    </li>
-				</ul>
-				<ul class="ul-select">
-					<li>Quantity</li>
-					<li><input id="required_qty" type="text" class="input-mini" size="1" name="quantity" value="1" />
-				    </li>
-				</ul>
-			</div> <!-- selectarea -->
+			<?php foreach($options as $option): ?>
+				<p>Select <?php echo $option['Option Name English']; ?></p>
+				<select name="<?php echo $option['Option Name English']; ?>">
+					<?php $valueIds = explode(',', $option['ValuesID']); ?>
+					<?php $values = explode(',', $option['Values In English']); ?>
+					<?php foreach($valueIds as $key => $valueId): ?>
+							<option value="<?php echo $valueId; ?>"><?php echo $values[$key]; ?></option>
+					<?php endforeach; ?>
+		        </select>
+			<?php endforeach; ?>
+			<p>Quantity</p>
+			<input id="required_qty" type="text" class="input-mini" size="1" name="quantity" value="1" />
+			
 			<div id="buttonbox"> <!-- buttonbox -->
 					<div class="span6">
 						<p>Price</p><strong>£ <?php echo number_format($info['price'],2); ?></strong>

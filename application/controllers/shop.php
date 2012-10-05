@@ -9,6 +9,7 @@ class Shop extends CI_Controller {
 		$this->load->model('d_category_model');
 		$this->load->model('f_item_model');
 		$this->load->model('f_item_img_model');
+		$this->load->model('h_item_option_model');
 	}
 	
 	public function index() 
@@ -164,6 +165,8 @@ class Shop extends CI_Controller {
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
 	    
 	    $detail_data['item_imgs'] = $this->f_item_img_model->getImgsByItemId($id);
+	    $detail_data['options'] = $this->h_item_option_model->getItemAllOptions($id);
+	    
 		$data['page_title'] = 'Detail';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 								'bootstrap/css/bootstrap-responsive.css',
