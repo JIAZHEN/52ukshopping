@@ -29,7 +29,7 @@
 		    </div>
 	    </li>
 		    <li<?php if($active_option == 'nav_edit') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/editNav'; ?>"><i class="icon-th-large"></i> 导航栏</a></li>
-		    <li<?php if($active_option == 'uis_add') echo ' class="active"'; ?>><a href="#"><i class="icon-plus"></i> 添加用户</a></li>
+		    <li<?php if($active_option == 'plot_view') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/plot_view'; ?>"><i class="icon-plus"></i> 数据统计</a></li>
 		<li class="divider"></li>
     </ul>
     <a href="<?php echo base_url().'admin/logout'; ?>" class="btn btn-danger btn-small"> 退出</a>

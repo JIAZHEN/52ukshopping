@@ -121,7 +121,7 @@ class Admin extends CI_Controller {
 		}
 	}
 	
-	public function test() {
+	public function plot_view() {
 		if($this->session->userdata('admin')) {
 			$data['page_title'] = 'Users management';
 			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
@@ -134,12 +134,12 @@ class Admin extends CI_Controller {
 									 'jqueryui/js/jquery.flot.min.js',
 									 'jqueryui/js/jstat-0.1.0.min.js',);
 			
-			$slide_data['active_option'] = 'users_browse';
+			$slide_data['active_option'] = 'plot_view';
 			
 			$this->load->view('templates/header', $data);
 			$this->load->view('admin/container');
 			$this->load->view('admin/slide_view', $slide_data);
-			$this->load->view('admin/test');
+			$this->load->view('admin/plot_view');
 			$this->load->view('admin/close');
 			$this->load->view('templates/load_javascripts', $js_data);
 			$this->load->view('admin/plot_custom_js');
