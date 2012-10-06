@@ -20,8 +20,7 @@
 	    <th>Name</th>
 	    <th>Price</th>
 	    <th>Quantity</th>
-	    <th>Size</th>
-	    <th>Colour</th>
+	    <th>Options</th>
 	    <th>Sutotal</th>
 	  </tr>
 	</thead>
@@ -41,24 +40,20 @@
 		<td><input type="text" class="input-mini" size="1" name="qty" value="<?php echo $item['qty']; ?>" /></td>
 		<input type="hidden" name="quantity_<?php echo $item_counter; ?>" value="<?php echo $item['qty']; ?>">
 		
-		<td><?php echo $productarray['size']; ?></td>
-		<input type="hidden" name="on0_<?php echo $item_counter; ?>" value="size">
-		<input type="hidden" name="os0_<?php echo $item_counter; ?>" value="<?php echo $productarray['size']; ?>">
-		<?php if(isset($productarray['colour'])): ?>
-			<td><?php echo $productarray['colour']; ?></td>
-			<input type="hidden" name="on1_<?php echo $item_counter; ?>" value="colour">
-			<input type="hidden" name="os1_<?php echo $item_counter; ?>" value="<?php echo $productarray['colour']; ?>">
-		<?php else : ?>
-			<td><?php echo ''; ?></td>
-		<?php endif; ?>
+		<td>
+			<?php foreach($productarray as $key => $value): ?>
+				<?php if(strlen($value) != 0): ?>
+					<?php $option_info = explode(',', $value); ?>
+					<?php echo $key.': '.$option_info[1].'<br />'; ?>
+					<input type="hidden" name="on1_<?php echo $item_counter; ?>" value="<?php echo $key; ?>">
+					<input type="hidden" name="os1_<?php echo $item_counter; ?>" value="<?php echo $option_info[1]; ?>">
+				<?php endif; ?>
+			<?php endforeach; ?>
+		</td>
 		
 		<td><?php echo $this->cart->format_number($item['subtotal']); ?></td>
 		
 		</tr>
-		
-		
-		
-		
 	<?php $item_counter++; ?>
 	<?php endforeach; ?>
 </tbody>

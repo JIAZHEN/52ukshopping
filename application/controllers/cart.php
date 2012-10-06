@@ -10,6 +10,7 @@ class Cart extends CI_Controller {
 		$this->load->model('f_order_model');
 		$this->load->model('h_order_item_model');
 		$this->load->model('f_item_model');
+		$this->load->model('d_item_option_model');
 	}
 
 	public function index()
@@ -40,19 +41,23 @@ class Cart extends CI_Controller {
 	
 	public function add_cart() 
 	{
+		$allOptions = $this->d_item_option_model->getAllOptions();
 		$id = $this->input->post('id');
 		$qty = $this->input->post('quantity');
 		$price = $this->input->post('price');
 		$name = $this->input->post('name');
-		$size = $this->input->post('size');
-		$colour = $this->input->post('colour');
+		
+		$options = array();
+		foreach($allOptions as $optionName) {
+			$options[$optionName['name_en']] = $this->input->post($optionName['name_en']);
+		}
 		
 		$data = array(
 					'id' 	  => $id,
 					'qty' 	  => $qty,
 					'price'	  => $price,
 					'name' 	  => $name,
-					'options' => array('size' => $size, 'colour' => $colour)
+					'options' => $options
 					);
 		$this->cart->insert($data);
 		

@@ -116,7 +116,7 @@
 					<?php $valueIds = explode(',', $option['ValuesID']); ?>
 					<?php $values = explode(',', $option['Values In English']); ?>
 					<?php foreach($valueIds as $key => $valueId): ?>
-							<option value="<?php echo $valueId; ?>"><?php echo $values[$key]; ?></option>
+							<option value="<?php echo $valueId.','.$values[$key]; ?>"><?php echo $values[$key]; ?></option>
 					<?php endforeach; ?>
 		        </select>
 			<?php endforeach; ?>
