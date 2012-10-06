@@ -14,13 +14,14 @@ class H_order_item_model extends CI_Model {
 		return $query->result_array();
 	}
 	
-	function addLineItems($order_id, $item_id, $price, $cost, $quantity) {
+	function addLineItems($order_id, $item_id, $price, $cost, $quantity, $options) {
 		$data = array(
 			'order_id' => $order_id,
 			'item_id' => $item_id,
 			'price' => $price,
 			'cost' => $cost,
-			'quantity' => $quantity
+			'quantity' => $quantity,
+			'options' => $options
 		);
 		$this->db->insert('h_order_item', $data);
 	}

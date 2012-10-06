@@ -97,9 +97,21 @@ class Cart extends CI_Controller {
 		// record order
 		$orderId = $this->f_order_model->addOrder($user_id, $this->cart->total(), $totalCost);
 		// record line items
+		$options = '';
 		foreach($this->cart->contents() as $item) {
+		
+			$productarray = $this->cart->product_options($item['rowid']);
+			$options = '';
+			foreach($productarray as $value) {
+				if(strlen($value) != 0) {
+					$option_info = explode(',', $value);
+					$options = $options.$option_info[0].',';
+				}
+			}
+			$options = substr($options, 0,strlen($options) - 1);
+			
 			$item_info = $this->f_item_model->getItemById($item['id']);
-			$this->h_order_item_model->addLineItems($orderId, $item['id'], $item['price'], $item_info['cost'], $item['qty']);
+			$this->h_order_item_model->addLineItems($orderId, $item['id'], $item['price'], $item_info['cost'], $item['qty'], $options);
 		}
 		$this->destroy_cart();
 	}
