@@ -121,6 +121,35 @@ class Admin extends CI_Controller {
 		}
 	}
 	
+	public function test() {
+		if($this->session->userdata('admin')) {
+			$data['page_title'] = 'Users management';
+			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+									'bootstrap/css/bootstrap-responsive.css',
+									'jqueryui/css/jquery.aristo.css');
+									
+			$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+									 'bootstrap/js/bootstrap.js',
+									 'jqueryui/js/jquery-ui-1.8.22.custom.min.js',
+									 'jqueryui/js/jquery.flot.min.js',
+									 'jqueryui/js/jstat-0.1.0.min.js',);
+			
+			$slide_data['active_option'] = 'users_browse';
+			
+			$this->load->view('templates/header', $data);
+			$this->load->view('admin/container');
+			$this->load->view('admin/slide_view', $slide_data);
+			$this->load->view('admin/test');
+			$this->load->view('admin/close');
+			$this->load->view('templates/load_javascripts', $js_data);
+			$this->load->view('admin/plot_custom_js');
+			$this->load->view('templates/close');
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
 	public function index($pageNum = false) {
 		if($this->session->userdata('admin')) {
 			$data['page_title'] = 'Users management';
