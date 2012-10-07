@@ -48,8 +48,7 @@
 			<tr>
 				<?php foreach($fields as $field): ?>
 						<?php if($field == 'id'): ?>
-						
-							<td><a href="#"><?php echo $info[$field]; ?></a></td>
+							<td><a href="<?php echo base_url().'admin/orderItems/'.$info[$field]; ?>"><?php echo $info[$field]; ?></a></td>
 						<?php else: ?>
 					 		<td><?php echo $info[$field]; ?></td>
 					 	<?php endif; ?>

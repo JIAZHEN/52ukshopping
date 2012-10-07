@@ -17,6 +17,7 @@ class Admin extends CI_Controller {
 		$this->load->model('h_item_option_model');
 		$this->load->model('h_option_value_model');
 		$this->load->model('f_order_model');
+		$this->load->model('h_order_item_model');
 		$this->load->helper(array('form', 'url'));
 		
 		$this->num_per_page = 5;
@@ -364,9 +365,29 @@ class Admin extends CI_Controller {
 	    }
 	}
 	
-	public function orderItems($id = false) {
+	public function orderItems($id) {
 		if($this->session->userdata('admin')) {
-		
+			$data['page_title'] = 'Order management';
+			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+									'bootstrap/css/bootstrap-responsive.css');
+											
+			$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+									 'bootstrap/js/bootstrap.js');
+									 
+			$content_data['orders_info'] = $this->h_order_item_model->getInfoByOrderId($id);
+			
+			$content_data['fields'] = $this->h_order_item_model->getFields();
+				
+			
+			$slide_data['active_option'] = '';
+			
+			$this->load->view('templates/header', $data);
+			$this->load->view('admin/container');
+			$this->load->view('admin/slide_view', $slide_data);
+			$this->load->view('admin/order_item_view', $content_data);
+			$this->load->view('admin/close');
+			$this->load->view('templates/load_javascripts', $js_data);
+			$this->load->view('templates/close');
 		} else {
 		    //Field validation failed.  User redirected to login page
 		 	redirect(base_url().'admin/login');
