@@ -16,6 +16,7 @@ class Admin extends CI_Controller {
 		$this->load->model('d_item_option_model');
 		$this->load->model('h_item_option_model');
 		$this->load->model('h_option_value_model');
+		$this->load->model('f_order_model');
 		$this->load->helper(array('form', 'url'));
 		
 		$this->num_per_page = 5;
@@ -303,6 +304,79 @@ class Admin extends CI_Controller {
 		    //Field validation failed.  User redirected to login page
 		 	redirect(base_url().'admin/login');
 	    }
+	}
+	
+	public function orders($pageNum = false) {
+		if($this->session->userdata('admin')) {
+			$data['page_title'] = 'Orders management';
+			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+									'bootstrap/css/bootstrap-responsive.css');
+			$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+									 'bootstrap/js/bootstrap.js');
+			// get amount of item pages
+			$num_query = $this->f_order_model->getNumOfAllOrders();
+			if ($num_query['total'] % $this->num_per_page == 0) {
+				$content_data['total_page_num'] = intval($num_query['total'] * 1.0 / $this->num_per_page);
+			} else {
+				$content_data['total_page_num'] = intval($num_query['total'] * 1.0 / $this->num_per_page) + 1;
+			}
+			// get active page num
+			if($pageNum) {
+				$pageNum = $pageNum - 1;
+			} else {
+				$pageNum = 0;
+			}
+			// get display pagination
+			$pageOffset = intval(($pageNum) / $this->max_pagenum);
+			if ($content_data['total_page_num'] % $this->max_pagenum == 0) {
+				$amount_pagination = intval($content_data['total_page_num'] * 1.0 / $this->max_pagenum);
+			} else {
+				$amount_pagination = intval($content_data['total_page_num'] * 1.0 / $this->max_pagenum) + 1;
+			}
+			$content_data['display_paginations'] = array();
+			for($i = 1; $i <= $this->max_pagenum; $i++) {
+				if(($pageOffset * $this->max_pagenum + $i) <= $content_data['total_page_num']) {
+					$content_data['display_paginations'][] = $pageOffset * $this->max_pagenum + $i;
+				}
+			}
+			// set page offset to show ...
+			$content_data['pageOffset'] = $pageOffset;
+			$content_data['amount_pagination'] = $amount_pagination;
+			$content_data['max_pagenum'] = $this->max_pagenum;
+			$content_data['pageNum'] = $pageNum;
+			
+			$content_data['fields'] = $this->f_order_model->getFields();
+			$content_data['orders_info'] = $this->f_order_model->getOrdersForPagination($this->num_per_page, $pageNum * $this->num_per_page);
+			
+			$slide_data['active_option'] = 'orders_browse';
+			
+			$this->load->view('templates/header', $data);
+			$this->load->view('admin/container');
+			$this->load->view('admin/slide_view', $slide_data);
+			$this->load->view('admin/orders_view', $content_data);
+			$this->load->view('admin/close');
+			$this->load->view('templates/load_javascripts', $js_data);
+			$this->load->view('admin/orders_custom_js');
+			$this->load->view('templates/close');
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
+	public function orderItems($id = false) {
+		if($this->session->userdata('admin')) {
+		
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
+	public function delete_order() {
+		$order_id = $this->input->post('id_delete', true);
+		$this->f_order_model->delete_order($order_id);
+		redirect(base_url().'admin/orders');
 	}
 	
 	function items($pageNum = false) {

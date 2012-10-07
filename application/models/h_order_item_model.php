@@ -25,6 +25,10 @@ class H_order_item_model extends CI_Model {
 		);
 		$this->db->insert('h_order_item', $data);
 	}
+	
+	function deleteByOrderIdItemId($orderId, $itemId) {
+		$this->db->delete('h_order_item', array('order_id' => $orderId, 'item_id' => $itemId));
+	}
 }
 /* End of file f_item_model.php */
 /* Location: ./application/models/f_item_model.php */
