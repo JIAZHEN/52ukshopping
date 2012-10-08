@@ -61,7 +61,7 @@
 </table>
 <div class="row">
 <div class="span1">
-	<a href="<?php echo base_url().'cart/destroy_cart'; ?>" class="btn btn-danger btn-small">Clean</a>
+	<a href="<?php echo base_url().'cart/destroy_cart'; ?>" class="btn btn-danger btn-medium">删除</a>
 </div>
 <div class="span2 offset7">
 	<a class="btn btn-primary btn-small" href="<?php echo base_url().'cart/paid_cart'; ?>">Test paid</a>

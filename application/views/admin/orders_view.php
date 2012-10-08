@@ -53,7 +53,6 @@
 					 		<td><?php echo $info[$field]; ?></td>
 					 	<?php endif; ?>
 				 <?php endforeach;?>
-				 <th><a href="<?php echo base_url().'admin/edit_item_info/'.$info['id']; ?>" class="btn btn-small">编辑</a></th>
 				 <th><button data-id="<?php echo $info['id']; ?>" data-sku="ORDERNO" class="btn btn-small btn-danger delete-btn">删除</button></th>
 			</tr>
 		<?php endforeach; ?>

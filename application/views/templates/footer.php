@@ -20,7 +20,7 @@
 <div class="span3">
 	<dl>
 	     <dt>Using the website</dt>
-	     <dd><a href="">Site map</a></dd>
+	     <dd><a href="">测试</a></dd>
 	     <dd><a href="">Tearms&conditions</a></dd>
 	     <dd><a href="">privacy policy</a></dd>
 	</dl>

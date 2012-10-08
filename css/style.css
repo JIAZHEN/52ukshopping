@@ -21,11 +21,9 @@ For tbs area
 }
 .tbsbox {
 	float: left;
-	width: 330px;
-	height: 500px;
+	width: 300px;
 	margin: 0px 5px 0px 0px;
 	padding: 0px;
-	border: 1px solid gray;
 }
 .tbsbox .content {
 	height: 270px;
@@ -64,4 +62,7 @@ For tbs area
 	height: 90px;
 	margin: 5px;
 	padding: 0px;
+}
+footer {
+	clear: both;
 }

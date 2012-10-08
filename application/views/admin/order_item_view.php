@@ -33,8 +33,6 @@
 				<?php foreach($fields as $field): ?>
 					 	<td><?php echo $info[$field]; ?></td>
 				 <?php endforeach;?>
-				 <th><a href="<?php echo base_url().'admin/edit_item_info/'.$info['order_id']; ?>" class="btn btn-small">编辑</a></th>
-				 <th><button data-id="<?php echo $info['order_id']; ?>" data-sku="<?php echo $info['item_id']; ?>" class="btn btn-small btn-danger delete-btn">删除</button></th>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>

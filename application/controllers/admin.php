@@ -683,6 +683,11 @@ class Admin extends CI_Controller {
 		redirect(base_url().'admin/edit_item_option/'.$item_id);
 	}
 	
+	public function setItemImgShow($id, $value, $item_id) {
+		$this->f_item_img_model->updateIsDeskShow($id, $value);
+		redirect(base_url().'admin/edit_item_images/'.$item_id);
+	}
+	
 	public function edit_item_images($item_id = false) {
 		if($this->session->userdata('admin')) {
 			if($item_id) {

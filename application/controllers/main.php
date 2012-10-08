@@ -9,6 +9,7 @@ class Main extends CI_Controller {
 		$this->load->library('cart');
 		$this->load->model('d_category_model');
 		$this->load->model('f_carousel_model');
+		$this->load->model('f_item_img_model');
 	}
 
 	public function index()
@@ -20,6 +21,8 @@ class Main extends CI_Controller {
 	 	    
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
 	    $content_data['carousels'] = $this->f_carousel_model->getAllCarousels();
+	    $content_data['deskShowInfo'] = $this->f_item_img_model->getDeskShow();
+	    $content_data['lv_cat'] = $this->d_category_model->getCategoryByLevel(1);
 	    
 		$data['page_title'] = 'Welcome';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 

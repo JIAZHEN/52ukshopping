@@ -32,6 +32,12 @@
 			    <a class="thumbnail img-options" data-id="<?php echo $item_imgs[$row*4 + $column]['id']; ?>" data-src="<?php echo base_url().$item_imgs[$row*4 + $column]['img_address']; ?>">
 			      <img src="<?php echo base_url().$item_imgs[$row*4 + $column]['thumb_address']; ?>" alt="" width="300px" height="20px">
 			    </a>
+			    <br />
+			    <?php if($item_imgs[$row*4 + $column]['is_desk_show'] == 0): ?>
+			    	<a class="span11 btn btn-info" href="<?php echo base_url().'admin/setItemImgShow/'.$item_imgs[$row*4 + $column]['id'].'/1/'.$item_imgs[$row*4 + $column]['item_id']; ?>">设置在桌面</a>
+			    <?php else: ?>
+			    	<a class="span11 btn btn-danger" href="<?php echo base_url().'admin/setItemImgShow/'.$item_imgs[$row*4 + $column]['id'].'/0/'.$item_imgs[$row*4 + $column]['item_id']; ?>">取消显示</a>
+			    <?php endif;?>
 			  </li>
 		  	<?php endif; ?>
 		<?php endfor; ?>

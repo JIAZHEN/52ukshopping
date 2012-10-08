@@ -43,28 +43,13 @@
 	  <div class="items"> <!-- items -->
 
 	    <!-- 1-5 -->
-	    <div>
-	      <img src="http://farm1.static.flickr.com/143/321464099_a7cfcb95cf_t.jpg" />
-	      <img src="http://farm4.static.flickr.com/3089/2796719087_c3ee89a730_t.jpg" />
-	      <img src="http://farm1.static.flickr.com/79/244441862_08ec9b6b49_t.jpg" />
-	      <img src="http://farm1.static.flickr.com/28/66523124_b468cf4978_t.jpg" />
-	    </div>
-	
-	    <!-- 5-10 -->
-	    <div>
-	      <img src="http://farm1.static.flickr.com/163/399223609_db47d35b7c_t.jpg" />
-	      <img src="http://farm1.static.flickr.com/135/321464104_c010dbf34c_t.jpg" />
-	      <img src="http://farm1.static.flickr.com/40/117346184_9760f3aabc_t.jpg" />
-	      <img src="http://farm1.static.flickr.com/153/399232237_6928a527c1_t.jpg" />
-	    </div>
-	
-	    <!-- 10-15 -->
-	    <div>
-	      <img src="http://farm4.static.flickr.com/3629/3323896446_3b87a8bf75_t.jpg" />
-	      <img src="http://farm4.static.flickr.com/3023/3323897466_e61624f6de_t.jpg" />
-	      <img src="http://farm4.static.flickr.com/3650/3323058611_d35c894fab_t.jpg" />
-	      <img src="http://farm4.static.flickr.com/3635/3323893254_3183671257_t.jpg" />
-	    </div>
+	      <?php $showCounter = 0; ?>
+	      <?php foreach($deskShowInfo as $info): ?>
+	      	<?php if($showCounter % 5 == 0) echo '<div>'; ?>
+	      		<a href="<?php echo base_url().'shop/detail/'.$info['item_id']; ?>"><img src="<?php echo base_url().$info['img_address']; ?>" /></a>
+	      	<?php if($showCounter % 5 == 0) echo '</div>'; ?>
+	      	<?php $showCounter++; ?>
+	      <?php endforeach; ?>
 	
 	  </div> <!-- items -->
 	</div> <!-- scrollable -->
@@ -72,127 +57,27 @@
 </div> <!-- sliders -->
 
 <div class="tbsarea"> <!-- tbsarea -->
-	<div class="tbsbox" id="topratebox"> <!-- tbsbox -->
-		<h3 class="title"><a href="" title="TOP RATED">TOP RATED</a></h3>
-		<div class="content">					
-	        <a class="left-panel" title="Satsuma Shower Gel/Cream"><img class="product" src="images/tbsareaBigPic.jpg" alt="Satsuma Shower Gel/Cream" title="Satsuma Shower Gel/Cream" /></a>
-			<section class="right-panel">
-				<h4 class="name"><a href="" title="Satsuma Shower Gel/Cream">Satsuma Shower Gel/Cream</a></h4>
-				<div class="note"><span class="ratings-img r4_9" title="4.9/ 5"></span><p class="detail">(4.9/ 5)</p></div>
-				<p class="description">This soap-free shower gel contains zesty l and has a refreshing citrus scent.</p>
-				<p class="prices"><span class="from">From </span><span class="new"><em>£4.00</em></span><span class="old"><em></em></span><span class="offer">
-				<p><a id="buynow_WI_CONVERSIONPANEL_1_45252m" href="" class="buynowbtn" title="Buy Now">Buy Now<span></span></a>
-		        <a id="outofstock_WI_CONVERSIONPANEL_1_45252m" href="#88411" class="outofstockbtn" title="Out of Stock">Out of Stock<span></span></a></p>
-			</section>
-		</div>
-		<hr />
-		<section class="thumbailtbs">
-			<ul>
-				<li>
-					<img class="visual-S" src="images/tbsareaBigPic.jpg" width="90px" height="90px" alt="Satsuma Shower Gel/Cream" 
-					title="Satsuma Shower Gel/Cream" data-desc="This soap-free shower gel contains zesty l and has a refreshing citrus scent." data-id="topratebox" />
-					<span class="ratings-holder" style="display:none;" data-rating="4.9" ></span>
-					<span class="price-holder" style="display:none;" data-prices="&#163;4.00|"></span>	
-				</li>
-				<li>
-					<img class="visual-S" src="images/thumbail2.png" width="90px" height="90px" alt="SecondITEM" title="Satsuma Shower Gel/Cream"
-					data-desc="Our famous Body Butter in a paediatrician-approved formula for baby’s delicate skin." data-id="topratebox" />
-					<span class="ratings-holder" style="display:none;" data-rating="4.9" data-rating-img="ratings-img r4_9"></span>
-					<span class="price-holder" style="display:none;" data-prices="&#163;4.00|"></span>	
-				</li>
-				<li>
-					<img class="visual-S" src="images/thumbail3.png" width="90px" height="90px" alt="ThirdItem" title="Satsuma Shower Gel/Cream"
-					data-desc="This is the third item." data-id="topratebox" />
-					<span class="ratings-holder" style="display:none;" data-rating="4.9" data-rating-img="ratings-img r4_9"></span>
-					<span class="price-holder" style="display:none;" data-prices="&#163;4.00|"></span>
-				</li>			
-	
-			</ul>
-		</section>
-		<section class="more">
-			<a href="" class="pull-right" title="View more top rated products">View more top rated products</a>
-		</section>
-	</div>
-	<div class="tbsbox" id="bestseller">
-		<h3 class="title"><a href="" title="TOP RATED">bestseller</a></h3>
-		<div class="content">					
-	        <a class="left-panel" title="Satsuma Shower Gel/Cream"><img class="product" src="images/tbsareaBigPic.jpg" alt="Satsuma Shower Gel/Cream" title="Satsuma Shower Gel/Cream" /></a>
-			<section class="right-panel">
-				<h4 class="name"><a href="" title="Satsuma Shower Gel/Cream">Satsuma Shower Gel/Cream</a></h4>
-				<div class="note"><span class="ratings-img r4_9" title="4.9/ 5"></span><p class="detail">(4.9/ 5)</p></div>
-				<p class="description">This soap-free shower gel contains zesty l and has a refreshing citrus scent.</p>
-				<p class="prices"><span class="from">From </span><span class="new"><em>£4.00</em></span><span class="old"><em></em></span><span class="offer">
-				<p><a id="buynow_WI_CONVERSIONPANEL_1_45252m" href="" class="buynowbtn" title="Buy Now">Buy Now<span></span></a>
-		        <a id="outofstock_WI_CONVERSIONPANEL_1_45252m" href="#88411" class="outofstockbtn" title="Out of Stock">Out of Stock<span></span></a></p>
-			</section>
-		</div>
-		<hr />
-		<section class="thumbailtbs">
-			<ul>
-				<li>
-					<img class="visual-S" src="images/tbsareaBigPic.jpg" width="90px" height="90px" alt="Satsuma Shower Gel/Cream" 
-					title="Satsuma Shower Gel/Cream" data-desc="This soap-free shower gel contains zesty l and has a refreshing citrus scent." data-id="bestseller" />
-					<span class="ratings-holder" style="display:none;" data-rating="4.9" ></span>
-					<span class="price-holder" style="display:none;" data-prices="&#163;4.00|"></span>	
-				</li>
-				<li>
-					<img class="visual-S" src="images/thumbail2.png" width="90px" height="90px" alt="SecondITEM" title="Satsuma Shower Gel/Cream"
-					data-desc="Our famous Body Butter in a paediatrician-approved formula for baby’s delicate skin." data-id="bestseller" />
-					<span class="ratings-holder" style="display:none;" data-rating="4.9" data-rating-img="ratings-img r4_9"></span>
-					<span class="price-holder" style="display:none;" data-prices="&#163;4.00|"></span>	
-				</li>
-				<li>
-					<img class="visual-S" src="images/thumbail3.png" width="90px" height="90px" alt="ThirdItem" title="Satsuma Shower Gel/Cream"
-					data-desc="This is the third item." data-id="bestseller" />
-					<span class="ratings-holder" style="display:none;" data-rating="4.9" data-rating-img="ratings-img r4_9"></span>
-					<span class="price-holder" style="display:none;" data-prices="&#163;4.00|"></span>
-				</li>			
-	
-			</ul>
-		</section>
-		<section class="more">
-			<a href="" class="pull-right" title="View more top rated products">View more top rated products</a>
-		</section>
-	</div>
-	<div class="tbsbox" id="newin">
-		<h3 class="title"><a href="" title="TOP RATED">New In</a></h3>
-		<div class="content">					
-	        <a class="left-panel" title="Satsuma Shower Gel/Cream"><img class="product" src="images/tbsareaBigPic.jpg" alt="Satsuma Shower Gel/Cream" title="Satsuma Shower Gel/Cream" /></a>
-			<section class="right-panel">
-				<h4 class="name"><a href="" title="Satsuma Shower Gel/Cream">Satsuma Shower Gel/Cream</a></h4>
-				<div class="note"><span class="ratings-img r4_9" title="4.9/ 5"></span><p class="detail">(4.9/ 5)</p></div>
-				<p class="description">This soap-free shower gel contains zesty l and has a refreshing citrus scent.</p>
-				<p class="prices"><span class="from">From </span><span class="new"><em>£4.00</em></span><span class="old"><em></em></span><span class="offer">
-				<p><a id="buynow_WI_CONVERSIONPANEL_1_45252m" href="" class="buynowbtn" title="Buy Now">Buy Now<span></span></a>
-		        <a id="outofstock_WI_CONVERSIONPANEL_1_45252m" href="#88411" class="outofstockbtn" title="Out of Stock">Out of Stock<span></span></a></p>
-			</section>
-		</div>
-		<hr />
-		<section class="thumbailtbs">
-			<ul>
-				<li>
-					<img class="visual-S" src="images/tbsareaBigPic.jpg" width="90px" height="90px" alt="Satsuma Shower Gel/Cream" 
-					title="Satsuma Shower Gel/Cream" data-desc="This soap-free shower gel contains zesty l and has a refreshing citrus scent." data-id="newin" />
-					<span class="ratings-holder" style="display:none;" data-rating="4.9" ></span>
-					<span class="price-holder" style="display:none;" data-prices="&#163;4.00|"></span>	
-				</li>
-				<li>
-					<img class="visual-S" src="images/thumbail2.png" width="90px" height="90px" alt="SecondITEM" title="Satsuma Shower Gel/Cream"
-					data-desc="Our famous Body Butter in a paediatrician-approved formula for baby’s delicate skin." data-id="newin" />
-					<span class="ratings-holder" style="display:none;" data-rating="4.9" data-rating-img="ratings-img r4_9"></span>
-					<span class="price-holder" style="display:none;" data-prices="&#163;4.00|"></span>	
-				</li>
-				<li>
-					<img class="visual-S" src="images/thumbail3.png" width="90px" height="90px" alt="ThirdItem" title="Satsuma Shower Gel/Cream"
-					data-desc="This is the third item." data-id="newin" />
-					<span class="ratings-holder" style="display:none;" data-rating="4.9" data-rating-img="ratings-img r4_9"></span>
-					<span class="price-holder" style="display:none;" data-prices="&#163;4.00|"></span>
-				</li>			
-	
-			</ul>
-		</section>
-		<section class="more">
-			<a href="" class="pull-right" title="View more top rated products">View more top rated products</a>
-		</section>
-	</div> <!-- tbsbox -->
+	<?php if(isset($lv_cat) && count($lv_cat) > 0): ?>
+				<?php for($row = 0; $row < intval(count($lv_cat) / 3) + 1; $row++): ?>
+				<ul class="thumbnails">
+					<?php for($column = 0; $column < 3; $column++ ): ?>
+					<?php if( ($row*3 + $column) < count($lv_cat)) : ?>
+				<li class="tbsbox">
+		          <div class="thumbnail">
+		            <a class="visual" href="#" title="<?php echo $lv_cat[$row*3 + $column]['category_name']; ?>"></a>
+					<img class="product" src="<?php if(is_null($lv_cat[$row*3 + $column]['img_address'])) echo 'http://placehold.it/300x200'; else echo base_url().$lv_cat[$row*3 + $column]['img_address']; ?>"></a>
+		            <div class="caption">
+		              <h4 class="name"><a href="#"><?php echo $lv_cat[$row*3 + $column]['category_name']; ?></a></h4>
+		              <span class="ratings-imgs" title="4.9/5" data-ratings="4.9"></span>
+		              <p class="detail">(4.9 / 5)</p>
+		              <br />
+		              <a href="<?php echo base_url().'shop/category/'.$lv_cat[$row*3 + $column]['id']; ?>" class="btn btn-primary">View</a>
+		            </div>
+		          </div>
+		        </li>
+			        <?php endif; ?>
+			        <?php endfor; ?>
+				</ul>
+				<?php endfor;?>
+			<?php endif; ?>
 </div> <!-- tbsarea -->

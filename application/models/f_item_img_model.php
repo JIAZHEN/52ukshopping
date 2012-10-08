@@ -20,6 +20,11 @@ class F_item_img_model extends CI_Model {
 		return $query->row_array();
 	}
 	
+	function getDeskShow() {
+		$query = $this->db->get_where('f_item_img', array('is_desk_show' => 1));
+		return $query->result_array();
+	}
+	
 	function delete_img($id) {
 		$this->db->delete('f_item_img', array('id' => $id));
 	}
@@ -49,6 +54,14 @@ class F_item_img_model extends CI_Model {
 	function update_tiny($id, $tiny_address) {
 		$data = array(
 			'tiny_address' => $tiny_address
+		);
+		$this->db->where('id', $id);
+		$this->db->update('f_item_img', $data);
+	}
+	
+	function updateIsDeskShow($id, $value) {
+		$data = array(
+			'is_desk_show' => $value
 		);
 		$this->db->where('id', $id);
 		$this->db->update('f_item_img', $data);
