@@ -63,7 +63,7 @@
   <!-- Text input-->
   <label class="control-label" for="descript">Description</label>
   <div class="controls">
-  	<textarea rows="5" class="span7" id="descript" name="descript" placeholder="" value="<?php echo set_value('descript'); ?>"></textarea>
+  	<textarea rows="20" class="span10" id="descript" name="descript" placeholder="Enter..." value=""></textarea>
     <p class="help-block"><?php echo form_error('descript'); ?></p>
   </div>
 </div>

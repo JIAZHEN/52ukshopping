@@ -574,10 +574,13 @@ class Admin extends CI_Controller {
 					$data['page_title'] = 'SKU management';
 				
 					$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
-											'bootstrap/css/bootstrap-responsive.css');
+											'bootstrap/css/bootstrap-responsive.css',
+											'bootstrap/css/bootstrap-wysihtml5-0.0.2.css');
 											
-					$js_data['jses'] = array('js/jquery-1.8.0.min.js',
-											 'bootstrap/js/bootstrap.js');
+					$js_data['jses'] = array('bootstrap/js/wysihtml5-0.3.0_rc2.min.js',
+											 'js/jquery-1.8.0.min.js',
+											 'bootstrap/js/bootstrap.js',
+											 'bootstrap/js/bootstrap-wysihtml5-0.0.2.min.js');
 					
 					$content_data['item_info'] = $this->f_item_model->getItemById($item_id);
 					$content_data['fields'] = $this->f_item_desc_tabs_model->getFields($item_id);

@@ -1,5 +1,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
+
+		$('#descript').wysihtml5();
 	
 		var $modal = $('#modal-from-dom');
 		$modal.modal({backdrop: true, keyboard: true, show: false});
