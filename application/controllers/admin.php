@@ -18,6 +18,7 @@ class Admin extends CI_Controller {
 		$this->load->model('h_option_value_model');
 		$this->load->model('f_order_model');
 		$this->load->model('h_order_item_model');
+		$this->load->model('f_item_desc_tabs_model');
 		$this->load->helper(array('form', 'url'));
 		
 		$this->num_per_page = 5;
@@ -557,7 +558,104 @@ class Admin extends CI_Controller {
 	    }
 	}
 	
-	function edit_item_option($item_id = false) {
+	function add_item_detail_desc($item_id) {
+		if($this->session->userdata('admin')) {
+			if($item_id) {
+			
+				$this->load->helper('form');
+				$this->load->library('form_validation');
+				
+				$this->form_validation->set_error_delimiters('', '');
+					
+				$this->form_validation->set_rules('tabname', 'Table name', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('descript', 'Description', 'trim|required|xss_clean');
+				
+				if ($this->form_validation->run() === FALSE) {
+					$data['page_title'] = 'SKU management';
+				
+					$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+											'bootstrap/css/bootstrap-responsive.css');
+											
+					$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+											 'bootstrap/js/bootstrap.js');
+					
+					$content_data['item_info'] = $this->f_item_model->getItemById($item_id);
+					$content_data['fields'] = $this->f_item_desc_tabs_model->getFields($item_id);
+					$content_data['all_info'] = $this->f_item_desc_tabs_model->getAllDescs();					
+					$slide_data['active_option'] = '';
+					
+					$this->load->view('templates/header', $data);
+					$this->load->view('admin/container');
+					$this->load->view('admin/slide_view', $slide_data);
+					$this->load->view('admin/items_desc_view', $content_data);
+					$this->load->view('admin/close');
+					$this->load->view('templates/load_javascripts', $js_data);
+					$this->load->view('admin/items_desc_custom_js', $js_data);
+					$this->load->view('templates/close');
+				} else {
+					$this->f_item_desc_tabs_model->addTab($item_id);
+					redirect(base_url().'admin/add_item_detail_desc/'.$item_id);
+				}
+			} else {
+				redirect(base_url().'admin/items');
+			}
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
+	function edit_item_detail_desc($item_id, $tabID) {
+		if($this->session->userdata('admin')) {
+			if($item_id) {
+				$this->load->helper('form');
+				$this->load->library('form_validation');
+				
+				$this->form_validation->set_error_delimiters('', '');
+					
+				$this->form_validation->set_rules('tabname', 'Table name', 'trim|required|xss_clean');
+				$this->form_validation->set_rules('descript', 'Description', 'trim|required|xss_clean');
+				
+				if ($this->form_validation->run() === FALSE) {
+					$data['page_title'] = 'SKU management';
+				
+					$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+											'bootstrap/css/bootstrap-responsive.css');
+											
+					$js_data['jses'] = array('js/jquery-1.8.0.min.js',
+											 'bootstrap/js/bootstrap.js');
+					
+					$content_data['item_info'] = $this->f_item_model->getItemById($item_id);
+					$content_data['tab_info'] = $this->f_item_desc_tabs_model->getTabById($tabID);					
+					$slide_data['active_option'] = '';
+					
+					$this->load->view('templates/header', $data);
+					$this->load->view('admin/container');
+					$this->load->view('admin/slide_view', $slide_data);
+					$this->load->view('admin/items_desc_edit_view', $content_data);
+					$this->load->view('admin/close');
+					$this->load->view('templates/load_javascripts', $js_data);
+					$this->load->view('templates/close');
+				} else {
+					$this->f_item_desc_tabs_model->updateTab($tabID);
+					redirect(base_url().'admin/add_item_detail_desc/'.$item_id);
+				}
+			} else {
+				redirect(base_url().'admin/items');
+			}
+		} else {
+		    //Field validation failed.  User redirected to login page
+		 	redirect(base_url().'admin/login');
+	    }
+	}
+	
+	function deleteItemDesc($item_id) {
+		$id = $this->input->post('id_delete', true);
+		$this->f_item_desc_tabs_model->deleteItemDesc($id);
+		redirect(base_url().'admin/add_item_detail_desc/'.$item_id);
+	}
+	
+	function edit_item_option($item_id) {
 		if($this->session->userdata('admin')) {
 			if($item_id) {
 			
