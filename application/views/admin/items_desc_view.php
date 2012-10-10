@@ -37,7 +37,7 @@
 					 		<td><?php echo $tab_info[$field]; ?></td>
 					 	<?php endif; ?>
 				 <?php endforeach;?>
-				 <th><a href="<?php echo base_url().'admin/edit_item_detail_desc/'.$item_info['id'].'/'.$tab_info['tabID']; ?>" class="btn btn-small">编辑</a></th>
+				 <th><a href="<?php echo base_url().'admin/edit_item_detail_desc/'.$item_info['id'].'/1/'.$tab_info['tabID']; ?>" class="btn btn-small">编辑</a></th>
 				 <th><button data-id="<?php echo $tab_info['tabID']; ?>" data-sku="<?php echo $tab_info['tab_name']; ?>" class="btn btn-small btn-danger delete-btn">删除</button></th>
 			</tr>
 		<?php endforeach; ?>
@@ -74,6 +74,48 @@
 </div>    
 	
 </fieldset>
+</form>
+
+<hr />
+<h5>已有图片</h5>
+
+<?php if(sizeof($display_paginations) > 0): ?>
+<div class="pagination pagination-left">
+  <ul>
+    <li><a href="<?php echo base_url().'admin/add_item_detail_desc/'.$item_info['id'].'/1'; ?>">&laquo;</a></li>
+   <?php if($pageOffset != 0): ?>
+    	<li><a href="<?php echo base_url().'admin/add_item_detail_desc/'.$item_info['id'].'/'.($display_paginations[0] - 1); ?>">...</a></li>
+    <?php endif; ?>
+    <?php foreach($display_paginations as $display_pagination): ?>
+    	<li<?php if($display_pagination==($pageNum+1)) echo ' class="disabled"'; ?>><a href="<?php echo base_url().'admin/add_item_detail_desc/'.$item_info['id'].'/'.$display_pagination; ?>"><?php echo $display_pagination; ?></a></li>
+    <?php endforeach; ?>
+    <?php if($pageOffset != ($amount_pagination - 1)): ?>
+    	<li><a href="<?php echo base_url().'admin/add_item_detail_desc/'.$item_info['id'].'/'.($display_paginations[count($display_paginations) - 1] + 1); ?>">...</a></li>
+    <?php endif; ?>
+    <li><a href="<?php echo base_url().'admin/add_item_detail_desc/'.$item_info['id'].'/'.$total_page_num; ?>">&raquo;</a></li>
+ </ul>
+</div>
+<?php endif; ?>
+
+<table class="table table-striped table-condensed table-hover table-bordered">
+	<tbody>
+		<?php foreach($desc_imgs as $desc_img_info): ?>
+			<tr>
+				<td><img src="<?php echo base_url().$desc_img_info['img_address']; ?>" width="50" height="50"/></td>
+				<td><?php echo base_url().$desc_img_info['img_address']; ?></td>
+				<th><a href="<?php echo base_url().'admin/delete_item_detail_desc/'.$item_info['id'].'/'.$desc_img_info['id']; ?>" class="btn btn-small btn-danger">删除</a></th>
+			</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>
+
+<hr />
+<h5>上传新图片</h5>
+<form action="<?php echo base_url().'admin/update_item_detail_desc/'.$item_info['id']; ?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+
+<input type="file" name="userfile" />
+<input type="submit" value="upload" class="btn btn-success" />
+<p class="help-block"><?php if(isset($error)) echo $error;?></p>
 </form>
 
 </div>
