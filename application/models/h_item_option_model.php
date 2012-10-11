@@ -93,6 +93,17 @@ class H_item_option_model extends CI_Model {
 		$this->db->where('value_id', $value_id);
 		$this->db->update('h_item_option', $data);
 	}
+	
+	function checkStock($item_id, $optionArray) {
+		$this->db->select('min(stock) as stock');
+		$this->db->from('h_item_option');
+		$this->db->where('item_id', $item_id);
+		if (sizeof($optionArray) != 0) {
+			$this->db->where_in('value_id', $optionArray);
+		}
+		$query = $this->db->get();
+		return $query->row_array();
+	}
 }
 /* End of file D_item_option.php */
 /* Location: ./application/models/D_item_option.php */

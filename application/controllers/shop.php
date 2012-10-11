@@ -203,14 +203,33 @@ class Shop extends CI_Controller {
 	}
 	
 	public function testMethod() {
-		$result = $this->f_item_model->getStockById(1);
-		echo $result['stock'];
-	}
-	
-	public function isInStock() {
+		$webOptions = $this->input->post('options', true);
+		$rawArr = explode(';', $webOptions);
+		$optionArr = array();
+		foreach($rawArr as $value) {
+			if(sizeof($value) != 0) {
+				$splitArr = explode(',', $value);
+				$optionArr[] = $splitArr[0];
+			}
+		}
 		$item_id = $this->input->post('item_id', true);
 		$qty = $this->input->post('qty', true);
-		$result = $this->f_item_model->getStockById($item_id);
+	}
+	
+	
+	public function isInStock() {
+		$optionArr = array();
+		$webOptions = $this->input->post('options', true);
+		$rawArr = explode(';', $webOptions);
+		foreach($rawArr as $value) {
+			if(sizeof($value) != 0) {
+				$splitArr = explode(',', $value);
+				$optionArr[] = $splitArr[0];
+			}
+		}
+		$item_id = $this->input->post('item_id', true);
+		$qty = $this->input->post('qty', true);
+		$result = $this->h_item_option_model->checkStock($item_id,$optionArr);
 		$stock = $result['stock'];
 		$flag = '';
 		if($stock >= $qty) {
@@ -219,7 +238,8 @@ class Shop extends CI_Controller {
 			$flag = 'false';
 		}
 		$output = array(
-			'flag' => $flag
+			'flag' => $flag,
+			'left' => $stock
 		);
 		echo json_encode($output);		
 	}
