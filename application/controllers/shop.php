@@ -181,7 +181,8 @@ class Shop extends CI_Controller {
 										'js/shop/detail.js',
 										'js/cloud-zoom.1.0.2.js',
 										'bootstrap/js/bootstrap.js',
-										'js/navigation.js');
+										'js/navigation.js',
+										'js/jquery.cookie.js');
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
 		$this->load->view('shop/detail_view', $detail_data);
