@@ -2,9 +2,9 @@
 	<div class="logo span2">
 		<a href="<?php echo base_url(); ?>"><img src="<?php echo base_url(); ?>images/logo.jpg" alt="" /></a></div>
 	<div class="searcharea">
-		    <form class="well form-search">
-		    <input type="text" placeholder="Type here" class="input-medium search-query">
-		    <button type="submit" class="btn">Search</button>
+		    <form class="well form-search" method="post" action="<?php echo base_url().'shop/search'; ?>">
+		    	<input name="searchkeyword" type="text" placeholder="Type here" class="input-medium search-query">
+		    	<button type="submit" class="btn">Search</button>
 		    </form>
 	</div>
 	<div class="basket">

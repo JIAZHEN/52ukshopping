@@ -14,6 +14,27 @@ class F_item_model extends CI_Model {
 		return $query->row_array();
 	}
 	
+	function getItemsBySearch($search, $offset, $limit) {
+		$this->db->select('	f_item.* ');
+		$this->db->from('f_item');
+		$this->db->join('d_category', 'f_item.category_id = d_category.id');
+		$this->db->like('category_name', $search); 
+		$this->db->or_like('item_name', $search); 
+		$query = $this->db->get();
+		$this->db->limit($offset, $limit);
+		return $query->result_array();
+	}
+	
+	function getNumberOfItemsBySearch($search) {
+		$this->db->select('count(*) as `total`');
+		$this->db->from('f_item');
+		$this->db->join('d_category', 'f_item.category_id = d_category.id');
+		$this->db->like('category_name', $search); 
+		$this->db->or_like('item_name', $search); 
+		$query = $this->db->get();
+		return $query->row_array();
+	}
+	
 	public function getItemByCatId($cat_id) {
 		$query = $this->db->get_where('f_item', array('category_id' => $cat_id));
 		return $query->result_array();

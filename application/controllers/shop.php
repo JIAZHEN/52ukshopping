@@ -145,7 +145,59 @@ class Shop extends CI_Controller {
 		$this->load->view('templates/load_javascripts', $js_data);
 		$this->load->view('shop/browse_custom_js', $custom);
 		$this->load->view('templates/close');
-
+	}
+	
+	public function search($pageNum = false) {
+		if($this->session->userdata('logged_in')) {
+	     $session_data = $this->session->userdata('logged_in');
+	     $nav_data['session_name'] = $session_data['first_name'];
+	    }
+	    $per_page = 5;
+		$max_pagenum = 3;
+		
+		$search = $this->input->post('searchkeyword',true);
+		if(strlen($search) == 0) {
+			$browse_data['items'] = array();
+			$item_query['total'] = 0;
+		} else {
+			$browse_data['items'] = $this->f_item_model->getItemsBySearch($search, 0, 20);
+			$item_query = $this->f_item_model->getNumOfAllItems();
+			$item_query['total'] = 0;
+		}
+	    $nav_data['category'] = $this->d_category_model->conduct_categories();
+	   
+	    $browse_data['items_img'] = array();
+	    foreach($browse_data['items'] as $key => $value) {
+		    $browse_data['items_img'][$key] = $this->f_item_img_model->getImgsByItemIdForBrowse($value['id']);
+	    }
+	    
+	    $browse_data['breadcrumb'] = array(	'0' => array('name' => 'Home', 'url' => base_url()), 
+	    									'1' => 'Search Result' );
+	    
+	    $custom['total_page_amount'] = intval($item_query['total'] / $per_page) + 1;
+	    $custom['max_pagenum'] = $max_pagenum;
+	    
+		$data['page_title'] = 'Search Result';
+		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+								'bootstrap/css/bootstrap-responsive.css',
+								'css/nav.css',
+								'css/shop/category.css',
+								'css/jpaginate/style.css',
+								'css/footer.css');
+		
+		$js_data['jses'] = array(	 'js/jquery-1.8.0.min.js',
+									 'bootstrap/js/bootstrap.js',
+									 'js/jpaginate/jquery.paginate.js',
+									 'js/shop/browse.js',
+									 'js/navigation.js');
+									 
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/nav', $nav_data);
+		$this->load->view('shop/browse_view', $browse_data);
+		$this->load->view('templates/footer');
+		$this->load->view('templates/load_javascripts', $js_data);
+		$this->load->view('shop/browse_custom_js', $custom);
+		$this->load->view('templates/close');
 	}
 
 	public function detail($id)
