@@ -27,6 +27,24 @@
 		</div> 
 	</div> <!-- breadcrumb -->	
 	
+	<div class="row"> <!-- pagination -->
+	<div class="pagination">
+	  <ul>
+	    <li><a href="<?php echo base_url().$pageLink; ?>">&laquo;</a></li>
+	   <?php if($pageOffset != 0): ?>
+	    	<li><a href="<?php echo base_url().$pageLink.'/'.($display_paginations[0] - 1); ?>">...</a></li>
+	    <?php endif; ?>
+	    <?php foreach($display_paginations as $display_pagination): ?>
+	    	<li<?php if($display_pagination==($pageNum+1)) echo ' class="disabled"'; ?>><a href="<?php echo base_url().$pageLink.'/'.$display_pagination; ?>"><?php echo $display_pagination; ?></a></li>
+	    <?php endforeach; ?>
+	    <?php if($pageOffset != ($amount_pagination - 1)): ?>
+	    	<li><a href="<?php echo base_url().$pageLink.'/'.($display_paginations[count($display_paginations) - 1] + 1); ?>">...</a></li>
+	    <?php endif; ?>
+	    <li><a href="<?php echo base_url().$pageLink.'/'.$total_page_num; ?>">&raquo;</a></li>
+	 </ul>
+	</div>
+	</div><!-- pagination -->
+	
 	<div class="row"> <!-- detailstop -->
 		<div id="display" class="span12">
 			<?php for($row = 0; $row < intval(count($items) / 4) + 1; $row++) : ?>
@@ -50,39 +68,27 @@
 			    <?php endfor; ?>
 				</ul>
 				<?php endfor; ?>
-				
 		</div>
 	</div> <!-- detailstop -->
 	
-	<div class="row">
-		<div id="demo4" class="span12 pagination pagination-centered">                   
-        </div>
+	<div class="row"> <!-- pagination -->
+	<div class="pagination">
+	  <ul>
+	    <li><a href="<?php echo base_url().$pageLink; ?>">&laquo;</a></li>
+	   <?php if($pageOffset != 0): ?>
+	    	<li><a href="<?php echo base_url().$pageLink.'/'.($display_paginations[0] - 1); ?>">...</a></li>
+	    <?php endif; ?>
+	    <?php foreach($display_paginations as $display_pagination): ?>
+	    	<li<?php if($display_pagination==($pageNum+1)) echo ' class="disabled"'; ?>><a href="<?php echo base_url().$pageLink.'/'.$display_pagination; ?>"><?php echo $display_pagination; ?></a></li>
+	    <?php endforeach; ?>
+	    <?php if($pageOffset != ($amount_pagination - 1)): ?>
+	    	<li><a href="<?php echo base_url().$pageLink.'/'.($display_paginations[count($display_paginations) - 1] + 1); ?>">...</a></li>
+	    <?php endif; ?>
+	    <li><a href="<?php echo base_url().$pageLink.'/'.$total_page_num; ?>">&raquo;</a></li>
+	 </ul>
 	</div>
+	</div><!-- pagination -->
 	
-	<div class="row"> <!-- detailsbottom -->
-	<div class="span12">
-			
-	<ul class="nav nav-tabs">
-          <li class="active"><a href="#review" data-toggle="tab">Review</a></li>
-          <li><a href="#qa" data-toggle="tab">Q&A's</a></li>
-          <li><a href="#delivery" data-toggle="tab">Delivery</a></li>
-        </ul>
-        <div id="myTabContent" class="tab-content">
-          <div class="tab-pane fade in active" id="review">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
-          <div class="tab-pane fade" id="qa">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
-          <div class="tab-pane fade" id="delivery">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
-        </div>
-    <hr />
-	</div>
-	
-	
-	</div> <!-- detailsbottom -->
 </div>
 </div><!--Body content-->
 

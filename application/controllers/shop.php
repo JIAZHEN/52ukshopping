@@ -11,6 +11,8 @@ class Shop extends CI_Controller {
 		$this->load->model('f_item_img_model');
 		$this->load->model('h_item_option_model');
 		$this->load->model('f_item_desc_tabs_model');
+		$this->num_per_page = 8;
+		$this->max_pagenum = 2;
 	}
 	
 	public function index() 
@@ -46,7 +48,6 @@ class Shop extends CI_Controller {
 	
 	public function category($cat_id) 
 	{
-	
 		// detect if cat_id is null or negative
 		if(isset($cat_id) == false || $cat_id <= 0) {
 			redirect(base_url().'shop');
@@ -62,7 +63,6 @@ class Shop extends CI_Controller {
 		$category_data['lv_cat'] = $this->d_category_model->getCategoryByLevelAndParent(
 															$cat_query['cat_level'] + 1, 
 															$cat_id);
-	
 		if($this->session->userdata('logged_in')) {
 	     $session_data = $this->session->userdata('logged_in');
 	     $nav_data['session_name'] = $session_data['first_name'];
@@ -89,8 +89,7 @@ class Shop extends CI_Controller {
 
 	}
 	
-	public function browse($lv3_cat_id) {
-	
+	public function browse($lv3_cat_id, $pageNum = false) {
 		// detect if cat_id is null or negative
 		if(isset($lv3_cat_id) == false || $lv3_cat_id <= 0) {
 			redirect(base_url().'shop');
@@ -99,51 +98,66 @@ class Shop extends CI_Controller {
 		if($cat_query['cat_level'] != 3) {
 			redirect(base_url().'shop/category/'.$lv3_cat_id);
 		}
-		
 		if($this->session->userdata('logged_in')) {
 	     $session_data = $this->session->userdata('logged_in');
 	     $nav_data['session_name'] = $session_data['first_name'];
 	    }
-	    
-	    $per_page = 5;
-		$max_pagenum = 3;
-
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
-	    
-	    $browse_data['cat_id'] = $lv3_cat_id;
-	    $browse_data['items'] = $this->f_item_model->getItemsForPagination($lv3_cat_id, $per_page, 0);
-	    $browse_data['items_img'] = array();
-	    foreach($browse_data['items'] as $key => $value) {
-		    $browse_data['items_img'][$key] = $this->f_item_img_model->getImgsByItemIdForBrowse($value['id']);
+	    // get amount of item pages
+		$num_query = $this->f_item_model->getNumOfItems($lv3_cat_id);
+		if ($num_query['total'] % $this->num_per_page == 0) {
+			$content_data['total_page_num'] = intval($num_query['total'] * 1.0 / $this->num_per_page);
+		} else {
+			$content_data['total_page_num'] = intval($num_query['total'] * 1.0 / $this->num_per_page) + 1;
+		}
+		// get active page num
+		if($pageNum) {
+			$pageNum = $pageNum - 1;
+		} else {
+			$pageNum = 0;
+		}
+		// get display pagination
+		$pageOffset = intval(($pageNum) / $this->max_pagenum);
+		if ($content_data['total_page_num'] % $this->max_pagenum == 0) {
+			$amount_pagination = intval($content_data['total_page_num'] * 1.0 / $this->max_pagenum);
+		} else {
+			$amount_pagination = intval($content_data['total_page_num'] * 1.0 / $this->max_pagenum) + 1;
+		}
+		$content_data['display_paginations'] = array();
+		for($i = 1; $i <= $this->max_pagenum; $i++) {
+			if(($pageOffset * $this->max_pagenum + $i) <= $content_data['total_page_num']) {
+				$content_data['display_paginations'][] = $pageOffset * $this->max_pagenum + $i;
+			}
+		}
+		// set page offset to show ...
+		$content_data['pageOffset'] = $pageOffset;
+		$content_data['amount_pagination'] = $amount_pagination;
+		$content_data['max_pagenum'] = $this->max_pagenum;
+		$content_data['pageNum'] = $pageNum;
+			
+	    $content_data['cat_id'] = $lv3_cat_id;
+	    $content_data['items'] = $this->f_item_model->getItemsForPagination($lv3_cat_id, $this->num_per_page, $pageNum * $this->num_per_page);
+	    $content_data['items_img'] = array();
+	    foreach($content_data['items'] as $key => $value) {
+		    $content_data['items_img'][$key] = $this->f_item_img_model->getImgsByItemIdForBrowse($value['id']);
 	    }
-	    
-	    $browse_data['breadcrumb'] = $this->d_category_model->getBreadcrumb($lv3_cat_id);
-	    
-	    $item_query = $this->f_item_model->getNumOfItems($lv3_cat_id);
-	    
-	    $custom['total_page_amount'] = intval($item_query['total'] / $per_page) + 1;
-	    $custom['max_pagenum'] = $max_pagenum;
-	    
+	    $content_data['breadcrumb'] = $this->d_category_model->getBreadcrumb($lv3_cat_id);
+	    $content_data['pageLink'] = 'shop/browse/'.$lv3_cat_id;
 		$data['page_title'] = $cat_query['category_name'];
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 								'bootstrap/css/bootstrap-responsive.css',
 								'css/nav.css',
-								'css/shop/category.css',
-								'css/jpaginate/style.css',
 								'css/footer.css',);
 		
 		$js_data['jses'] = array(	 'js/jquery-1.8.0.min.js',
 									 'bootstrap/js/bootstrap.js',
-									 'js/jpaginate/jquery.paginate.js',
-									 'js/shop/browse.js',
 									 'js/navigation.js');
 									 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
-		$this->load->view('shop/browse_view', $browse_data);
+		$this->load->view('shop/browse_view', $content_data);
 		$this->load->view('templates/footer');
 		$this->load->view('templates/load_javascripts', $js_data);
-		$this->load->view('shop/browse_custom_js', $custom);
 		$this->load->view('templates/close');
 	}
 	
@@ -152,51 +166,72 @@ class Shop extends CI_Controller {
 	     $session_data = $this->session->userdata('logged_in');
 	     $nav_data['session_name'] = $session_data['first_name'];
 	    }
-	    $per_page = 5;
-		$max_pagenum = 3;
-		
-		$search = $this->input->post('searchkeyword',true);
-		if(strlen($search) == 0) {
-			$browse_data['items'] = array();
-			$item_query['total'] = 0;
-		} else {
-			$browse_data['items'] = $this->f_item_model->getItemsBySearch($search, 0, 20);
-			$item_query = $this->f_item_model->getNumOfAllItems();
-			$item_query['total'] = 0;
-		}
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
-	   
-	    $browse_data['items_img'] = array();
-	    foreach($browse_data['items'] as $key => $value) {
-		    $browse_data['items_img'][$key] = $this->f_item_img_model->getImgsByItemIdForBrowse($value['id']);
+		$search = $this->input->post('searchkeyword',true);
+		$content_data['items'] = array();
+		$num_query['total'] = 0;
+		if(strlen($search) != 0) {
+			$num_query = $this->f_item_model->getNumberOfItemsBySearch($search);
+		} 
+		// get amount of item pages
+		if ($num_query['total'] % $this->num_per_page == 0) {
+			$content_data['total_page_num'] = intval($num_query['total'] * 1.0 / $this->num_per_page);
+		} else {
+			$content_data['total_page_num'] = intval($num_query['total'] * 1.0 / $this->num_per_page) + 1;
+		}
+		// get active page num
+		if($pageNum) {
+			$pageNum = $pageNum - 1;
+		} else {
+			$pageNum = 0;
+		}
+		// get display pagination
+		$pageOffset = intval(($pageNum) / $this->max_pagenum);
+		if ($content_data['total_page_num'] % $this->max_pagenum == 0) {
+			$amount_pagination = intval($content_data['total_page_num'] * 1.0 / $this->max_pagenum);
+		} else {
+			$amount_pagination = intval($content_data['total_page_num'] * 1.0 / $this->max_pagenum) + 1;
+		}
+		$content_data['display_paginations'] = array();
+		for($i = 1; $i <= $this->max_pagenum; $i++) {
+			if(($pageOffset * $this->max_pagenum + $i) <= $content_data['total_page_num']) {
+				$content_data['display_paginations'][] = $pageOffset * $this->max_pagenum + $i;
+			}
+		}
+		// set page offset to show ...
+		$content_data['pageOffset'] = $pageOffset;
+		$content_data['amount_pagination'] = $amount_pagination;
+		$content_data['max_pagenum'] = $this->max_pagenum;
+		$content_data['pageNum'] = $pageNum;
+		
+		if(strlen($search) != 0) {
+			$content_data['items'] = $this->f_item_model->getItemsBySearch($search, $this->num_per_page, $pageNum * $this->num_per_page);
+		} 
+	    
+		$content_data['pageLink'] = 'shop/search';
+	    $content_data['items_img'] = array();
+	    foreach($content_data['items'] as $key => $value) {
+		    $content_data['items_img'][$key] = $this->f_item_img_model->getImgsByItemIdForBrowse($value['id']);
 	    }
 	    
-	    $browse_data['breadcrumb'] = array(	'0' => array('name' => 'Home', 'url' => base_url()), 
-	    									'1' => 'Search Result' );
-	    
-	    $custom['total_page_amount'] = intval($item_query['total'] / $per_page) + 1;
-	    $custom['max_pagenum'] = $max_pagenum;
+	    $content_data['breadcrumb'] = array(	'0' => array('name' => 'Home', 'url' => base_url()), 
+	    										'1' => 'Search Result' );
 	    
 		$data['page_title'] = 'Search Result';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 								'bootstrap/css/bootstrap-responsive.css',
 								'css/nav.css',
-								'css/shop/category.css',
-								'css/jpaginate/style.css',
 								'css/footer.css');
 		
 		$js_data['jses'] = array(	 'js/jquery-1.8.0.min.js',
 									 'bootstrap/js/bootstrap.js',
-									 'js/jpaginate/jquery.paginate.js',
-									 'js/shop/browse.js',
 									 'js/navigation.js');
 									 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
-		$this->load->view('shop/browse_view', $browse_data);
+		$this->load->view('shop/browse_view', $content_data);
 		$this->load->view('templates/footer');
 		$this->load->view('templates/load_javascripts', $js_data);
-		$this->load->view('shop/browse_custom_js', $custom);
 		$this->load->view('templates/close');
 	}
 
