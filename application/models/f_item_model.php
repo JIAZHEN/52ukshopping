@@ -15,24 +15,33 @@ class F_item_model extends CI_Model {
 	}
 	
 	function getItemsBySearch($search, $offset, $limit) {
-		$this->db->select('	f_item.* ');
-		$this->db->from('f_item');
-		$this->db->join('d_category', 'f_item.category_id = d_category.id');
-		$this->db->like('category_name', $search); 
-		$this->db->or_like('item_name', $search); 
-		$query = $this->db->get();
-		$this->db->limit($offset, $limit);
-		return $query->result_array();
+		if(strlen($search) == 0) {
+			return array();
+		} else {
+			$this->db->select('	f_item.* ');
+			$this->db->from('f_item');
+			$this->db->join('d_category', 'f_item.category_id = d_category.id');
+			$this->db->like('category_name', $search); 
+			$this->db->or_like('item_name', $search); 
+			$query = $this->db->get();
+			$this->db->limit($offset, $limit);
+			return $query->result_array();
+		}
 	}
 	
 	function getNumberOfItemsBySearch($search) {
-		$this->db->select('count(*) as `total`');
-		$this->db->from('f_item');
-		$this->db->join('d_category', 'f_item.category_id = d_category.id');
-		$this->db->like('category_name', $search); 
-		$this->db->or_like('item_name', $search); 
-		$query = $this->db->get();
-		return $query->row_array();
+		if(strlen($search) == 0) {
+			return array('total' => 0);
+		} else {
+			$this->db->select('count(*) as `total`');
+			$this->db->from('f_item');
+			$this->db->join('d_category', 'f_item.category_id = d_category.id');
+			$this->db->like('category_name', $search); 
+			$this->db->or_like('item_name', $search); 
+			$query = $this->db->get();
+			return $query->row_array();
+		}
+		
 	}
 	
 	public function getItemByCatId($cat_id) {

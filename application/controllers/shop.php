@@ -15,6 +15,28 @@ class Shop extends CI_Controller {
 		$this->max_pagenum = 2;
 	}
 	
+	public function sendEmail() {
+		$config['protocol'] = 'smtp';
+		  $config['smtp_host'] = 'smtp.163.com';
+		  $config['smtp_user'] = 'jiazhenxie515@163.com';
+		  $config['smtp_pass'] = 'lql0775xjz';
+		  $config['charset'] = 'utf-8';
+		  $config['wordwrap'] = TRUE;
+		  $config['mailtype'] = 'html';
+		  $this -> load -> library('email');
+		  $this->email->initialize($config);
+		  $this->email->from('jiazhenxie515@163.com');
+		  $this->email->to('fdf515@gmail.com');
+		  $this->email->subject('SEND OK');
+		  $this->email->message('TEST EMAIL');
+		  if( ! $this->email->send()){
+		   echo 'SEND OK!';
+		  }else{
+		   echo 'SEND FAILS!';
+		  }
+		  echo $this->email->print_debugger();
+	}
+	
 	public function index() 
 	{
 		if($this->session->userdata('logged_in')) {

@@ -26,7 +26,7 @@
 		    </ul>
 		</div> 
 	</div> <!-- breadcrumb -->	
-	
+	<?php if(sizeof($display_paginations) != 0): ?>
 	<div class="row"> <!-- pagination -->
 	<div class="pagination">
 	  <ul>
@@ -88,6 +88,12 @@
 	 </ul>
 	</div>
 	</div><!-- pagination -->
+	<?php else: ?>
+		<div class="row"> <!-- pagination -->
+			<p>对不起, 没有找到相关的商品, 请重新输入</p>
+		</div><!-- pagination -->
+	
+	<?php endif; ?>
 	
 </div>
 </div><!--Body content-->
