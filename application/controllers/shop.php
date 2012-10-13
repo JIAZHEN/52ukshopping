@@ -11,6 +11,7 @@ class Shop extends CI_Controller {
 		$this->load->model('f_item_img_model');
 		$this->load->model('h_item_option_model');
 		$this->load->model('f_item_desc_tabs_model');
+		$this->load->model('f_item_comment_model');
 		$this->num_per_page = 8;
 		$this->max_pagenum = 2;
 	}
@@ -271,6 +272,7 @@ class Shop extends CI_Controller {
 	    $detail_data['item_imgs'] = $this->f_item_img_model->getImgsByItemId($id);
 	    $detail_data['options'] = $this->h_item_option_model->getItemAllOptions($id);
 	    $detail_data['descs_info'] = $this->f_item_desc_tabs_model->getTabByItemId($id);
+	    $detail_data['comments'] = $this->f_item_comment_model->getCommentsByItemId($id);
 	    
 		$data['page_title'] = 'Detail';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
@@ -306,20 +308,13 @@ class Shop extends CI_Controller {
 		echo json_encode($item_query);
 	}
 	
-	public function testMethod() {
-		$webOptions = $this->input->post('options', true);
-		$rawArr = explode(';', $webOptions);
-		$optionArr = array();
-		foreach($rawArr as $value) {
-			if(sizeof($value) != 0) {
-				$splitArr = explode(',', $value);
-				$optionArr[] = $splitArr[0];
-			}
-		}
-		$item_id = $this->input->post('item_id', true);
-		$qty = $this->input->post('qty', true);
+	public function addComment() {
+		$itemId = $this->input->post('itemId', true);
+		$userId = $this->input->post('userId', true);
+		$content = $this->input->post('comment', true);
+		$this->f_item_comment_model->addComment($itemId, $userId, $content);
+		redirect(base_url().'shop/detail/'.$itemId);
 	}
-	
 	
 	public function isInStock() {
 		$optionArr = array();

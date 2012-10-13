@@ -116,6 +116,7 @@
 			<?php for($counter = 0; $counter < sizeof($descs_info); $counter++): ?>
 				<li<?php if($counter == 0) echo ' class="active"'; ?>><a href="#<?php echo $descs_info[$counter]['id']; ?>" data-toggle="tab"><?php echo $descs_info[$counter]['tab_name']; ?></a></li>
 			<?php endfor; ?>
+			<li<?php if(sizeof($descs_info) == 0) echo ' class="active"'; ?>><a href="#comment" data-toggle="tab">评论</a></li>
         </ul>
         <div id="myTabContent" class="tab-content"> <!-- myTabContent -->
         	<?php for($counter = 0; $counter < sizeof($descs_info); $counter++): ?>
@@ -123,6 +124,28 @@
         		<p><?php echo $descs_info[$counter]['tab_content']; ?></p>
         		</div>
         	<?php endfor; ?>
+        	<div class="tab-pane fade<?php if(sizeof($descs_info) == 0) echo ' in active'; ?>" id="comment">
+        		<?php foreach($comments as $comment): ?>
+        			<p><?php echo $comment['first_name'].' says: '.$comment['content']; ?></p>
+        		<?php endforeach; ?>
+        		<form class="form-horizontal" method="post" action="<?php echo base_url()."shop/addComment"; ?>" >
+	        		<fieldset>
+	        			<input type="hidden" name="itemId" value="<?php echo $info['id']; ?>">
+	        			<input type="hidden" name="userId" value="<?php echo 1; ?>">
+	        			<div class="control-group<?php if(strlen(form_error('comment')) > 0) echo " error"; ?>">
+						  <!-- Text input-->
+						  <label class="control-label" for="comment">留言:</label>
+						  <div class="controls">
+						    <input id="comment" name="comment" placeholder="" class="input-medium" type="text" value="<?php echo set_value('comment'); ?>">
+						    <p class="help-block"><?php echo form_error('comment'); ?></p>
+						  </div>
+						</div>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary">提交</button>
+						</div>
+	        		</fieldset>
+	        	</form>
+        	</div>
         </div> <!-- myTabContent -->
     <hr />
 	</div>
