@@ -161,19 +161,18 @@ class Shop extends CI_Controller {
 		$this->load->view('templates/close');
 	}
 	
-	public function search($pageNum = false) {
+	public function search($search = false, $pageNum = false) {
 		if($this->session->userdata('logged_in')) {
 	     $session_data = $this->session->userdata('logged_in');
 	     $nav_data['session_name'] = $session_data['first_name'];
 	    }
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
-		$search = $this->input->post('searchkeyword',true);
-		$content_data['items'] = array();
-		$num_query['total'] = 0;
-		if(strlen($search) != 0) {
-			$num_query = $this->f_item_model->getNumberOfItemsBySearch($search);
-		} 
-		// get amount of item pages
+	    
+	    if($search === false) {
+		    $search = $this->input->post('searchkeyword',true);
+	    }
+	    // get amount of item pages
+		$num_query = $this->f_item_model->getNumberOfItemsBySearch($search);
 		if ($num_query['total'] % $this->num_per_page == 0) {
 			$content_data['total_page_num'] = intval($num_query['total'] * 1.0 / $this->num_per_page);
 		} else {
@@ -203,25 +202,20 @@ class Shop extends CI_Controller {
 		$content_data['amount_pagination'] = $amount_pagination;
 		$content_data['max_pagenum'] = $this->max_pagenum;
 		$content_data['pageNum'] = $pageNum;
-		
-		if(strlen($search) != 0) {
-			$content_data['items'] = $this->f_item_model->getItemsBySearch($search, $this->num_per_page, $pageNum * $this->num_per_page);
-		} 
-	    
-		$content_data['pageLink'] = 'shop/search';
+			
+	    $content_data['items'] = $this->f_item_model->getItemsBySearch($search, $this->num_per_page, $pageNum * $this->num_per_page);
 	    $content_data['items_img'] = array();
 	    foreach($content_data['items'] as $key => $value) {
 		    $content_data['items_img'][$key] = $this->f_item_img_model->getImgsByItemIdForBrowse($value['id']);
 	    }
-	    
 	    $content_data['breadcrumb'] = array(	'0' => array('name' => 'Home', 'url' => base_url()), 
 	    										'1' => 'Search Result' );
-	    
-		$data['page_title'] = 'Search Result';
+	    $content_data['pageLink'] = 'shop/search/'.$search;
+		$data['page_title'] = 'Search Result of '.$search;
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 								'bootstrap/css/bootstrap-responsive.css',
 								'css/nav.css',
-								'css/footer.css');
+								'css/footer.css',);
 		
 		$js_data['jses'] = array(	 'js/jquery-1.8.0.min.js',
 									 'bootstrap/js/bootstrap.js',
