@@ -23,7 +23,8 @@ class F_item_comment_model extends CI_Model {
 		$data = array(
 			'item_id' => $itemId,
 			'user_id' => $userId,
-			'content' => $content
+			'content' => $content,
+			'comment_time' => date( "Y-m-d   H:i:s ")
 		);
 		$this->db->insert('f_item_comment', $data);
 		return $this->db->insert_id();

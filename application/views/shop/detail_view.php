@@ -125,26 +125,33 @@
         		</div>
         	<?php endfor; ?>
         	<div class="tab-pane fade<?php if(sizeof($descs_info) == 0) echo ' in active'; ?>" id="comment">
+        		<table class="table table-condensed table-hover">
+        		<thead>
+				    <tr>
+					    <th class="span2">用户</th>
+					    <th class="span5">评论内容</th>
+					    <th class="span4">时间</th>
+				    </tr>
+			    </thead>
+			    <tbody>
         		<?php foreach($comments as $comment): ?>
-        			<p><?php echo $comment['first_name'].' says: '.$comment['content']; ?></p>
+					    <tr>
+						    <td><strong><?php echo $comment['first_name']; ?></strong></td>
+						    <td><?php echo $comment['content']; ?></td>
+						    <td><?php echo $comment['comment_time']; ?></td>
+					    </tr>
         		<?php endforeach; ?>
-        		<form class="form-horizontal" method="post" action="<?php echo base_url()."shop/addComment"; ?>" >
-	        		<fieldset>
-	        			<input type="hidden" name="itemId" value="<?php echo $info['id']; ?>">
-	        			<input type="hidden" name="userId" value="<?php echo 1; ?>">
-	        			<div class="control-group<?php if(strlen(form_error('comment')) > 0) echo " error"; ?>">
-						  <!-- Text input-->
-						  <label class="control-label" for="comment">留言:</label>
-						  <div class="controls">
-						    <input id="comment" name="comment" placeholder="" class="input-medium" type="text" value="<?php echo set_value('comment'); ?>">
-						    <p class="help-block"><?php echo form_error('comment'); ?></p>
-						  </div>
-						</div>
-						<div class="form-actions">
-							<button type="submit" class="btn btn-primary">提交</button>
-						</div>
-	        		</fieldset>
-	        	</form>
+        		</tbody>
+				</table>
+    		    <div class="span10 well">
+				    <form accept-charset="UTF-8" action="<?php echo base_url()."shop/addComment"; ?>" method="POST">
+				    	<input type="hidden" name="itemId" value="<?php echo $info['id']; ?>">
+					    <input type="hidden" name="userId" value="<?php echo 1; ?>">
+					    <textarea class="span12" name="comment" placeholder="Type in your message" rows="5"></textarea>
+					    <h6 class="pull-right">320 characters maximum</h6>
+					    <button class="btn btn-info" type="submit">发表评论</button>
+				    </form>
+			    </div>
         	</div>
         </div> <!-- myTabContent -->
     <hr />
