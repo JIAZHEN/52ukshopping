@@ -130,13 +130,12 @@ class Admin extends CI_Controller {
 			$data['page_title'] = 'Users management';
 			$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
 									'bootstrap/css/bootstrap-responsive.css',
-									'jqueryui/css/jquery.aristo.css');
+									'jqueryui/jqPlot/jquery.jqplot.css');
 									
 			$js_data['jses'] = array('js/jquery-1.8.0.min.js',
 									 'bootstrap/js/bootstrap.js',
-									 'jqueryui/js/jquery-ui-1.8.22.custom.min.js',
-									 'jqueryui/js/jquery.flot.min.js',
-									 'jqueryui/js/jstat-0.1.0.min.js',);
+									 'jqueryui/jqPlot/jquery.jqplot.js',
+									 'jqueryui/jqPlot/plugins/jqplot.dateAxisRenderer.js');
 			
 			$slide_data['active_option'] = 'plot_view';
 			

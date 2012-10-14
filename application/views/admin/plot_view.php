@@ -1,3 +1,3 @@
 <div class="span10">
-	<div id="plot" style="width:600px; height: 600px;"></div>
+	<div id="chartdiv" class="span12" style="height:400px;"></div>
 </div>
