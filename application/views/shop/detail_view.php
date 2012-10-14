@@ -38,7 +38,7 @@
     	
         <a href="<?php if(sizeof($item_imgs) > 0) { echo base_url().$item_imgs[0]['img_address']; } else { echo 'http://placehold.it/300x200'; } ?>" class = 'cloud-zoom' id='zoom1'
             rel="adjustX: 10, adjustY:-4, softFocus:true">
-            <img src="<?php if(sizeof($item_imgs) > 0) { echo base_url().$item_imgs[0]['thumb_address']; } else { echo 'http://placehold.it/300x200'; } ?>" class="img-polaroid" alt='' align="left" title="Optional title display" />
+            <img src="<?php if(sizeof($item_imgs) > 0) { echo base_url().$item_imgs[0]['thumb_address']; } else { echo 'http://placehold.it/300x200'; } ?>" width="230" class="img-polaroid" alt='' align="left" title="Optional title display" />
         </a>
         
     <!--	
@@ -58,6 +58,9 @@
 				<?php endforeach; ?>
 			    
 		    </ul>
+		<img src="<?php echo base_url().'images/youtube.png'; ?>" width="32" height="32" >
+		<img src="<?php echo base_url().'images/facebook.png'; ?>" width="32" height="32" >
+		<img src="<?php echo base_url().'images/renren.png'; ?>" width="32" height="32" >
 	
 	<!-- ZOOM -->
 		
@@ -95,17 +98,7 @@
 						<input type="hidden" name="price" value="<?php echo number_format($info['price'],2); ?>" />
 					</div>
 					<a id="buy_btn" class="span6 btn btn-success pull-right btn-large">Buy now</a>
-					
-				
 			</div> <!-- buttonbox -->
-			<div id="willbechange">
-					<p>Made by Community Fair Trade supplier Teddy Exports in India</p>
-					<ul>
-						<li>Long lasting Canvas bag</li>
-						<li>Reusable</li>
-						<li>Durable</li>
-					</ul>
-			</div>
 			</form>
 		</div> <!-- info area -->
 	</div> <!-- detailstop -->
@@ -136,7 +129,7 @@
 			    <tbody>
         		<?php foreach($comments as $comment): ?>
 					    <tr>
-						    <td><strong><?php echo $comment['first_name']; ?></strong></td>
+						    <td><strong><?php if(is_null($comment['first_name'])) echo '匿名'; else echo $comment['first_name']; ?></strong></td>
 						    <td><?php echo $comment['content']; ?></td>
 						    <td><?php echo $comment['comment_time']; ?></td>
 					    </tr>
@@ -146,7 +139,6 @@
     		    <div class="span10 well">
 				    <form accept-charset="UTF-8" action="<?php echo base_url()."shop/addComment"; ?>" method="POST">
 				    	<input type="hidden" name="itemId" value="<?php echo $info['id']; ?>">
-					    <input type="hidden" name="userId" value="<?php echo 1; ?>">
 					    <textarea class="span12" name="comment" placeholder="Type in your message" rows="5"></textarea>
 					    <h6 class="pull-right">320 characters maximum</h6>
 					    <button class="btn btn-info" type="submit">发表评论</button>

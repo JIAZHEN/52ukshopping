@@ -13,8 +13,10 @@ class F_item_comment_model extends CI_Model {
 	function getCommentsByItemId($itemId) {
 		$this->db->select('f_item_comment.*, first_name');
 		$this->db->from('f_item_comment');
-		$this->db->join('f_users', 'f_item_comment.user_id = f_users.id');
+		$this->db->join('f_users', 'f_item_comment.user_id = f_users.id', 'left');
 		$this->db->where('f_item_comment.item_id', $itemId);
+		$this->db->order_by('comment_time', 'desc');
+		$this->db->limit(100); 
 		$query = $this->db->get();
 		return $query->result_array();
 	}

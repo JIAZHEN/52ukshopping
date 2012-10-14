@@ -310,7 +310,10 @@ class Shop extends CI_Controller {
 	
 	public function addComment() {
 		$itemId = $this->input->post('itemId', true);
-		$userId = $this->input->post('userId', true);
+		if($this->session->userdata('logged_in')) {
+	     	$session_data = $this->session->userdata('logged_in');
+	     	$userId = $session_data['id'];
+	    }
 		$content = $this->input->post('comment', true);
 		$this->f_item_comment_model->addComment($itemId, $userId, $content);
 		redirect(base_url().'shop/detail/'.$itemId);
