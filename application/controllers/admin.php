@@ -136,13 +136,15 @@ class Admin extends CI_Controller {
 									 'bootstrap/js/bootstrap.js',
 									 'jqueryui/jqPlot/jquery.jqplot.js',
 									 'jqueryui/jqPlot/plugins/jqplot.dateAxisRenderer.js');
+									 
+			$content_data['dailyOrders'] = $this->f_order_model->getNumOfDailyOrders();
 			
 			$slide_data['active_option'] = 'plot_view';
 			
 			$this->load->view('templates/header', $data);
 			$this->load->view('admin/container');
 			$this->load->view('admin/slide_view', $slide_data);
-			$this->load->view('admin/plot_view');
+			$this->load->view('admin/plot_view', $content_data);
 			$this->load->view('admin/close');
 			$this->load->view('templates/load_javascripts', $js_data);
 			$this->load->view('admin/plot_custom_js');

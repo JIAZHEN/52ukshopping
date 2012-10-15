@@ -20,6 +20,14 @@ class F_order_model extends CI_Model {
 		return $query->row_array();
 	}
 	
+	function getNumOfDailyOrders() {
+		$this->db->select('date_format(order_date, "%Y-%m-%d") as calendar_date, count(distinct id) as orders', false);
+		$this->db->from('f_order');
+		$this->db->group_by('calendar_date'); 
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+	
 	function getOrderById($id) {
 		$query = $this->db->get_where('f_order', array('id' => $id));
 		return $query->row_array();
