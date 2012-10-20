@@ -1,10 +1,10 @@
-<div class="row">
-<div class="span10">
-<div id="myCarousel" class="carousel slide">
+<div class="row-fluid">
+	<div class="span12">
+		<div id="myCarousel" class="carousel slide">
             <div class="carousel-inner">
             	<?php foreach($carousels as $key => $carousel): ?>
             		<div class="item<?php if($key == 0) echo ' active'; ?>">
-		                <img src="<?php echo base_url().$carousel['img_address']; ?>" width="1024px" alt="">
+		                <img class="carouselsize" src="<?php echo base_url().$carousel['img_address']; ?>" width="1024" height="400" alt="">
 		                <div class="carousel-caption">
 		                  <h4><?php echo $carousel['name']; ?></h4>
 		                  <p><?php echo $carousel['description']; ?>
@@ -15,19 +15,19 @@
             </div>
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
             <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
-</div>
-</div>
+        </div>
+	</div>
 </div>
 
 <div class="row"> <!-- warrantiesrow -->
 <div class="span2 offset1">
-<img src="images/locker" width="39px" height="47px" /><a href="">Security payment</a>
+<img src="images/locker" width="39" height="47" /><a href="">Security payment</a>
 </div>
 <div class="span2 offset1">
-<img src="images/return" width="39px" height="47px" /><a href="">Security payment</a>
+<img src="images/return" width="39" height="47" /><a href="">Security payment</a>
 </div>
 <div class="span2 offset1">
-<img src="images/delivery" width="39px" height="47px" /><a href="">Security payment</a>
+<img src="images/delivery" width="39" height="47" /><a href="">Security payment</a>
 </div>
 </div> <!-- warrantiesrow -->
 
