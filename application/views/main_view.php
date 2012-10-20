@@ -15,16 +15,10 @@
             </div>
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
             <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
-          </div>
+</div>
+</div>
 </div>
 
-</div>
-
-<!-- poster 
-<div id="bannersliders_hype_container" style="position:relative;overflow:hidden;width:960px;height:400px;margin:0 auto;">
-	<script type="text/javascript" charset="utf-8" src="<?php echo base_url()."js/"; ?>BannerSliders_Resources/bannersliders_hype_generated_script.js?18326"></script>
-</div>
- poster -->
 <div class="row"> <!-- warrantiesrow -->
 <div class="span2 offset1">
 <img src="images/locker" width="39px" height="47px" /><a href="">Security payment</a>
@@ -56,16 +50,16 @@
 	<a class="next browse right"></a> <!-- "next page" action -->
 </div> <!-- sliders -->
 
-<div class="tbsarea"> <!-- tbsarea -->
+<div> <!-- tbsarea -->
 	<?php if(isset($lv_cat) && count($lv_cat) > 0): ?>
 				<?php for($row = 0; $row < intval(count($lv_cat) / 3) + 1; $row++): ?>
 				<ul class="thumbnails">
 					<?php for($column = 0; $column < 3; $column++ ): ?>
 					<?php if( ($row*3 + $column) < count($lv_cat)) : ?>
-				<li class="tbsbox">
+				<li>
 		          <div class="thumbnail">
 		            <a class="visual" href="<?php echo base_url().'shop/category/'.$lv_cat[$row*3 + $column]['id']; ?>" title="<?php echo $lv_cat[$row*3 + $column]['category_name']; ?>">
-					<img class="product" src="<?php if(is_null($lv_cat[$row*3 + $column]['img_address'])) echo 'http://placehold.it/300x200'; else echo base_url().$lv_cat[$row*3 + $column]['img_address']; ?>"></a>
+					<img class="product" onload="if(this.width>300)this.width=300" height="200" src="<?php if(is_null($lv_cat[$row*3 + $column]['img_address'])) echo 'http://placehold.it/300x200'; else echo base_url().$lv_cat[$row*3 + $column]['img_address']; ?>"></a>
 		            <div class="caption">
 		              <h4 class="name"><a href="<?php echo base_url().'shop/category/'.$lv_cat[$row*3 + $column]['id']; ?>"><?php echo $lv_cat[$row*3 + $column]['category_name']; ?></a></h4>
 		              <span class="ratings-imgs" title="4.9/5" data-ratings="4.9"></span>

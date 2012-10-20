@@ -1,5 +1,6 @@
 <script type="text/javascript">
 $(document).ready(function() {
+	<?php if(sizeof($dailyOrders) != 0): ?>
 	var line1 = new Array();
 	<?php foreach($dailyOrders as $dailyOrder): ?>
 		line1.push(<?php echo '["'.$dailyOrder['calendar_date'].'", '.$dailyOrder['orders'].']'; ?>);
@@ -16,6 +17,7 @@ $(document).ready(function() {
         }
       },
       series:[{lineWidth:4, markerOptions:{style:'square'}}]
-  });	
+  });
+  <?php endif; ?>
 });
 </script>

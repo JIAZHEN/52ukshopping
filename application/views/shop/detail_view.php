@@ -7,8 +7,8 @@
 	<li><a href=""><h4>您还浏览过:</h4></a></li>
 </ul>
 
-<img width="200px" src="<?php echo base_url();?>images/slide-img.png" />
-<img width="200px" src="<?php echo base_url();?>images/slide-img-2.png" />
+<img width="200" src="<?php echo base_url();?>images/slide-img.png" />
+<img width="200" src="<?php echo base_url();?>images/slide-img-2.png" />
 </div>
 <div class="span9"> <!--Body content-->
 	<div class="row"> <!-- breadcrumb -->

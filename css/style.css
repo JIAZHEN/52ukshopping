@@ -1,68 +1,7 @@
 
 /*
-For post
-*/
-.post {
-	width: 1024px;
-	height: 250px;
-	margin: 5px auto;
-	padding: 0px;
-	background-color: fuchsia;
-}
-/*
 For tbs area
 */
-.tbsarea {
-	clear: both;
-	width: 1024px;
-	height: 450px;
-	margin: 5px auto;
-	padding: 0px;
-}
-.tbsbox {
-	float: left;
-	width: 300px;
-	margin: 0px 5px 0px 0px;
-	padding: 0px;
-}
-.tbsbox .content {
-	height: 270px;
-	margin: 0px;
-	padding: 0px;
-	
-}
-.left-panel {
-	float: left;
-	width: 46%;
-	height: 270px;
-	margin: 0px;
-	padding: 0px;
-}
-.right-panel {
-	float: right;
-	width: 54%;
-	height: 270px;
-	margin: 0px;
-	padding: 0px;
-}
-.thumbailtbs {
-	clear: both;
-	width: 335px;
-	height: 100px;
-}
-.thumbailtbs ul {
-	clear: both;
-	list-style: none;
-	margin: 0px;
-	padding: 0px;
-}
-.thumbailtbs ul li {
-	float: left;
-	width: 90px;
-	height: 90px;
-	margin: 5px;
-	padding: 0px;
-}
 footer {
 	clear: both;
 }

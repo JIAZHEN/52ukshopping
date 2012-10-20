@@ -1,4 +1,4 @@
-<footer>
+
 <div class="row">
 <div class="span3">
 	<dl>
@@ -31,5 +31,5 @@
 	<p>
 		We accept the following credit/debit cards:<img src="<?php echo base_url();?>images/accepted-cards.gif" />
 	</p>
-</footer>
+
 <strong>&copy; 2012</strong>	
