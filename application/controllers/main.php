@@ -25,8 +25,7 @@ class Main extends CI_Controller {
 	    $content_data['lv_cat'] = $this->d_category_model->getCategoryByLevel(1);
 	    
 		$data['page_title'] = 'Welcome';
-		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
-								'bootstrap/css/bootstrap-responsive.css',
+		$data['csses'] = array( 'bootstrap/css/bootstrap.css',
 								'css/style.css',
 								'css/scroll.css', 
 								'css/footer.css');

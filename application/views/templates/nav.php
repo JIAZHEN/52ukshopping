@@ -7,7 +7,7 @@
     	<input name="searchkeyword" type="text" placeholder="Type here" class="input-large search-query">
     	<button type="submit" class="btn">Search</button>
     </form></div>
-  <div class="span5 well">
+  <div class="span5">
 	  <div class="btn-toolbar" style="margin: 0;">
           <?php if(isset($session_name)) : ?> 
            <div class="btn-group">
@@ -63,7 +63,7 @@
 	                        </ul>
                         <?php endif; ?>
                         </li>
-                        <li class="divider-vertical"></li>
+                        <!-- <li class="divider-vertical"></li> -->
                   	</ul>
                   <?php endforeach; ?>
                   <ul class="nav pull-right">
