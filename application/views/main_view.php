@@ -21,13 +21,13 @@
 
 <div class="row-fluid"> <!-- warrantiesrow -->
 	<div class="span2 offset1">
-		<img src="images/locker" width="39" height="47"><a href="">Security payment</a>
+		<img src="<?php echo base_url().'images/locker.png'; ?>" width="39" height="47"><a href="">Security payment</a>
 	</div>
 	<div class="span2 offset1">
-		<img src="images/return" width="39" height="47"><a href="">Security payment</a>
+		<img src="<?php echo base_url().'images/return.png'; ?>" width="39" height="47"><a href="">Security payment</a>
 	</div>
 	<div class="span2 offset1">
-		<img src="images/delivery" width="39" height="47"><a href="">Security payment</a>
+		<img src="<?php echo base_url().'images/delivery.png'; ?>" width="39" height="47"><a href="">Security payment</a>
 	</div>
 </div> <!-- warrantiesrow -->
 
