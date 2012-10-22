@@ -31,7 +31,7 @@ $(document).ready(function() {
 	// add to view
 	var json = eval("("+$.cookie("hisArt")+")");
     for(var i=0; i<json.length;i++){ 
-        $('#viewedList').append("<li><a href='"+json[i].itemId+"'><img src='"+json[i].itemImg+"' width='200' height='50'>"+json[i].itemName+"</a><li>"); 
+        $('#viewedList').append("<li><a href='"+json[i].itemId+"'><img src='"+json[i].itemImg+"'><p>"+json[i].itemName+"</p></a><li>"); 
     }
 
 	$("#buy_btn").click(function() { 

@@ -51,14 +51,11 @@ class Shop extends CI_Controller {
 	    
 		$data['page_title'] = 'Shop';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
-								'bootstrap/css/bootstrap-responsive.css',
-								'css/nav.css',
-								'css/shop/category.css',
-								'css/footer.css');
+								'css/footer.css',
+								'css/shop/category.css');
 		
 		$js_data['jses'] = array(	 'js/jquery-1.8.0.min.js',
-									 'bootstrap/js/bootstrap.js',
-									 'js/navigation.js');
+									 'bootstrap/js/bootstrap.js');
 									 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
@@ -275,18 +272,14 @@ class Shop extends CI_Controller {
 	    $detail_data['comments'] = $this->f_item_comment_model->getCommentsByItemId($id);
 	    
 		$data['page_title'] = 'Detail';
-		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
-								'bootstrap/css/bootstrap-responsive.css',
-								'css/nav.css',
+		$data['csses'] = array( 'bootstrap/css/bootstrap.css',
 								'css/shop/detail.css',
 								'css/cloud-zoom.css',
 								'css/footer.css');
 		
 		$js_data['jses'] = array(		'js/jquery-1.8.0.min.js',
-										'js/shop/detail.js',
 										'js/cloud-zoom.1.0.2.js',
 										'bootstrap/js/bootstrap.js',
-										'js/navigation.js',
 										'js/jquery.cookie.js');
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
