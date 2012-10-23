@@ -90,15 +90,12 @@ class Shop extends CI_Controller {
 
 	    $nav_data['category'] = $this->d_category_model->conduct_categories();
 		$data['page_title'] = $cat_query['category_name'];
-		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
-								'bootstrap/css/bootstrap-responsive.css',
-								'css/nav.css',
+		$data['csses'] = array( 'bootstrap/css/bootstrap.css',
 								'css/shop/category.css',
 								'css/footer.css');
 		
 		$js_data['jses'] = array(	'js/jquery-1.8.0.min.js',
-									'bootstrap/js/bootstrap.js',
-									'js/navigation.js');
+									'bootstrap/js/bootstrap.js');
 									 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
@@ -164,14 +161,12 @@ class Shop extends CI_Controller {
 	    $content_data['breadcrumb'] = $this->d_category_model->getBreadcrumb($lv3_cat_id);
 	    $content_data['pageLink'] = 'shop/browse/'.$lv3_cat_id;
 		$data['page_title'] = $cat_query['category_name'];
-		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
-								'bootstrap/css/bootstrap-responsive.css',
-								'css/nav.css',
-								'css/footer.css',);
+		$data['csses'] = array( 'bootstrap/css/bootstrap.css',
+								'css/footer.css',
+								'css/shop/browse.css');
 		
 		$js_data['jses'] = array(	 'js/jquery-1.8.0.min.js',
-									 'bootstrap/js/bootstrap.js',
-									 'js/navigation.js');
+									 'bootstrap/js/bootstrap.js');
 									 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
@@ -232,14 +227,12 @@ class Shop extends CI_Controller {
 	    										'1' => 'Search Result' );
 	    $content_data['pageLink'] = 'shop/search/'.$search;
 		$data['page_title'] = 'Search Result of '.$search;
-		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
-								'bootstrap/css/bootstrap-responsive.css',
-								'css/nav.css',
-								'css/footer.css',);
+		$data['csses'] = array( 'bootstrap/css/bootstrap.css',
+								'css/footer.css',
+								'css/shop/browse.css');
 		
 		$js_data['jses'] = array(	 'js/jquery-1.8.0.min.js',
-									 'bootstrap/js/bootstrap.js',
-									 'js/navigation.js');
+									 'bootstrap/js/bootstrap.js');
 									 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
