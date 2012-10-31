@@ -32,7 +32,7 @@ class Main extends CI_Controller {
 								'css/footer.css');
 		
 		$js_data['jses'] = array(
-									 'js/jquery-1.8.0.min.js',
+									 'js/jquery-1.8.2.js',
 									 'js/jquery.tools.min.js',
 									 'js/scrollable.js', 
 									 'js/main_view.js',

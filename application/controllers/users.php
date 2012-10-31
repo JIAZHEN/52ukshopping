@@ -90,8 +90,7 @@ class Users extends CI_Controller {
 										 'js/jquery-1.8.0.min.js',
 										 'js/jquery.validate.js',
 										 'bootstrap/js/bootstrap.js',
-										 'bootstrap/js/bootstrap-datepicker.js',
-										 'js/navigation.js');
+										 'bootstrap/js/bootstrap-datepicker.js');
 										 
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/nav', $nav_data);

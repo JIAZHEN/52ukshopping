@@ -51,10 +51,12 @@ class Shop extends CI_Controller {
 	    
 		$data['page_title'] = 'Shop';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css', 
+								'css/nav.css',
 								'css/footer.css',
 								'css/shop/category.css');
 		
-		$js_data['jses'] = array(	 'js/jquery-1.8.0.min.js',
+		$js_data['jses'] = array(	 'js/jquery-1.8.2.js',
+									 'js/jquery.tools.min.js',
 									 'bootstrap/js/bootstrap.js');
 									 
 		$this->load->view('templates/header', $data);
@@ -92,9 +94,11 @@ class Shop extends CI_Controller {
 		$data['page_title'] = $cat_query['category_name'];
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css',
 								'css/shop/category.css',
+								'css/nav.css',
 								'css/footer.css');
 		
 		$js_data['jses'] = array(	'js/jquery-1.8.0.min.js',
+									'js/jquery.tools.min.js',
 									'bootstrap/js/bootstrap.js');
 									 
 		$this->load->view('templates/header', $data);
@@ -163,10 +167,12 @@ class Shop extends CI_Controller {
 		$data['page_title'] = $cat_query['category_name'];
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css',
 								'css/footer.css',
+								'css/nav.css',
 								'css/shop/browse.css');
 		
 		$js_data['jses'] = array(	 'js/jquery-1.8.0.min.js',
-									 'bootstrap/js/bootstrap.js');
+									 'js/jquery.tools.min.js',
+									 'bootstrap/js/bootstrap.js' );
 									 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/nav', $nav_data);
@@ -229,9 +235,11 @@ class Shop extends CI_Controller {
 		$data['page_title'] = 'Search Result of '.$search;
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css',
 								'css/footer.css',
+								'css/nav.css',
 								'css/shop/browse.css');
 		
 		$js_data['jses'] = array(	 'js/jquery-1.8.0.min.js',
+									 'js/jquery.tools.min.js',
 									 'bootstrap/js/bootstrap.js');
 									 
 		$this->load->view('templates/header', $data);
@@ -268,10 +276,12 @@ class Shop extends CI_Controller {
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css',
 								'css/shop/detail.css',
 								'css/cloud-zoom.css',
+								'css/nav.css',
 								'css/footer.css');
 		
 		$js_data['jses'] = array(		'js/jquery-1.8.0.min.js',
 										'js/cloud-zoom.1.0.2.js',
+										'js/jquery.tools.min.js',
 										'bootstrap/js/bootstrap.js',
 										'js/jquery.cookie.js');
 		$this->load->view('templates/header', $data);
