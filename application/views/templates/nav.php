@@ -42,14 +42,14 @@
 <div class="row-fluid">
 	<div class="span12">
 		<div class="navbar">
-              <div class="navbar-inner">
+              <div class="navbar-inner customcolour">
                 <div class="container">
-                  <a class="brand" href="<?php echo base_url(); ?>">首页</a>
+                  <a class="brand" href="<?php echo base_url(); ?>"><span class="customfront">首页</span></a>
                   <div class="nav-collapse">
                   <?php foreach($category as $value): ?>
                   	<ul class="nav">
                   		<li class="dropdown">
-                        <a href="<?php echo base_url().'shop/category/'.$value['id']; ?>" class="dropdown-toggle" data-toggle="dropdown"><?php echo $value['name']; ?> <b class="caret"></b></a>
+                        <a href="<?php echo base_url().'shop/category/'.$value['id']; ?>" class="dropdown-toggle" data-toggle="dropdown"><span class="customfront"><?php echo $value['name']; ?></span> <b class="caret"></b></a>
                         <?php if(sizeof($value['children']) > 0) : ?>
                         	<ul class="dropdown-menu">
                         		<?php foreach($value['children'] as $sub_value): ?> <!-- second category -->
@@ -67,7 +67,7 @@
                   	</ul>
                   <?php endforeach; ?>
                   <ul class="nav pull-right">
-                  	<li><a href="<?php echo base_url().'shop/'; ?>">浏览全部</a></li>
+                  	<li><a href="<?php echo base_url().'shop/'; ?>"><span class="customfront">浏览全部</span></a></li>
                   </ul>
                   </div><!-- /.nav-collapse -->
                 </div>

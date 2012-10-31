@@ -27,6 +27,7 @@ class Main extends CI_Controller {
 		$data['page_title'] = 'Welcome';
 		$data['csses'] = array( 'bootstrap/css/bootstrap.css',
 								'css/style.css',
+								'css/nav.css',
 								'css/scroll.css', 
 								'css/footer.css');
 		

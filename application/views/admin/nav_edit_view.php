@@ -5,10 +5,20 @@
 
 <div class="control-group<?php if(strlen(form_error('nav_colour')) > 0) echo " error"; ?>">
   <!-- Text input-->
-  <label class="control-label" for="nav_colour">Navigation Colour</label>
+  <label class="control-label" for="nav_colour">导航条颜色</label>
   <div class="controls">
     <input id="nav_colour" name="nav_colour" placeholder="" class="input-medium" type="text" value="#123456" readonly>
     <div id="colourpicker"></div>
+    <p class="help-block"><?php echo form_error('nav_colour'); ?></p>
+  </div>
+</div>
+
+<div class="control-group<?php if(strlen(form_error('nav_colour')) > 0) echo " error"; ?>">
+  <!-- Text input-->
+  <label class="control-label" for="nav_front_colour">导航条字体颜色</label>
+  <div class="controls">
+    <input id="nav_front_colour" name="nav_front_colour" placeholder="" class="input-medium" type="text" value="#123456" readonly>
+    <div id="frontcolour"></div>
     <p class="help-block"><?php echo form_error('nav_colour'); ?></p>
   </div>
 </div>

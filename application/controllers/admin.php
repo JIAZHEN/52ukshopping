@@ -42,7 +42,8 @@ class Admin extends CI_Controller {
 			
 			$this->form_validation->set_error_delimiters('', '');
 			
-			$this->form_validation->set_rules('nav_colour', 'Navigation Colour', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('nav_colour', '导航条颜色', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('nav_front_colour', '导航条字体颜色', 'trim|required|xss_clean');
 			if ($this->form_validation->run() === FALSE) {
 				$data['page_title'] = 'Navigation management';
 			
@@ -66,8 +67,10 @@ class Admin extends CI_Controller {
 			} else {
 				//f1d2c2
 				$colour = $this->input->post('nav_colour', true);
+				$frontcolour = $this->input->post('nav_front_colour', true);
 				$variables = array(
-					'colour' => $colour
+					'colour' => $colour,
+					'frontcolour' => $frontcolour
 				);
 				$this->compileLess($variables);
 				redirect(base_url().'admin');
